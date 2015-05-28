@@ -23,7 +23,7 @@ class main:
 		form =  web.input()
 		form = form.user
 		if readdata(form) == True:
-			return "That's correct"
+			return render.correct()
 		else:
 			return render.incorrect()
 
