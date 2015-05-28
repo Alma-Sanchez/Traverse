@@ -1,6 +1,8 @@
 import web
 import sqlite3
 
+#to get user's ip: web.ctx.ip
+
 urls = ('/','main')
 app = web.application(urls, globals(), True)
 render=web.template.render('templates/')
