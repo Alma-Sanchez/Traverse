@@ -1,0 +1,48 @@
+body{
+    background-image: url("../spElem/story.png");
+    background-size: 900px 800px;    
+    background-repeat: no-repeat; 
+}
+.storyInput{
+    margin-left: 400px;
+    margin-top: 300px;
+
+}
+.story1{
+    background-image: url("../spElem/new.png");
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-color:transparent;
+    width: 100px;
+    height: 100px;
+    border:none;
+}
+.story2{
+    background-image: url("../spElem/new.png");
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-color:transparent;
+    width: 100px;
+    height: 100px;
+    border:none;
+}
+.story3{
+    background-image: url("../spElem/new.png");
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-color:transparent;
+    width: 100px;
+    height: 100px;
+    border:none;
+
+}
+.story4{    
+    background-image: url("../spElem/new.png");
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-color:transparent;
+    width: 100px;
+    height: 100px;
+    border:none;
+
+}
