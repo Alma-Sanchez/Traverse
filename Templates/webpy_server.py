@@ -20,11 +20,13 @@ render = web.template.render('templates/')
 
 class index:
     def GET(self):
+        $def with (name)
         #renders the html file
         # return render.mainScreen()
-        return render.charScreen()
+        # return render.charScreen()
         # return render.storyScreen()
-
+        return render.gameScreen(name = "Hello World!")
+        
 
 
 #   def POST(self):
