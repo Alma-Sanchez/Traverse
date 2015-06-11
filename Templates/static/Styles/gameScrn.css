@@ -1,1 +1,17 @@
 /* Game screen styling */
+
+body{
+    background-image: url("../spElem/Background.png");
+    background-size: 800px 700px;
+    background-repeat: no-repeat;
+}
+
+.scrollBox{
+    margin: 250px;
+    background-color: transparent;
+    height:250px;
+    width:230px;
+    border:5px solid #ccc;
+    /*font:16px/26px Georgia, Garamond, Serif;*/
+    overflow:scroll;
+}
