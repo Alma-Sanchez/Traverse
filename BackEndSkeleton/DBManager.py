@@ -12,9 +12,11 @@ def getPlayerFromDB(ip):
 		ip (int): The IP address of the player connecting to the web.py server.
 
 	Returns:
-		string: Player's IP
+		tuple: A row from the Player_Data table associated with the player's IP address.
 	"""
-	pass
+	cur = conn.cursor()
+	cur.execute("select * from Player_Data where IP=:ip", {"ip": ip})
+	return cur.fetchone()
 
 def getPlayerActionFromDB(currentStepID):
 	"""
