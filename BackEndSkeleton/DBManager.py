@@ -24,7 +24,7 @@ def getCharacterFromDB():
 	None
 
 	Returns:
-	number: character ID (OR CAN RETURN STRING: CHARACTER NAME. TAYLOR DECIDE.)
+	tuple: character fields
 	"""
 	pass
 
@@ -36,7 +36,7 @@ def getStoryFromDB():
 	None
 
 	Returns:
-	number: Story ID (OR CAN RETURN STRING: STORY NAME. TAYLOR DECIDE THIS.)
+	tuple: Story fields
 	"""
 	pass
 
@@ -48,39 +48,9 @@ def getStepFromDB():
 	None
 
 	Returns:
-	number: Step ID
+	tuple: Step fields
 	"""
 	pass
 
-def getStepTextFromDB():
-	"""
-	This function will query the database and return the text associated with the step the player is on
-
-	Parameters: Step ID
-
-	Returns:
-	text: the text associated with the step in the story
-	"""
-	pass
-
-def getStepArtFromDB():
-	"""
-	This function will query the database and return the art associated with the step the player is on (if such art exists)
-
-	Parameter: Step ID
-
-	Returns:
-	text: the key word associated with the particular art for that step
-	"""
-	pass
-
-def getHintFromDB():
-	"""
-	This function will query the database and return the hint associated with the particular ste the play is on
-
-	Parameter: Step ID
-
-	Returns:
-	text: the hint asociated with that step in the story
-	"""
+def getAccessionNumberFromDB():
 	pass
