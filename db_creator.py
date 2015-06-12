@@ -40,7 +40,7 @@ def createTables():
 	"""
 	c = conn.cursor() #Cursor for querying database.
 
-	c.execute("CREATE TABLE Player_Data (Player_ID INT, Player_name TEXT, e_mail TEXT, Password TEXT)") #Creates new table named Player_Data with hardcoded parameters.
+	c.execute("CREATE TABLE Player_Data (Player_ID INT, Player_name TEXT, IP Text)") #Creates new table named Player_Data with hardcoded parameters.
 	c.execute("CREATE TABLE Player_Action (Action_ID INT, Player_ID INT, Current_step_ID INT, Previous_step_ID INT, Story_ID INT)") #Creates new table named Player_Action with hardcoded parameters.
 	c.execute("CREATE TABLE Archived_Player_Data (Player_ID INT, Player_name TEXT, e_mail, TEXT, Password TEXT)") #Creates new table named Archived_Player_Data with hardcoded parameters.
 	c.execute("CREATE TABLE Archived_Player_Action (Action_ID INT, Player_ID INT, Current_step_ID INT, Previous_step_ID INT, Story_ID INT)") #Creates new table named Archived_Player_Action with hardcoded parameters.
