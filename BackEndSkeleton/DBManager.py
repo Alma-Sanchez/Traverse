@@ -2,7 +2,7 @@
 
 import sqlite3 #Imports sqlite3 module. Needed to work with the Database.
 
-conn = sqlite3.connect("SAAM_database_test2.db") #Connects database 
+conn = sqlite3.connect("SAAM_database_test3.db") #Connects database 
 
 def getIPFromDB():
 	"""
@@ -24,7 +24,8 @@ def getCharacterFromDB():
 	None
 
 	Returns:
-	number: character ID (OR CAN RETURN STRING: CHARACTER NAME. TAYLOR DECIDE.)
+	number: character ID 
+	string: Character Name
 	"""
 	pass
 
@@ -36,7 +37,8 @@ def getStoryFromDB():
 	None
 
 	Returns:
-	number: Story ID (OR CAN RETURN STRING: STORY NAME. TAYLOR DECIDE THIS.)
+	number: Story ID (
+	string: Story Name
 	"""
 	pass
 
