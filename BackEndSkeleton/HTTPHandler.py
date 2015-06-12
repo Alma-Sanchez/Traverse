@@ -61,10 +61,10 @@ class PlayerState:
 		Returns:
 		Something.
 		"""
-		player_ip = DBManager.getIP() #Uses a DBManager function to return the player's IP
+		self.player_ip = DBManager.getIPFromDB() #Uses a DBManager function to return the player's IP
 
-		player_character = DBManager.getCharacter() #Uses a DBManager function to return the player's character.
+		self.player_character = DBManager.getCharacterFromDB() #Uses a DBManager function to return the player's character.
 
-		player_story = DBManager.getStory() #Uses a DBManager function to return the player's current story.
+		self.player_story = DBManager.getStoryFromDB() #Uses a DBManager function to return the player's current story.
 
-		player_current_step = DBManager.getStep() #Uses a DBManager function to return the player's current step.
+		self.player_current_step = DBManager.getStepFromDB() #Uses a DBManager function to return the player's current step.
