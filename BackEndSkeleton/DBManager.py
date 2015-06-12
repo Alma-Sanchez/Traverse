@@ -4,15 +4,31 @@ import sqlite3 #Imports sqlite3 module. Needed to work with the Database.
 
 conn = sqlite3.connect("SAAM_database_test2.db") #Connects database 
 
-def getIPFromDB():
+def getPlayerFromDB(ip):
 	"""
 	This function will get the player's IP address from the database and returns the player's IP.
 
 	Parameters:
-	None
+		ip (int): The IP address of the player connecting to the web.py server.
 
 	Returns:
-	string: Player's IP
+		string: Player's IP
+	"""
+	pass
+
+def getPlayerActionFromDB(currentStepID):
+	"""
+	This function returns a row from the Player_Action table that corresponds 
+	to the current player action.
+
+	Parameters:
+		currentStepID (int): The ID of the current step taken from the Player_Data table.
+
+	Returns:
+		tuple: The tuple containing the row information.
+
+	Examples:
+		getPlayerActionFromDB(playerInfo.currentStepID) => (4 50, 22, 21, 2, 1)
 	"""
 	pass
 
