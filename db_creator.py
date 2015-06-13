@@ -40,14 +40,14 @@ def createTables():
 	"""
 	c = conn.cursor() #Cursor for querying database.
 
-	c.execute("CREATE TABLE Player_Data (Player_ID INT, IP Text, Current_step_ID INT)") #Creates new table named Player_Data with hardcoded parameters.
-	c.execute("CREATE TABLE Player_Action (Action_ID INT, Player_ID INT, Current_step_ID INT, Previous_step_ID INT, Story_ID INT)") #Creates new table named Player_Action with hardcoded parameters.
+	c.execute("CREATE TABLE Player_Data (Player_ID INT, IP Text, Current_Action_ID INT)") #Creates new table named Player_Data with hardcoded parameters.
+	c.execute("CREATE TABLE Player_Action (Action_ID INT, Player_ID INT, Current_Step_ID INT, Previous_Step_ID INT, Current_Story_ID INT, Current_Character_ID INT)") #Creates new table named Player_Action with hardcoded parameters.
 	c.execute("CREATE TABLE Archived_Player_Data (Player_ID INT, Player_name TEXT, Current_step_ID INT)") #Creates new table named Archived_Player_Data with hardcoded parameters.
 	c.execute("CREATE TABLE Archived_Player_Action (Action_ID INT, Player_ID INT, Current_step_ID INT, Previous_step_ID INT, Story_ID INT)") #Creates new table named Archived_Player_Action with hardcoded parameters.
-	c.execute("CREATE TABLE Story_Data (Story_ID INT, Character_ID INT, Title_of_Story TEXT, Number_of_steps INT)") #Creates new table named Story_Data with hardcoded parameters.
-	c.execute("CREATE TABLE Character_Data(Character_ID INT, Character_name TEXT, Accession_number TEXT)") #Creates new table named Character_Data with hardcoded parameters.
-	c.execute("CREATE TABLE Step_Data(Step_ID INT, Story_ID INT, Previous_step_ID INT, Next_Step_ID INT, Accession_association TEXT, Hint TEXT, Art TEXT, Step_Text TEXT)") #Creates new table named Step_Data with hardcoded parameters.
-	c.execute("CREATE TABLE Accession(Accession_association TEXT, Accession_number TEXT)") #Creates new table named Accession with hardcoded parameters.
+	c.execute("CREATE TABLE Story_Data (Story_ID INT, Character_ID INT, Title_Of_Story TEXT, Number_Of_Steps INT)") #Creates new table named Story_Data with hardcoded parameters.
+	c.execute("CREATE TABLE Character_Data(Character_ID INT, Character_Name TEXT, Accession_Number TEXT)") #Creates new table named Character_Data with hardcoded parameters.
+	c.execute("CREATE TABLE Step_Data(Story_ID INT, Step_ID INT, Previous_step_ID INT, Next_Step_ID INT, Accession_Association TEXT, Step_Text TEXT, Step_Art TEXT, Step_Hint TEXT)") #Creates new table named Step_Data with hardcoded parameters.
+	c.execute("CREATE TABLE Accession(Accession_Association TEXT, Accession_Number TEXT)") #Creates new table named Accession with hardcoded parameters.
 
 def populateTables():
 	"""
