@@ -46,7 +46,16 @@ class WebpyServer:
 		Returns:
 		Rendered HTML page
 		"""
-		return "post" #This is just a test for the moment.
+		#return "post" #This is just a test for the moment.
+		action=web.input()
+		if action.main=="home":
+			return render.home()
+		elif action.main=="navigation":
+			return render.incorrect()
+		elif readdata(action.accession)==True:
+			return render.correct()
+		else:
+			pass
 
 class PlayerState:
 	def __init__(self, character = None, story = None):
