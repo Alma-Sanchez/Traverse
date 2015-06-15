@@ -31,12 +31,15 @@ class main:
 			return render.main()
 
 	def POST(self):
-		form =  web.input()
-		form = form.user
-		if readdata(form) == True:
+		action=web.input()
+		if action.main=="home":
+			return render.home()
+		elif action.main=="navigation":
+			return render.incorrect()
+		elif readdata(action.accession)==True:
 			return render.correct()
 		else:
-			return render.incorrect()
+			pass
 
  
 if __name__ == "__main__":
