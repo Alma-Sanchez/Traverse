@@ -72,7 +72,6 @@ def getCharacterFromDB(playerID):
     cur = conn.cursor()
     cur.execute("select Character_ID from Player_Action where Player_ID=:playerID", {"playerID": playerID})
     return cur.fetchone()
-    pass
 
 def getStoryFromDB(playerID):
     """
@@ -87,7 +86,6 @@ def getStoryFromDB(playerID):
     cur = conn.cursor()
     cur.execute("select Story_ID from Player_Action where max Action_ID in Player_ID=:playerID", {"Player_ID": playerID})
     return cur.fetchone()
-    pass
 
 def getStepDataFromDB(currentStepID):
     """
