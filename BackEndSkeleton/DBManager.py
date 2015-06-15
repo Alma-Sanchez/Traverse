@@ -102,7 +102,16 @@ def getStepDataFromDB(currentStepID):
     return cur.fetchone()
 
 
-def getAccessionNumberFromDB(accessionAssociation):
+def getAccessionNumbersFromDB(accessionAssociation):
+    """
+    This function will query the database and return the list of possible accesion numbers associated with a particular accession association keyword
+
+    Parameters:
+        accessionAssociation
+
+    Returns:
+        tuple: accession numbers
+    """
     cur = conn.cursor()
     cur.execute("select Accession_Number from Accession_Data where Accession_Association =: accessionAssociation", {"accessionAssociation": accessionAssociation})
     return cur.fetchall()
