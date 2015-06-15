@@ -3,7 +3,7 @@ import sqlite3
 
 urls = ('/','main')
 app = web.application(urls, globals(), True)
-render=web.template.render('templates/')
+render=web.template.render('templates')
 
 def readdata(x):
 	connection=sqlite3.connect('test.db',check_same_thread=False)
@@ -28,7 +28,7 @@ def checkip(x):
 class main:
 	def GET(self):
 		if checkip(web.ctx.environ['REMOTE_ADDR'])==True:
-			return render.main()
+			return render.test()
 
 	def POST(self):
 		action=web.input()
