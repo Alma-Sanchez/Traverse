@@ -107,7 +107,7 @@ def getAccessionNumbersFromDB(accession_association):
     This function will query the database and return the list of possible accesion numbers associated with a particular accession association keyword
 
     Parameters:
-        accessionAssociation
+        accession_association
 
     Returns:
         tuple: accession numbers
@@ -116,6 +116,14 @@ def getAccessionNumbersFromDB(accession_association):
     cur.execute("select Accession_Number from Accession_Data where Accession_Association =: accessionAssociation", {"accessionAssociation": accession_association})
     return cur.fetchall()
 
+def getAccessionAssociationFromDB(accession_number):
+    """
+    Need Docstring
+    """
+    cur = conn.cursor()
+    cur.execute("select Accession_Association from Accession_Association where Accession_Number =:accession_number", {"accession_number":accession_number})
+    accession_association = cur.fetchone()[0]
+    return accession_association
 
 def getCharacterData(current_character_ID):
     """
@@ -145,6 +153,30 @@ def getStoryData(current_story_ID):
     cur.execute("select * from Story_Data where Current_Story_ID =:currentStoryID", {"currentStoryID": current_story_ID})
     return cur.fetchone()
 
+def checkPlayerInput(player_input,current_step_ID):
+    """
+    This function checks the player input with the current step 
+    and returns a boolean if the player's input is correct.
+
+    Parameters:
+        player_input: The player's input.
+        current_step_ID: The current step of the story which the player is on.
+
+    Returns:
+        boolean: True if player's input is correct. False if the player's input is incorrect.
+
+    Examples:
+        checkPlayerInput(123.12,1) => False
+    """
+    cur = conn.cursor()
+    cur.execute("select Accession_Association from Step_Data where Step_ID =:current_step_ID",{"current_step_ID":current_step_ID})
+    current_step_association = cur.fetchone()[0]
+    cur.execute("select Accession_Association from Accession_Association where Accession_Number =:player_input", {"player_input":player_input})
+    if current_step_association == cur.fetchone()[0]:
+        return True
+    else:
+        return False
+
 def insertPlayerData(ip,current_story_ID):
     """
     This function will insert a new player's data into the SQLite Database.
@@ -162,25 +194,43 @@ def insertPlayerData(ip,current_story_ID):
     cur.execute("insert into Player_Data values (?,?,?)", (None,ip,None))
     conn.commit()
 
-def insertPlayerAction(player_ID,current_story_ID,current_character_ID):
+def insertPlayerAction(player_ID,current_story_ID,current_character_ID,player_input):
     """
     This function inserts player action into the database.
 
     Parameters:
         player_ID: The player's unique ID in the database.
         current_story_ID: The player's current story ID.
-        current_character_ID: The player's current character ID>
+        current_character_ID: The player's current character ID.
 
     Returns:
         None
     """
     cur = conn.cursor()
 
-    cur.execute("select * from Step_Data where Story_ID =:current_story_ID", {"current_story_ID":current_story_ID})
-    step_data = cur.fetchone()
-    cur.execute("insert into Player_Action values (?,?,?,?,?,?)", (None,player_ID,step_data[1],step_data[2],current_story_ID,current_character_ID))
+    cur.execute("select Current_Action_ID from Player_Data where Player_ID =:player_ID", {"player_ID":player_ID})
+   
+    if cur.fetchone()[0] == None:
+        cur.execute("select * from Step_Data where Story_ID =:current_story_ID", {"current_story_ID":current_story_ID})
+        step_data = cur.fetchone()
+        cur.execute("insert into Player_Action values (?,?,?,?,?,?,?)", (None,player_ID,step_data[1],step_data[2],current_story_ID,current_character_ID,None))
+    else:
+        cur.execute("select Current_Action_ID from Player_Data where Player_ID =:player_ID", {"player_ID":player_ID})
+        action_ID = cur.fetchone()[0]
+        cur.execute("select Current_Step_ID from Player_Action where Action_ID =:action_ID", {"action_ID":action_ID})
+        current_step_ID = cur.fetchone()[0]
+
+        if checkPlayerInput(player_input,current_step_ID) == True:
+            cur.execute("select * from Step_Data where Step_ID =:current_step_ID", {"current_step_ID":current_step_ID})
+            step_data = cur.fetchone()
+            cur.execute("insert into Player_Action values (?,?,?,?,?,?,?)", (None,player_ID,step_data[3],step_data[1],current_story_ID,current_character_ID,player_input))
+        else:
+            cur.execute("select * from Step_Data where Story_ID =:current_story_ID", {"current_story_ID":current_story_ID})
+            step_data = cur.fetchone()
+            cur.execute("insert into Player_Action values (?,?,?,?,?,?,?)", (None,player_ID,step_data[1],step_data[2],current_story_ID,current_character_ID,player_input))
 
     cur.execute("select max(Action_ID) from Player_Action where Player_ID =:player_ID", {"player_ID":player_ID})
     current_action_ID = cur.fetchone()[0]
     cur.execute("update player_data set Current_Action_ID=:current_action_ID where player_ID =:player_ID", {"current_action_ID":current_action_ID, "player_ID":player_ID})
     conn.commit()
+    
