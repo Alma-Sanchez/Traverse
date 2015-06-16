@@ -66,7 +66,7 @@ class WebpyServer:
 
 		postData=web.input()
 		print postData
-		if postData['user'] == "navigation":
+		if DBManager.checkPlayerInput(postData['user'],1):
 			return self.render.gameScreen()
 		elif postData['user'] == "home":
 			return self.render.welcomeScreen()

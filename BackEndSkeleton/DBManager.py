@@ -168,11 +168,13 @@ def checkPlayerInput(player_input,current_step_ID):
     Examples:
         checkPlayerInput(123.12,1) => False
     """
-    cur = conn.cursor()
-    cur.execute("select Accession_Association from Step_Data where Step_ID =:current_step_ID",{"current_step_ID":current_step_ID})
-    current_step_association = cur.fetchone()[0]
-    cur.execute("select Accession_Association from Accession_Association where Accession_Number =:player_input", {"player_input":player_input})
-    if current_step_association == cur.fetchone()[0]:
+    conn = sqlite3.connect("SAAM_database_test2.db")
+    cur1 = conn.cursor()
+    cur2 = conn.cursor()
+    cur1.execute("select Accession_Association from Step_Data where Step_ID =:current_step_ID",{"current_step_ID":current_step_ID})
+    current_step_association = cur1.fetchone()[0]
+    cur2.execute("select Accession_Association from Accession_Association where Accession_Number =:player_input", {"player_input":player_input})
+    if current_step_association == cur2.fetchone()[0]:
         return True
     else:
         return False
