@@ -65,6 +65,10 @@ class WebpyServer:
 		#return "post" #This is just a test for the moment.
 		postData=web.input()
 		print postData
+		if postData['user'] == "navigation":
+			return self.render.gameScreen()
+		elif postData['user'] == "home":
+			return self.render.welcomeScreen()
 		'''
 		if action.main=="home":
 			return render.home()
