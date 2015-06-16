@@ -2,6 +2,9 @@ import web
 import sqlite3
 import DBManager
 
+def GameStart():
+	pass
+
 def getCharacterRequest():
 	pass
 
@@ -82,10 +85,12 @@ class PlayerState:
 		Returns:
 		Something.
 		"""
-		self.player_ip = DBManager.getIPFromDB() #Uses a DBManager function to return the player's IP
 
-		self.player_character = DBManager.getCharacterFromDB() #Uses a DBManager function to return the player's character.
+		def playerUpdate():
+			self.player_ip = DBManager.getIPFromDB() #Uses a DBManager function to return the player's IP
 
-		self.player_story = DBManager.getStoryFromDB() #Uses a DBManager function to return the player's current story.
+			self.player_character = DBManager.getCharacterFromDB() #Uses a DBManager function to return the player's character.
 
-		self.player_current_step = DBManager.getStepFromDB() #Uses a DBManager function to return the player's current step.
+			self.player_story = DBManager.getStoryFromDB() #Uses a DBManager function to return the player's current story.
+
+			self.player_current_step = DBManager.getStepFromDB() #Uses a DBManager function to return the player's current step.
