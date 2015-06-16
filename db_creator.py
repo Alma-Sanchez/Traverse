@@ -24,7 +24,7 @@ def dropTables():
 	c.execute("DROP TABLE IF EXISTS Story_Data") #Drops (deletes) table named Story_Data if it exists.
 	c.execute("DROP TABLE IF EXISTS Character_Data") #Drops (deletes) table named Character_Data if it exists.
 	c.execute("DROP TABLE IF EXISTS Step_Data") #Drops (deletes) table named Step_Data if it exists.
-	c.execute("DROP TABLE IF EXISTS Accession") #Drops (deletes) table named Accession if it exists.
+	c.execute("DROP TABLE IF EXISTS Accession_Association") #Drops (deletes) table named Accession_Association if it exists.
 
 def createTables():
 	"""
@@ -41,13 +41,13 @@ def createTables():
 	c = conn.cursor() #Cursor for querying database.
 
 	c.execute("CREATE TABLE Player_Data (Player_ID Integer primary key autoincrement, IP Text, Current_Action_ID INT)") #Creates new table named Player_Data with hardcoded parameters.
-	c.execute("CREATE TABLE Player_Action (Action_ID Integer primary key autoincrement, Player_ID INT, Current_Step_ID INT, Previous_Step_ID INT, Current_Story_ID INT, Current_Character_ID INT)") #Creates new table named Player_Action with hardcoded parameters.
+	c.execute("CREATE TABLE Player_Action (Action_ID Integer primary key autoincrement, Player_ID INT, Current_Step_ID INT, Previous_Step_ID INT, Current_Story_ID INT, Current_Character_ID INT, Player_Input Text)") #Creates new table named Player_Action with hardcoded parameters.
 	c.execute("CREATE TABLE Archived_Player_Data (Player_ID INT, Player_name TEXT, Current_step_ID INT)") #Creates new table named Archived_Player_Data with hardcoded parameters.
 	c.execute("CREATE TABLE Archived_Player_Action (Action_ID INT, Player_ID INT, Current_step_ID INT, Previous_step_ID INT, Story_ID INT)") #Creates new table named Archived_Player_Action with hardcoded parameters.
 	c.execute("CREATE TABLE Story_Data (Story_ID INT, Character_ID INT, Title_Of_Story TEXT, Number_Of_Steps INT)") #Creates new table named Story_Data with hardcoded parameters.
 	c.execute("CREATE TABLE Character_Data(Character_ID INT, Character_Name TEXT, Accession_Number TEXT)") #Creates new table named Character_Data with hardcoded parameters.
 	c.execute("CREATE TABLE Step_Data(Story_ID INT, Step_ID INT, Previous_step_ID INT, Next_Step_ID INT, Accession_Association TEXT, Step_Text TEXT, Step_Art TEXT, Step_Hint TEXT)") #Creates new table named Step_Data with hardcoded parameters.
-	c.execute("CREATE TABLE Accession(Accession_Association TEXT, Accession_Number TEXT)") #Creates new table named Accession with hardcoded parameters.
+	c.execute("CREATE TABLE Accession_Association(Accession_Association TEXT, Accession_Number TEXT)") #Creates new table named Accession_Association with hardcoded parameters.
 
 def populateTables():
 	"""
@@ -65,7 +65,7 @@ def populateTables():
 	with open('CSV_file\Accession.csv','rb') as accession_data_file: #Opens file and assigns it to a variable.
 		spamreader = csv.reader(accession_data_file) #Reads the csv file and sets it as a new variable
 		for row in spamreader: #Iterates through csv file rows.
-			c.execute("INSERT INTO Accession VALUES (?,?)", (unicode(row[0], "utf-8"),unicode(row[1], "utf-8"))) #Encodes and inserts data from the csv file.
+			c.execute("INSERT INTO Accession_Association VALUES (?,?)", (unicode(row[0], "utf-8"),unicode(row[1], "utf-8"))) #Encodes and inserts data from the csv file.
 	conn.commit() #Commits (permanently changes) the database.
 	accession_data_file.close() #Closes the csv file.
 
