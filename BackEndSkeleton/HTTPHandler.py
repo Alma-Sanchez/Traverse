@@ -63,6 +63,7 @@ class WebpyServer:
 		"""
 
 		#return "post" #This is just a test for the moment.
+
 		postData=web.input()
 		print postData
 		if postData['user'] == "navigation":
@@ -71,8 +72,10 @@ class WebpyServer:
 			return self.render.welcomeScreen()
 		'''
 		if action.main=="home":
+		action=web.input()
+		if action=="home":
 			return render.home()
-		elif action.main=="navigation":
+		elif action=="navigation":
 			return render.incorrect()
 		elif readdata(action.accession)==True:
 			return render.correct()
