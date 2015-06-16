@@ -1,16 +1,18 @@
 <!DOCTYPE html>
-<html>
-	<head>
-		<title>web.py</title>
-		<center><img src="./static/testart.jpg"width="50%" ></center>
-	</head>
-<body>
+<style>
+    body {
+	background: url(../static/homescreen.png) no-repeat center center fixed; 
+ 	background-size: 100%;} 
+</style>
 
-	<h1>home</h1>
-	
-	<form name="form" method = "POST" align="center">
-		Enter your asc #: <input type="text" name="user"/>
-			<input type="submit"/>
+<body>
+	<form name="home" method = "POST">
+		<input  name="home" method = "POST" type="image" src="../static/new.png" style="height:10%;position:fixed;top:30%;left:50%;z-index:2" value="new"/>
+		<input  name="home" method = "POST" type="image" src="../static/load.png" value="load" style="height:10%;top: 45%;left:50%;position:fixed;z-index=4"/>
+		<input  name="home" method = "POST" type="image" src="../static/about.png" value="about" style="height:10%;top: 55%;left:50%;position:fixed;z-index=4"/>
+		<input  name="home" method = "POST" type="image" src="../static/help.png" value="help" style="height:10%;top: 65%;left:50%;position:fixed;z-index=4"/>
 	</form>
+	
+</style>
 </body>
 </html>
