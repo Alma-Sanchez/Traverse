@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<style>
+    body {
+	background: url(../static/character.png) repeat center center fixed; 
+ 	background-size: contain;} 
+</style>
+
+<body>
+	<form name="character" method = "POST">
+		<input  name="character" method = "POST" type="image" src="../static/home.png" style="height:30%;position:fixed;z-index:2" value="character1"/>
+		<input  name="character" method = "POST" type="image" src="../static/navigation.png" value="character2" style="height:30%;top: 15%;right:20%;position:fixed;z-index=4"/>
+		<input  name="character" method = "POST" type="image" src="../static/navigation.png" value="character3" style="height:30%;top: 15%;right:20%;position:fixed;z-index=4"/>
+	</form>
+	
+</style>
+</body>
+</html>

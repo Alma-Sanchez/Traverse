@@ -28,18 +28,42 @@ def checkip(x):
 class main:
 	def GET(self):
 		if checkip(web.ctx.environ['REMOTE_ADDR'])==True:
-			return render.test()
+			return render.home()
+		else:
+			return render.home()
 
 	def POST(self):
 		action=web.input()
-		if action.main=="home":
-			return render.home()
-		elif action.main=="navigation":
-			return render.incorrect()
-		elif readdata(action.accession)==True:
-			return render.correct()
+		if action.home=="new":
+			return render.character()
+		elif action.character=="character1":
+			return render.story()
 		else:
 			pass
+		#	characteraction=web.input()
+		#	if characteraction.character=="character1":
+		#		return render.story()
+		#		storyaction=web.input()
+		#		if storyaction=="story1" or "story2" or "story3":
+		#			return render.test()
+		#	else:
+		#		pass
+		#else:
+		#	pass
+#		if action.home=="load":
+#			pass
+#		if action.home=="about":
+#			pass
+#		if action.home=="help":
+#			pass
+#		if action.main=="home":
+#			return render.home()
+#		elif action.main=="navigation":
+#			return render.incorrect()
+#		elif readdata(action.accession)==True:
+#			return render.correct()
+#		else:
+#			pass
 
  
 if __name__ == "__main__":
