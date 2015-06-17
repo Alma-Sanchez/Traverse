@@ -97,8 +97,9 @@ def getStepDataFromDB(current_step_ID):
     Returns:
         tuple: Step fields
     """
+    conn = sqlite3.connect("SAAM_database_test2.db")
     cur = conn.cursor()
-    cur.execute("select * from Step_Data where Current_Step_ID =:Step_ID", {"Step_ID": current_step_ID})
+    cur.execute("select * from Step_Data where Step_ID =:Step_ID", {"Step_ID": current_step_ID})
     return cur.fetchone()
 
 

@@ -66,8 +66,9 @@ class WebpyServer:
 
 		postData=web.input()
 		print postData
-		if DBManager.checkPlayerInput(postData['user'],1):
-			return self.render.gameScreen()
+		if DBManager.checkPlayerInput(postData['user'],52):
+			stepText = DBManager.getStepDataFromDB(52)[5]
+			return self.render.StepPrototype(stepText)
 		elif postData['user'] == "home":
 			return self.render.welcomeScreen()
 		'''
