@@ -64,6 +64,9 @@ class WebpyServer:
 
 		#return "post" #This is just a test for the moment.
 
+		"""
+		Lines 70 through 76 are an example of taking user input, comparing it to the DB, and finally generating an HTML page that is populated with data from the DB.
+		"""
 		postData=web.input()
 		print postData
 		if DBManager.checkPlayerInput(postData['user'],52):
