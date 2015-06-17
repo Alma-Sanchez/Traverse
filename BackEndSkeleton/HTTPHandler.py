@@ -2,9 +2,6 @@ import web
 import sqlite3
 import DBManager
 
-def GameStart():
-	pass
-
 def getCharacterRequest():
 	pass
 
@@ -28,6 +25,11 @@ class WebpyServer:
 		self.app = web.application(self.urls, globals()) #The application object that needs to be created for the app to run.
 		self.render = web.template.render('templates/') #The file path for HTML templates.
 
+
+	def GameStart(self):
+		
+		return self.render.main()
+
 	def GET(self):
 		"""
 		The GET function is a HTTP method which will help create the initial server/client session.
@@ -44,7 +46,7 @@ class WebpyServer:
 		Returns:
 		Rendered HTML page
 		"""
-		return self.render.main() #Uses the template path that was defined earlier to find the correct HTML template. In this case, it is 'main.'
+		return self.GameStart() #Uses the template path that was defined earlier to find the correct HTML template. In this case, it is 'main.'
 
 	def POST(self):
 		"""
