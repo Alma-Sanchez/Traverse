@@ -6,6 +6,11 @@ import sqlite3 #Imports sqlite3 module. Needed to work with the Database.
 def connectToDatabase():
     return sqlite3.connect("SAAM_database_test2.db") #Connects database 
 
+def checkDatabase:
+    conn = connectToDatabase()
+    cur = conn.cursor()
+    cur.execute("select * from sqlite_master where type='table'")
+
 
 def getPlayerFromDB(ip):
     """
@@ -250,4 +255,3 @@ def insertPlayerAction(player_ID,current_story_ID,current_character_ID,player_in
     current_action_ID = cur.fetchone()[0]
     cur.execute("update player_data set Current_Action_ID=:current_action_ID where player_ID =:player_ID", {"current_action_ID":current_action_ID, "player_ID":player_ID})
     conn.commit()
-    
