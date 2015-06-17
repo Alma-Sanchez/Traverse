@@ -3,9 +3,7 @@
 import csv
 import sqlite3
 
-conn = sqlite3.connect("SAAM_database_test2.db") #Connects database 
-
-def dropTables():
+def dropTables(connection):
 	"""
 	This function drops all the tables that should be in the SAAM database.
 
@@ -15,6 +13,7 @@ def dropTables():
 	Returns:
 	None
 	"""
+	conn = connection
 	c = conn.cursor() #Cursor for querying the database.
 
 	c.execute("DROP TABLE IF EXISTS Player_Data") #Drops (deletes) table named Player_Data if it exists.
@@ -26,7 +25,7 @@ def dropTables():
 	c.execute("DROP TABLE IF EXISTS Step_Data") #Drops (deletes) table named Step_Data if it exists.
 	c.execute("DROP TABLE IF EXISTS Accession_Association") #Drops (deletes) table named Accession_Association if it exists.
 
-def createTables():
+def createTables(connection):
 	"""
 	This function creates the tables that will be used for the SAAM database. 
 	If this function is executed while these tables exist, an error will appear. 
@@ -38,6 +37,7 @@ def createTables():
 	Returns:
 	None
 	"""
+	conn = connection
 	c = conn.cursor() #Cursor for querying database.
 
 	c.execute("CREATE TABLE Player_Data (Player_ID Integer primary key autoincrement, IP Text, Current_Action_ID INT)") #Creates new table named Player_Data with hardcoded parameters.
@@ -49,7 +49,7 @@ def createTables():
 	c.execute("CREATE TABLE Step_Data(Story_ID INT, Step_ID INT, Previous_step_ID INT, Next_Step_ID INT, Accession_Association TEXT, Step_Text TEXT, Step_Art TEXT, Step_Hint TEXT)") #Creates new table named Step_Data with hardcoded parameters.
 	c.execute("CREATE TABLE Accession_Association(Accession_Association TEXT, Accession_Number TEXT)") #Creates new table named Accession_Association with hardcoded parameters.
 
-def populateTables():
+def populateTables(connection):
 	"""
 	This function will populate tables within the SAAM database using CSV files.
 	The file names and the path for the file open should be the same. If it is not then the reader will break.
@@ -60,6 +60,7 @@ def populateTables():
 	Returns:
 	None
 	"""
+	conn = connection
 	c = conn.cursor() #Cursor for querying database.
 
 	with open('CSV_file\Accession.csv','rb') as accession_data_file: #Opens file and assigns it to a variable.
@@ -89,7 +90,3 @@ def populateTables():
 			c.execute("INSERT INTO Step_Data VALUES (?,?,?,?,?,?,?,?)", (unicode(row[0], "utf-8"),unicode(row[1], "utf-8"),unicode(row[2], "utf-8"),unicode(row[3], "utf-8"),unicode(row[4], "utf-8"),unicode(row[5], "utf-8"),unicode(row[6], "utf-8"),unicode(row[7], "utf-8"))) #Encodes and inserts data from the csv file.
 	conn.commit() #Commits (permanently changes) the database.
 	step_data_file.close() #Closes the csv file.
-
-dropTables()
-createTables()
-populateTables()
