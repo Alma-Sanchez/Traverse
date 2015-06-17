@@ -27,7 +27,7 @@ class WebpyServer:
 
 
 	def GameStart(self):
-		
+
 		return self.render.main()
 
 	def GET(self):
@@ -102,6 +102,8 @@ class PlayerState:
 		"""
 
 		def playerUpdate():
+
+			
 			self.player_ip = DBManager.getIPFromDB() #Uses a DBManager function to return the player's IP
 
 			self.player_character = DBManager.getCharacterFromDB() #Uses a DBManager function to return the player's character.
