@@ -44,8 +44,9 @@ body {
     background-size: 72%;
     background-repeat: no-repeat;
     background-color:transparent;
+    padding-bottom: 10%;
     padding-left:26%;
     margin-left:38%;
-    /*padding-bottom: 10%;*/
+    margin-bottom:10%;
     border:none;
 }
