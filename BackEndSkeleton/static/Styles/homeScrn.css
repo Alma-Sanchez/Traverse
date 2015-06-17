@@ -1,0 +1,50 @@
+body {
+    background-color: #000000; 
+    background-image: url("../background.png");
+    background-size: 80%;    
+    background-position: center top;
+    background-repeat: no-repeat; 
+}
+.input{
+    /*text-align: center;*/
+    margin-top: 55%;
+}
+.newstory{
+    background-image: url("../new.png");
+    background-size: 72%;
+    background-repeat: no-repeat;
+    background-color:transparent;
+    padding-bottom: 15%;
+    padding-left:30%;
+    margin-left:40%;
+    border:none;
+}
+.loadstory{
+    background-image: url("../load.png");
+    background-size: 72%;
+    background-repeat: no-repeat;
+    background-color:transparent;
+    padding-bottom: 15%;
+    padding-left:30%;
+    margin-left:40%;
+    border:none;
+}
+.about{
+    background-image: url("../about.png");
+    background-size: 87%;
+    background-repeat: no-repeat;
+    background-color:transparent;
+    padding-bottom: 15%;
+    padding-left:30%;
+    margin-left:37%;
+    border:none;
+}
+.help{
+    background-image: url("../help.png");
+    background-size: 72%;
+    background-repeat: no-repeat;
+    background-color:transparent;
+    padding-left:26%;
+    margin-left:37%;
+    border:none;
+}
