@@ -2,7 +2,10 @@
 
 import sqlite3 #Imports sqlite3 module. Needed to work with the Database.
 
-conn = sqlite3.connect("SAAM_database_test2.db") #Connects database 
+
+def connectToDatabase():
+    return sqlite3.connect("SAAM_database_test2.db") #Connects database 
+
 
 def getPlayerFromDB(ip):
     """
@@ -17,6 +20,7 @@ def getPlayerFromDB(ip):
     Examples:
         getPlayerFromDB(playerinfo.ip) => (1,1.1.1.1,2)
     """
+    conn = connectToDatabase()
     cur = conn.cursor()
     cur.execute("select * from Player_Data where IP=:ip", {"ip": ip})
     return cur.fetchone()
@@ -35,6 +39,7 @@ def getCurrentPlayerActionFromDB(current_action_ID):
     Examples:
         getCurrentPlayerActionFromDB(playerInfo.currentStepID) => (4 50, 22, 21, 2, 1)
     """
+    conn = connectToDatabase()
     cur = conn.cursor()
     cur.execute("select * from Player_Action where Action_ID =:currentActionID", {"currentActionID": current_action_ID})
     return cur.fetchone()
@@ -54,6 +59,7 @@ def getPrevioustPlayerActionFromDB(previous_step_ID):
     Examples:
         getPlayerActionFromDB(playerInfo.PreviousStepID) => (4 50, 22, 21, 2, 1)
     """
+    conn = connectToDatabase()
     cur = conn.cursor()
     cur.execute("select * from Player_Action where Previous_Step_ID=:previousStepID", {"previousStepID": previous_step_ID})
     return cur.fetchone()
@@ -69,6 +75,7 @@ def getCharacterFromDB(player_ID):
     Returns:
         tuple: character fields
     """
+    conn = connectToDatabase()
     cur = conn.cursor()
     cur.execute("select max(Current_Character_ID) from Player_Action where Player_ID=:playerID", {"playerID": player_ID})
     return cur.fetchone()[0]
@@ -83,6 +90,7 @@ def getStoryFromDB(player_ID):
     Returns:
         tuple: Story fields
     """
+    conn = connectToDatabase()
     cur = conn.cursor()
     cur.execute("select max(Current_Story_ID) from Player_Action where Player_ID=:playerID", {"playerID": player_ID})
     return cur.fetchone()[0]
@@ -97,7 +105,7 @@ def getStepDataFromDB(current_step_ID):
     Returns:
         tuple: Step fields
     """
-    conn = sqlite3.connect("SAAM_database_test2.db")
+    conn = connectToDatabase()
     cur = conn.cursor()
     cur.execute("select * from Step_Data where Step_ID =:Step_ID", {"Step_ID": current_step_ID})
     return cur.fetchone()
@@ -113,6 +121,7 @@ def getAccessionNumbersFromDB(accession_association):
     Returns:
         tuple: accession numbers
     """
+    conn = connectToDatabase()
     cur = conn.cursor()
     cur.execute("select Accession_Number from Accession_Data where Accession_Association =: accessionAssociation", {"accessionAssociation": accession_association})
     return cur.fetchall()
@@ -121,6 +130,7 @@ def getAccessionAssociationFromDB(accession_number):
     """
     Need Docstring
     """
+    conn = connectToDatabase()
     cur = conn.cursor()
     cur.execute("select Accession_Association from Accession_Association where Accession_Number =:accession_number", {"accession_number":accession_number})
     accession_association = cur.fetchone()[0]
@@ -136,6 +146,7 @@ def getCharacterData(current_character_ID):
     Returns:
         tuple: character fields 
     """
+    conn = connectToDatabase()
     cur = conn.cursor()
     cur.execute("select * from Step_Data where Current_Character_ID =:currentCharacterID", {"currentCharacterID": current_character_ID})
     return cur.fetchone()
@@ -150,6 +161,7 @@ def getStoryData(current_story_ID):
     Returns:
         tuple: story fields
     """
+    conn = connectToDatabase()
     cur = conn.cursor()
     cur.execute("select * from Story_Data where Current_Story_ID =:currentStoryID", {"currentStoryID": current_story_ID})
     return cur.fetchone()
@@ -169,7 +181,7 @@ def checkPlayerInput(player_input,current_step_ID):
     Examples:
         checkPlayerInput(123.12,1) => False
     """
-    conn = sqlite3.connect("SAAM_database_test2.db")
+    conn = connectToDatabase()
     cur1 = conn.cursor()
     cur2 = conn.cursor()
     cur1.execute("select Accession_Association from Step_Data where Step_ID =:current_step_ID",{"current_step_ID":current_step_ID})
@@ -191,6 +203,7 @@ def insertPlayerData(ip,current_story_ID):
     Returns:
         None
     """
+    conn = connectToDatabase()
     cur = conn.cursor()
     cur.execute("select Step_ID from Step_Data where Story_ID =:current_story_ID", {"current_story_ID":current_story_ID})
     current_step_ID = cur.fetchone()
@@ -209,6 +222,7 @@ def insertPlayerAction(player_ID,current_story_ID,current_character_ID,player_in
     Returns:
         None
     """
+    conn = connectToDatabase()
     cur = conn.cursor()
 
     cur.execute("select Current_Action_ID from Player_Data where Player_ID =:player_ID", {"player_ID":player_ID})
