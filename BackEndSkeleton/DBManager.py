@@ -17,8 +17,6 @@ def checkDB():
         db_creator.createTables(connectToDatabase())
         db_creator.populateTables(connectToDatabase())
 
-checkDB()
-
 def getPlayerFromDB(ip):
     """
     This function will get the player's IP address from the database and returns the player data.
@@ -192,7 +190,7 @@ def checkPlayerInput(player_input,current_step_ID):
     else:
         return False
 
-def insertPlayerData(ip,current_story_ID):
+def insertPlayerData(ip):
     """
     This function will insert a new player's data into the SQLite Database.
 
@@ -204,8 +202,6 @@ def insertPlayerData(ip,current_story_ID):
         None
     """
     cur = cursorForDB(connectToDB())
-    cur.execute("select Step_ID from Step_Data where Story_ID =:current_story_ID", {"current_story_ID":current_story_ID})
-    current_step_ID = cur.fetchone()
     cur.execute("insert into Player_Data values (?,?,?)", (None,ip,None))
     conn.commit()
 
