@@ -1,1 +1,38 @@
 /* End Screen */
+body{
+    background-color: #000000; 
+    background-image: url("../end.png");
+    background-size: 80%;
+    background-repeat: no-repeat;
+    background-position: center top;
+}
+.homeButton{
+    background-image: url("../home.png");
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-color: transparent;
+    width: 145px;
+    height: 145px;
+    border: none;
+}
+.navButton{
+    background-image: url("../navigation.png");
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-color: transparent;
+    width:135px;
+    height:145px;
+    border: none;
+}
+
+.nextButton{
+    background-image: url("../submit.png");
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-color: transparent;
+    width: 50px;
+    height: 40px;
+    margin-top: 85%;
+    margin-left: 55%;
+    border: none;
+}
