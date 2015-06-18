@@ -27,7 +27,18 @@ class WebpyServer:
 
 
 	def GameStart(self):
+		"""
+		This function contains all of the start up code necessary for GET().
+		This function constructs a PlayerState object and assigns it to a variable in order to track the players place 
+		in the story. Additionally, this function also renders the initial web page the player sees.
 
+		Parameters: 
+		None
+
+		Returns:
+		Rendered HTML page
+		"""
+		playerStateObject = PlayerState("Self, Character, Story")
 		return self.render.main()
 
 	def GET(self):
