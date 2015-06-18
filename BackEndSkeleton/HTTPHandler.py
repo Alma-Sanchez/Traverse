@@ -20,13 +20,12 @@ class WebpyServer:
 		The WebpyServer class is the blueprint for the server which will be called whenever a client begins a session.
 		This is how the server is initialized and how it is able to react to the client.
 		"""
-
 		self.urls = ('/', 'WebpyServer') #The structure of the url and the name of the class to send the request to.
 		self.app = web.application(self.urls, globals()) #The application object that needs to be created for the app to run.
 		self.render = web.template.render('templates/') #The file path for HTML templates.
 
 
-	def GameStart(self):
+	def gameStart(self):
 		"""
 		This function contains all of the start up code necessary for GET().
 		This function constructs a PlayerState object and assigns it to a variable in order to track the players place 
@@ -38,8 +37,23 @@ class WebpyServer:
 		Returns:
 		Rendered HTML page
 		"""
-		playerStateObject = PlayerState("Self, Character, Story")
-		return self.render.main()
+		DBManager.insertPlayerData(web.ctx.ip)
+		playerStateObject = PlayerState()
+		return playerStateObject
+
+	#def PlayerIsReturning():
+		#if None != playerStateObject.player_current_action:
+			#return True
+
+	def pageToRender(self, playerStateObject):
+		if None != playerStateObject.player_current_character_id:
+			if None != playerStateObject.player_current_story_id:
+				return self.render.gameScreen()
+			else:
+				return self.render.storyScreen()
+		else:
+			return self.render.homeScreen()
+		
 
 	def GET(self):
 		"""
@@ -57,7 +71,8 @@ class WebpyServer:
 		Returns:
 		Rendered HTML page
 		"""
-		return self.GameStart() #Uses the template path that was defined earlier to find the correct HTML template. In this case, it is 'main.'
+		playerStateObject = self.gameStart()
+		return self.pageToRender(playerStateObject) #Uses the template path that was defined earlier to find the correct HTML template. In this case, it is 'main.'
 
 	def POST(self):
 		"""
@@ -80,13 +95,16 @@ class WebpyServer:
 		"""
 		Lines 70 through 76 are an example of taking user input, comparing it to the DB, and finally generating an HTML page that is populated with data from the DB.
 		"""
+		playerStateObject = PlayerState()
 		postData=web.input()
-		print postData
-		if DBManager.checkPlayerInput(postData['user'],52):
-			stepText = DBManager.getStepDataFromDB(52)[5]
-			return self.render.StepPrototype(stepText)
-		elif postData['user'] == "home":
-			return self.render.welcomeScreen()
+		DBManager.insertPlayerAction(playerStateObject.player_id, playerStateObject.player_current_story_id, playerStateObject.player_current_character_id,postData)
+		#print postData
+		self.pageToRender(playerStateObject)
+			#if DBManager.checkPlayerInput(postData['homeMenu'],playerStateObject.player_current_action()[2]):
+				#stepText = DBManager.getStepDataFromDB(playerStateObject.player_current_action()[2])[5]
+				#return self.render.StepPrototype(stepText)
+			#elif postData['homeMenu'] == "home":
+				#return self.render.homeScreen()
 		'''
 		if action.main=="home":
 		action=web.input()
@@ -99,7 +117,7 @@ class WebpyServer:
 		'''
 
 class PlayerState:
-	def __init__(self, character = None, story = None):
+	def __init__(self):
 		"""
 		The player state class is initialized for each player which keeps a record of the player within the DB.
 		This allows for easy access to the player's information through DBManager.
@@ -112,13 +130,25 @@ class PlayerState:
 		Something.
 		"""
 
-		def playerUpdate():
+		self.player_data = DBManager.getPlayerFromDB(web.ctx.ip)
 
-			
-			self.player_ip = DBManager.getIPFromDB() #Uses a DBManager function to return the player's IP
+		self.player_id = self.player_data[0]
 
-			self.player_character = DBManager.getCharacterFromDB() #Uses a DBManager function to return the player's character.
+		self.player_current_action = DBManager.getCurrentPlayerActionFromDB(self.player_data[2])
 
-			self.player_story = DBManager.getStoryFromDB() #Uses a DBManager function to return the player's current story.
+		if None != self.player_current_action:
 
-			self.player_current_step = DBManager.getStepFromDB() #Uses a DBManager function to return the player's current step.
+			self.player_current_story_id = self.player_current_action[4]
+
+			self.player_current_character_id = self.player_current_action[5]
+
+			self.player_current_step_id = self.player_current_action[2]
+
+		else:
+
+			self.player_current_story_id = None
+
+			self.player_current_character_id = None
+
+			self.player_current_step_id = None
+

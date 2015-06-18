@@ -17,6 +17,8 @@ def checkDB():
         db_creator.createTables(connectToDatabase())
         db_creator.populateTables(connectToDatabase())
 
+checkDB()
+
 def getPlayerFromDB(ip):
     """
     This function will get the player's IP address from the database and returns the player data.
@@ -182,13 +184,16 @@ def checkPlayerInput(player_input,current_step_ID):
         checkPlayerInput(123.12,1) => False
     """
     cur = cursorForDB(connectToDB())
-    cur.execute("select Accession_Association from Step_Data where Step_ID =:current_step_ID",{"current_step_ID":current_step_ID})
-    current_step_association = cur.fetchone()[0]
-    cur.execute("select Accession_Association from Accession_Association where Accession_Number =:player_input", {"player_input":player_input})
-    if current_step_association == cur.fetchone()[0]:
-        return True
-    else:
+    if None == current_step_ID:
         return False
+    else:
+        cur.execute("select Accession_Association from Step_Data where Step_ID =:current_step_ID",{"current_step_ID":current_step_ID})
+        current_step_association = cur.fetchone()[0]
+        cur.execute("select Accession_Association from Accession_Association where Accession_Number =:player_input", {"player_input":player_input})
+        if current_step_association == cur.fetchone()[0]:
+            return True
+        else:
+            return False
 
 def insertPlayerData(ip):
     """
@@ -201,7 +206,8 @@ def insertPlayerData(ip):
     Returns:
         None
     """
-    cur = cursorForDB(connectToDB())
+    conn = connectToDB()
+    cur = cursorForDB(conn)
     cur.execute("insert into Player_Data values (?,?,?)", (None,ip,None))
     conn.commit()
 
@@ -217,14 +223,18 @@ def insertPlayerAction(player_ID,current_story_ID,current_character_ID,player_in
     Returns:
         None
     """
-    cur = cursorForDB(connectToDB())
+    conn = connectToDB()
+    cur = cursorForDB(conn)
 
     cur.execute("select Current_Action_ID from Player_Data where Player_ID =:player_ID", {"player_ID":player_ID})
    
-    if cur.fetchone()[0] == None:
-        cur.execute("select * from Step_Data where Story_ID =:current_story_ID", {"current_story_ID":current_story_ID})
-        step_data = cur.fetchone()
-        cur.execute("insert into Player_Action values (?,?,?,?,?,?,?)", (None,player_ID,step_data[1],step_data[2],current_story_ID,current_character_ID,None))
+    if None == cur.fetchone()[0]:
+        if None == current_character_ID or None == current_story_ID:
+            cur.execute("insert into Player_Action values (?,?,?,?,?,?,?)", (None,player_ID,None,None,current_story_ID,current_character_ID,None))
+        else:
+            cur.execute("select * from Step_Data where Story_ID =:current_story_ID", {"current_story_ID":current_story_ID})
+            step_data = cur.fetchone()
+            cur.execute("insert into Player_Action values (?,?,?,?,?,?,?)", (None,player_ID,step_data[1],step_data[2],current_story_ID,current_character_ID,None))
     else:
         cur.execute("select Current_Action_ID from Player_Data where Player_ID =:player_ID", {"player_ID":player_ID})
         action_ID = cur.fetchone()[0]
@@ -236,9 +246,12 @@ def insertPlayerAction(player_ID,current_story_ID,current_character_ID,player_in
             step_data = cur.fetchone()
             cur.execute("insert into Player_Action values (?,?,?,?,?,?,?)", (None,player_ID,step_data[3],step_data[1],current_story_ID,current_character_ID,player_input))
         else:
-            cur.execute("select * from Step_Data where Story_ID =:current_story_ID", {"current_story_ID":current_story_ID})
-            step_data = cur.fetchone()
-            cur.execute("insert into Player_Action values (?,?,?,?,?,?,?)", (None,player_ID,step_data[1],step_data[2],current_story_ID,current_character_ID,player_input))
+            if None == current_character_ID or None == current_story_ID:
+                cur.execute("insert into Player_Action values (?,?,?,?,?,?,?)", (None,player_ID,None,None,current_story_ID,current_character_ID,None))
+            else:
+                cur.execute("select * from Step_Data where Story_ID =:current_story_ID", {"current_story_ID":current_story_ID})
+                step_data = cur.fetchone()
+                cur.execute("insert into Player_Action values (?,?,?,?,?,?,?)", (None,player_ID,step_data[1],step_data[2],current_story_ID,current_character_ID,player_input))
 
     cur.execute("select max(Action_ID) from Player_Action where Player_ID =:player_ID", {"player_ID":player_ID})
     current_action_ID = cur.fetchone()[0]
