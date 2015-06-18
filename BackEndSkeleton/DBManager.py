@@ -12,10 +12,10 @@ def cursorForDB(connection):
 def checkDB():
     cur = cursorForDB(connectToDB())
     cur.execute("select * from sqlite_master where type='table'")
-    if len(cur.fetchall()) != 9:
-        db_creator.dropTables(connectToDatabase())
-        db_creator.createTables(connectToDatabase())
-        db_creator.populateTables(connectToDatabase())
+    if len(cur.fetchall()) != 14:
+        db_creator.dropTables(connectToDB())
+        db_creator.createTables(connectToDB())
+        db_creator.populateTables(connectToDB())
 
 checkDB()
 
