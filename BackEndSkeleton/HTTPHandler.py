@@ -107,7 +107,7 @@ class WebpyServer:
 				#return self.render.homeScreen()
 				
 		if DBManager.getAccessionAssociationFromDB(postData['user']):
-			aa=DBManager.getAccessionAssociationFromDB(postData.user0
+			aa=DBManager.getAccessionAssociationFromDB(postData.user)
 			return self.render.main(aa)
 			
 		'''
