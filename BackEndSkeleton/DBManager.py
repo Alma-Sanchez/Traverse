@@ -4,18 +4,25 @@ import sqlite3 #Imports sqlite3 module. Needed to work with the Database.
 import db_creator
 
 def connectToDB():
-    return sqlite3.connect("SAAM_database_test2.db") #Connects database
+    conn = sqlite3.connect("SAAM_database_test2.db") #Connects database
+    cur = conn.cursor()
+    return conn,cur
 
-def cursorForDB(connection):
-    return connection.cursor()
+def commitToDB(connection):
+    connection.commit()
+
+def closeDB(connection):
+    connection.close()
 
 def checkDB():
-    cur = cursorForDB(connectToDB())
+    conn,cur = connectToDB()
     cur.execute("select * from sqlite_master where type='table'")
-    if 14 != len(cur.fetchall()):
+    if 13 != len(cur.fetchall()):
         db_creator.dropTables(connectToDB())
         db_creator.createTables(connectToDB())
         db_creator.populateTables(connectToDB())
+
+    closeDB(conn)
 
 checkDB()
 
@@ -32,61 +39,43 @@ def getPlayerFromDB(ip):
     Examples:
         getPlayerFromDB(playerinfo.ip) => (1,1.1.1.1,2)
     """
+
     cur = cursorForDB(connectToDB())
     cur.execute("select * from Player_Data where IP=:ip", {"ip": ip})
-    return cur.fetchone()
+    player_data = cur.fetchone()
+    closeDB(conn)
+    return player_data
 
 def getPlayerCharacterActionFromDB(player_id):
     """
     NEED DOCSTRING.
     """
-    cur = cursorForDB(connectToDB())
+    conn,cur = connectToDB()
     cur.execute("select * from Player_Character_Action where Player_ID =:player_id", {"player_id": player_id})
-    return cur.fetchone()
+    player_character_action = cur.fetchone()
+    closeDB(conn)
+    return player_character_action
 
 def getPlayerStoryActionFromDB(player_id):
     """
     NEED DOCSTRING.
     """
-    cur = cursorForDB(connectToDB())
+    conn,cur = connectToDB()
     cur.execute("select * from Player_Story_Action where Player_ID =:player_id", {"player_id": player_id})
-    return cur.fetchone()
+    player_story_action = cur.fetchone()
+    closeDB(conn)
+    return player_story_action
 
 def getPlayerStepActionFromDB(player_id):
     """
     NEED DOCSTRING.
     """
-    cur = cursorForDB(connectToDB())
-    cur.execute("select * from Player_Step_Action where Player_ID =:player_id", {"player_id": player_id}) 
-    return cur.fetchone()
+    conn,cur = connectToDB()
+    cur.execute("select * from Player_Step_Action where Player_ID =:player_id", {"player_id": player_id})
+    player_step_action = cur.fetchone() 
+    closeDB(conn)
+    return player_step_action
 
-def getCharacterFromDB(player_ID):
-    """
-    This function will return the character the player has most recently selected
-    
-    Parameters:
-        Player_ID
-
-    Returns:
-        tuple: character fields
-    """
-    cur = cursorForDB(connectToDB())
-    cur.execute("select max(Current_Character_ID) from Player_Action where Player_ID=:playerID", {"playerID": player_ID})
-    return cur.fetchone()[0]
-
-def getStoryFromDB(player_ID):
-    """
-    This function will query the database and return the correct story associated with the player.
-
-    Parameters:
-        Player_ID
-
-    Returns:
-        tuple: Story fields
-    """
-    cur = cursorForDB(connectToDB())
-    cur.execute("select max(Current_Story_ID) from Player_Action where Player_ID=:playerID", {"playerID": player_ID})
-    return cur.fetchone()[0]
 
 def getStepDataFromDB(current_step_ID):
     """
@@ -119,11 +108,12 @@ def getAccessionNumbersFromDB(accession_association):
 
 def getAccessionAssociationFromDB(accession_number):
     """
-    Need Docstring
+    Need Docstring.
     """
-    cur = cursorForDB(connectToDB())
+    conn,cur = connectToDB()
     cur.execute("select Accession_Association from Accession_Association where Accession_Number =:accession_number", {"accession_number":accession_number})
     accession_association = cur.fetchone()[0]
+    closeDB(conn)
     return accession_association
 
 def getCharacterData(current_character_ID):
@@ -136,7 +126,7 @@ def getCharacterData(current_character_ID):
     Returns:
         tuple: character fields 
     """
-    cur = cursorForDB(connectToDB())
+    conn,cur = connectToDB()
     cur.execute("select * from Step_Data where Current_Character_ID =:currentCharacterID", {"currentCharacterID": current_character_ID})
     return cur.fetchone()
 
@@ -150,15 +140,15 @@ def getStoryData(current_story_ID):
     Returns:
         tuple: story fields
     """
-    cur = cursorForDB(connectToDB())
+    conn,cur = connectToDB()
     cur.execute("select * from Story_Data where Current_Story_ID =:currentStoryID", {"currentStoryID": current_story_ID})
     return cur.fetchone()
 
-def checkPlayerCharacterInput(player_character_input):
+def checkPlayerCharacterInput(cursor,player_character_input):
     """
     NEED DOCSTRING.
     """
-    cur = cursorForDB(connectToDB())
+    cur = cursor
     cur.execute("select Character_ID from Character_Data where Character_ID =:player_character_input", {"player_character_input": player_character_input})
     
     if None != cur.fetchone():
@@ -166,11 +156,12 @@ def checkPlayerCharacterInput(player_character_input):
     else:
         return False
 
-def checkPlayerStoryInput(player_story_input):
+def checkPlayerStoryInput(cursor,player_story_input):
     """
     NEED DOCSTRING.
     """
-    cur = cursorForDB(connectToDB())
+    cur = cursor
+
     cur.execute("select Story_ID from Story_Data where Story_ID =:player_story_input", {"player_story_input": player_story_input})
     
     if None != cur.fetchone():
@@ -178,7 +169,7 @@ def checkPlayerStoryInput(player_story_input):
     else:
         return False
 
-def checkPlayerStepInput(player_input):
+def checkPlayerStepInput(cursor,player_input):
     """
     This function checks the player input with the current step 
     and returns a boolean if the player's input is correct.
@@ -193,7 +184,8 @@ def checkPlayerStepInput(player_input):
     Examples:
         checkPlayerInput(123.12,1) => False
     """
-    cur = cursorForDB(connectToDB())
+    cur = cursor
+    
     cur.execute("select * from Accession_Association where Accession_Number =:player_input", {"player_input":player_input})
     
     if None != cur.fetchone():
@@ -201,14 +193,14 @@ def checkPlayerStepInput(player_input):
     else:
         return False
 
-def shouldPlayerAdvance(player_input,current_step_id):
+def shouldPlayerAdvance(cursor,player_input,current_step_id):
     """
     NEED DOCSTRING.
     """
-    cur = cursorForDB(connectToDB())
+    cur = cursor
 
-    if checkPlayerStepInput(player_input):
-        cur.execute("select Accession_Association from Step_Data where Step_ID =:current_step_id", {"current_step_id",current_step_id})
+    if checkPlayerStepInput(cur, player_input):
+        cur.execute("select Accession_Association from Step_Data where Step_ID =:current_step_id", {"current_step_id":current_step_id})
         current_step_association = cur.fetchone()[0]
         cur.execute("select Accession_Association from Accession_Association where Accession_Number =:player_input", {"player_input":player_input})
         if current_step_association == cur.fetchone()[0]:
@@ -218,7 +210,17 @@ def shouldPlayerAdvance(player_input,current_step_id):
     else:
         return False
 
+def updatePlayerData(cursor, player_id, action_type):
+    """
+    NEED DOCSTRING.
+    """
+    cur = cursor
 
+    cur.execute("select max(%s_ID) from Player_%s where player_id=:player_id" % (action_type, action_type),{"player_id":player_id})
+    id_to_update = cur.fetchone()[0]
+    cur.execute("update Player_data set Current_%s_ID =:id_to_update" % (action_type), {"id_to_update":id_to_update})
+    
+    #cur.execute("update player_data set Current_Action_ID=:current_action_ID where player_ID =:player_ID", {"current_action_ID":current_action_ID, "player_ID":player_ID})
 def insertPlayerData(ip):
     """
     This function will insert a new player's data into the SQLite Database.
@@ -230,25 +232,47 @@ def insertPlayerData(ip):
     Returns:
         None
     """
-    conn = connectToDB()
-    cur = cursorForDB(conn)
+    conn,cur = connectToDB()
     cur.execute("insert into Player_Data values (?,?,?,?,?)", (None,ip,None,None,None))
-    conn.commit()
+    
+    commitToDB(conn)
+    closeDB(conn)
 
 def insertPlayerCharacterAction(player_id, player_character_input):
-    conn = connectToDB()
-    cur = cursorForDB(conn)
-    if checkPlayerCharacterInput(player_character_input):
+    """
+    NEED DOCSTRING.
+    """
+    conn,cur = connectToDB()
+    action_type = "Character_Action"
+
+    if checkPlayerCharacterInput(cur,player_character_input):
         cur.execute("select Character_ID from Character_Data where Character_ID =:player_character_input", {"player_character_input": player_character_input})
         current_character_id = cur.fetchone()[0]
         cur.execute("insert into Player_Character_Action values (?,?,?,?)", (None,player_id,current_character_id,player_character_input))
 
-        cur.execute("select max(Character_Action_ID) from Player_Character_Action where Player_ID =:player_id", {"player_id":player_id})
-        current_character_id = cur.fetchone()[0]
-        cur.execute("update player_data set Current_Character_Action_ID=:current_character_id where player_ID =:player_id", {"current_character_id":current_character_id, "player_id":player_id})
-        conn.commit()
+        updatePlayerData(cur,player_id,action_type)
+    
+        commitToDB(conn)
+    closeDB(conn)
 
-def insertPlayerAction(player_ID,current_story_ID,current_character_ID,player_input):
+def insertPlayerStoryAction(player_id, player_story_input):
+    """
+    NEED DOCSTRING
+    """
+    conn,cur = connectToDB()
+    action_type = "Story_Action"
+
+    if checkPlayerStoryInput(cur,player_story_input):
+        cur.execute("select Story_ID from Story_Data where Story_ID =:player_story_input", {"player_story_input": player_story_input})
+        current_story_id = cur.fetchone()[0]
+        cur.execute("insert into Player_Story_Action values (?,?,?,?)", (None,player_id,current_story_id,player_story_input))
+
+        updatePlayerData(cur,player_id,action_type)
+
+        commitToDB(conn)
+    closeDB(conn)
+
+def insertPlayerStepAction(player_id, player_step_input, current_step_id):
     """
     This function inserts player action into the database.
 
@@ -260,39 +284,20 @@ def insertPlayerAction(player_ID,current_story_ID,current_character_ID,player_in
     Returns:
         None
     """
-    conn = connectToDB()
-    cur = cursorForDB(conn)
+    conn,cur = connectToDB()
+    action_type = "Step_Action"
 
-    cur.execute("select Current_Action_ID from Player_Data where Player_ID =:player_ID", {"player_ID":player_ID})
-   
-    if None == cur.fetchone()[0]:
-        if None == current_character_ID or None == current_story_ID:
-            cur.execute("insert into Player_Action values (?,?,?,?,?,?,?)", (None,player_ID,None,None,current_story_ID,current_character_ID,None))
-        else:
-            cur.execute("select * from Step_Data where Story_ID =:current_story_ID", {"current_story_ID":current_story_ID})
-            step_data = cur.fetchone()
-            cur.execute("insert into Player_Action values (?,?,?,?,?,?,?)", (None,player_ID,step_data[1],step_data[2],current_story_ID,current_character_ID,None))
+    if shouldPlayerAdvance(cur, player_step_input, current_step_id):
+        cur.execute("select * from Step_Data where Step_ID =:current_step_id",{"current_step_id":current_step_id})
+        step_data = cur.fetchone() #Returns a tuple of all the step data that will be used to update player step action.
+        cur.execute("select Next_Step_ID from Step_Data where Step_ID =:next_step_id",{"next_step_id":step_data[3]})
+        next_step_id = cur.fetchone()[0]
+        cur.execute("insert into Player_Step_Action values (?,?,?,?,?,?)", (None, player_id, step_data[1], step_data[3], next_step_id, player_step_input))
     else:
-        cur.execute("select Current_Action_ID from Player_Data where Player_ID =:player_ID", {"player_ID":player_ID})
-        action_ID = cur.fetchone()[0]
-        cur.execute("select Current_Step_ID from Player_Action where Action_ID =:action_ID", {"action_ID":action_ID})
-        current_step_ID = cur.fetchone()[0]
-
-        if checkPlayerInput(player_input,current_step_ID) == True:
-            cur.execute("select * from Step_Data where Step_ID =:current_step_ID", {"current_step_ID":current_step_ID})
-            step_data = cur.fetchone()
-            cur.execute("insert into Player_Action values (?,?,?,?,?,?,?)", (None,player_ID,step_data[3],step_data[1],current_story_ID,current_character_ID,player_input))
-        else:
-            if None == current_character_ID or None == current_story_ID:
-                cur.execute("insert into Player_Action values (?,?,?,?,?,?,?)", (None,player_ID,None,None,current_story_ID,current_character_ID,None))
-            else:
-                cur.execute("select * from Step_Data where Story_ID =:current_story_ID", {"current_story_ID":current_story_ID})
-                step_data = cur.fetchone()
-                cur.execute("insert into Player_Action values (?,?,?,?,?,?,?)", (None,player_ID,step_data[1],step_data[2],current_story_ID,current_character_ID,player_input))
-
-    cur.execute("select max(Action_ID) from Player_Action where Player_ID =:player_ID", {"player_ID":player_ID})
-    current_action_ID = cur.fetchone()[0]
-    cur.execute("update player_data set Current_Action_ID=:current_action_ID where player_ID =:player_ID", {"current_action_ID":current_action_ID, "player_ID":player_ID})
-    conn.commit()
-
-insertPlayerCharacterAction(1,1)
+        cur.execute("select * from Step_Data where Step_ID =:current_step_id",{"current_step_id":current_step_id})
+        step_data = cur.fetchone() #Returns a tuple of all the step data that will be used to update player step action.
+        cur.execute("insert into Player_Step_Action values (?,?,?,?,?,?)", (None, player_id, step_data[2], step_data[1], step_data[3], player_step_input))
+    
+    updatePlayerData(cur,player_id,action_type)
+    commitToDB(conn)
+    closeDB(conn)
