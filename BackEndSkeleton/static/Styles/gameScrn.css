@@ -8,21 +8,21 @@ body{
 }
 .homeButton{
     background-image: url("../home.png");
-    background-size: 105%;
+    background-size: 100%;
     background-repeat: no-repeat;
-    background-color: transparent;
-    width: 150px;
-    height: 150px;
-    border: transparent; /*this isn't working not sure why*/
+    background-color:transparent;
+    width: 60%;
+    height: 20%;
+    border:none;
 }
 .navButton{
     background-image: url("../navigation.png");
     background-size: 100%;
     background-repeat: no-repeat;
     background-color: transparent;
-    width:135px;
-    height:145px;
-    border: transparent;
+    width: 60%;
+    height: 20%;
+    border: none;
     margin-left: 10%;
 }
 .scrollBox{
@@ -55,7 +55,7 @@ body{
 .submitButton{
     background-image: url("../submit.png");
     background-size: 100%;
-    border: transparent;
+    border: none;
     background-repeat: no-repeat;
     background-color: transparent;
     margin-left: 20%;
