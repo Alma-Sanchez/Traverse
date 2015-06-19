@@ -44,11 +44,11 @@ def createTables(connection):
 	conn = connection
 	c = conn.cursor() #Cursor for querying database.
 
-	c.execute("CREATE TABLE Player_Data (Player_ID Integer primary key autoincrement, IP Text, Current_Action_ID INT)") #Creates new table named Player_Data with hardcoded parameters.
+	c.execute("CREATE TABLE Player_Data (Player_ID Integer primary key autoincrement, IP Text, Current_Character_Action_ID INT, Current_Story_Action_ID Int, Current_Step_Action_ID Int)") #Creates new table named Player_Data with hardcoded parameters.
 	c.execute("CREATE TABLE Player_Character_Action (Character_Action_ID Integer primary key autoincrement, Player_ID INT, Current_Character_ID INT, Player_Input Text)") #Creates new table named Player_Action with hardcoded parameters.
 	c.execute("CREATE TABLE Player_Story_Action (Story_Action_ID Integer primary key autoincrement, Player_ID INT, Current_Story_ID INT, Player_Input Text)")
 	c.execute("CREATE TABLE Player_Step_Action (Step_Action_ID Integer primary key autoincrement, Previous_Step_ID INT, Current_Step_ID INT, Next_Step_ID INT, Player_Input Text)")
-	c.execute("CREATE TABLE Archived_Player_Data (Player_ID INT, Player_name TEXT, Current_step_ID INT)") #Creates new table named Archived_Player_Data with hardcoded parameters.
+	c.execute("CREATE TABLE Archived_Player_Data (Player_ID INT, IP Text, Current_Character_Action_ID INT, Current_Story_Action_ID Int, Current_Step_Action_ID Int)") #Creates new table named Archived_Player_Data with hardcoded parameters.
 	c.execute("CREATE TABLE Archived_Player_Character_Action (Character_Action_ID Int, Player_ID INT, Current_Character_ID INT, Player_Input Text)") #Creates new table named Player_Action with hardcoded parameters.
 	c.execute("CREATE TABLE Archived_Player_Story_Action (Story_Action_ID Int, Player_ID INT, Current_Story_ID INT, Player_Input Text)")
 	c.execute("CREATE TABLE Archived_Player_Step_Action (Step_Action_ID Int, Previous_Step_ID INT, Current_Step_ID INT, Next_Step_ID INT, Player_Input Text)")
