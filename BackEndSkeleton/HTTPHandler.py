@@ -12,9 +12,9 @@ class homeScreen:
 
 			'/', "homeScreen",
 			'/char',"charScreen",
-			'/char/story',"storyScreen",
-			'/char/story/game',"gameScreen",
-			'/char/story/game/end',"endScreen"
+			'/story',"storyScreen",
+			'/game',"gameScreen",
+			'/end',"endScreen"
 
 		) #The structure of the url and the name of the class to send the request to.
 		self.render = web.template.render('templates/') #The file path for HTML templates.
@@ -34,13 +34,13 @@ class charScreen:
 	def GET(self):
 		return self.render.charScreen()
 	def POST(self):
-		action1 = web.input()
-		if action1['Character'] == '1':
-			raise web.seeother('/char/story')
-		elif action1['Character'] == '2':
-			raise web.seeother('/char/story')
-		elif action1['Character'] == '3':
-			raise web.seeother('/char/story')
+		action = web.input()
+		if action['Character'] == '1':
+			raise web.seeother('/story')
+		elif action['Character'] == '2':
+			raise web.seeother('/story')
+		elif action['Character'] == '3':
+			raise web.seeother('/story')
 
 class storyScreen:
 	def __init__(self):
@@ -48,8 +48,13 @@ class storyScreen:
 	def GET(self):
 		return self.render.storyScreen()
 	def POST(self):
-		pass
 		action = web.input()
+		if action['story'] == '1':
+			raise web.seeother('/game')
+		if action['story'] == '2':
+			raise web.seeother('/game')
+		if action['story'] == '3':
+			raise web.seeother('/game')
 
 class gameScreen:
 	def __init__(self):
@@ -57,8 +62,17 @@ class gameScreen:
 	def GET(self):
 		return self.render.gameScreen()
 	def POST(self):
-		pass
 		action = web.input()
+		if action['main'] == 'trueTest':
+			raise web.seeother('/end')
+
+class endScreen:
+	def __init__(self):
+		self.render = web.template.render('templates/')
+	def GET(self):
+		return self.render.endScreen()
+	def POST(self):
+		pass
 
 class PlayerState:
 	def __init__(self):
