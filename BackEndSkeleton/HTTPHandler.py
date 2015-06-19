@@ -14,7 +14,7 @@ def getStepCorrectRequest():
 def getStepIncorrectRequest():
 	pass
 
-class WebpyServer:
+class homeScreen:
 	def __init__(self):
 		"""
 		The WebpyServer class is the blueprint for the server which will be called whenever a client begins a session.
@@ -22,80 +22,56 @@ class WebpyServer:
 		"""
 		self.urls = (
 
-			'/', 'WebpyServer'
-			'/homeScreen', 'homeScreen'
+			'/', "homeScreen",
+			'/char',"charScreen",
+			'/char/story',"storyScreen",
+			'/char/story/game',"gameScreen",
+			'/char/story/game/end',"endScreen"
 
 		) #The structure of the url and the name of the class to send the request to.
-		self.app = web.application(self.urls, globals()) #The application object that needs to be created for the app to run.
 		self.render = web.template.render('templates/') #The file path for HTML templates.
 
-
-	def gameStart(self):
-		"""
-		This function contains all of the start up code necessary for GET().
-		This function constructs a PlayerState object and assigns it to a variable in order to track the players place 
-		in the story. Additionally, this function also renders the initial web page the player sees.
-
-		Parameters: 
-		None
-
-		Returns:
-		Rendered HTML page
-		"""
-		DBManager.insertPlayerData(web.ctx.ip)
-		playerStateObject = PlayerState()
-		return playerStateObject
-
-	#def PlayerIsReturning():
-		#if None != playerStateObject.player_current_action:
-			#return True
-
-	def pageToRender(self, playerStateObject):
-		if None != playerStateObject.player_current_character_id:
-			if None != playerStateObject.player_current_story_id:
-				return self.render.gameScreen()
-			else:
-				return self.render.storyScreen()
-		else:
-			return self.render.homeScreen()
-		
+		self.app = web.application(self.urls, globals()) #The application object that needs to be created for the app to run.
 
 	def GET(self):
-		"""
-		The GET function is a HTTP method which will help create the initial server/client session.
-		This is the initial handshake.
-		This specific GET function will check to see if the player has played before via IP.
-		If not then the player will be given a 'new player' path.
-
-		Examples:
-		Player enters the URL for the game. This begins the GET function which will serve up the player the correct HTML page.
-
-		Parameters:
-		None
-
-		Returns:
-		Rendered HTML page
-		"""
-		return self.render.main()
-
-		playerStateObject = self.gameStart()
-		return self.pageToRender(playerStateObject) #Uses the template path that was defined earlier to find the correct HTML template. In this case, it is 'main.'
-	
+		return self.render.homeScreen()
 	def POST(self):
-		"""
-		The POST function is a HTTP method which allows for data to be sent from the client to the server.
-		The main purpose of this POST is to make sure that the player's input will have an appropriate response.
-		
-		Examples:
-		Player inputs an incorrect accession number. Receives the hint screen template with the correct information.
-		Player inputs a correct accession number. Receives next part of the correct story.
+		action = web.input()
+		if action['new'] == 'charScreen':
+			raise web.seeother('/char')
 
-		Parameters:
-		None
+class charScreen:
+	def __init__(self):
+		self.render = web.template.render('templates/')
+	def GET(self):
+		return self.render.charScreen()
+	def POST(self):
+		action1 = web.input()
+		if action1['Character'] == '1':
+			raise web.seeother('/char/story')
+		elif action1['Character'] == '2':
+			raise web.seeother('/char/story')
+		elif action1['Character'] == '3':
+			raise web.seeother('/char/story')
 
-		Returns:
-		Rendered HTML page
-		"""
+class storyScreen:
+	def __init__(self):
+		self.render = web.template.render('templates/')
+	def GET(self):
+		return self.render.storyScreen()
+	def POST(self):
+		pass
+		action = web.input()
+
+class gameScreen:
+	def __init__(self):
+		self.render = web.template.render('templates/')
+	def GET(self):
+		return self.render.gameScreen()
+	def POST(self):
+		pass
+		action = web.input()
+
 class PlayerState:
 	def __init__(self):
 		"""

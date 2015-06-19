@@ -12,7 +12,7 @@ def setupServer():
 	Returns:
 	None
 	"""
-	server = HTTPHandler.WebpyServer() #Creates a new instance of the server.
+	server = HTTPHandler.homeScreen() #Creates a new instance of the server.
 	server.app.run() #Runs the server if server.py is the file being called. WILL NOT WORK IF SERVER.PY IS BEING CALLED AS A MODULE.
 
 def setupPlayer():
