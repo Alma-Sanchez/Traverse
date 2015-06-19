@@ -1,17 +1,64 @@
 /* Game screen styling */
-
 body{
-    background-image: url("../spElem/Background.png");
-    background-size: 800px 700px;
+    background-image: url("../main.png");
+    background-color: #000000; 
+    background-size: 80%;
+    background-position: center top;
     background-repeat: no-repeat;
 }
-
-.scrollBox{
-    margin: 250px;
+.homeButton{
+    background-image: url("../home.png");
+    background-size: 105%;
+    background-repeat: no-repeat;
     background-color: transparent;
-    height:250px;
-    width:230px;
-    border:5px solid #ccc;
-    /*font:16px/26px Georgia, Garamond, Serif;*/
-    overflow:scroll;
+    width: 150px;
+    height: 150px;
+    border: transparent; /*this isn't working not sure why*/
+}
+.navButton{
+    background-image: url("../navigation.png");
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-color: transparent;
+    width:135px;
+    height:145px;
+    border: transparent;
+    margin-left: 10%;
+}
+.scrollBox{
+    /*Might have to change the background color from transparent, but 
+    might be easier to change it on the image incase the scroll box moves
+    with different screens*/
+    background-color: transparent;
+    /* Height didn't work with percentages for me... ?*/
+    height: 295px;
+    width: 255px;
+    /* the top doesn't start at the first word, use the border 
+    to position it then comment the line out after*/
+    margin-top: 16%;
+    margin-left: 19%;
+    border: 5px solid #ccc;
+    overflow-y: scroll;
+}
+.scrollBox p{
+    color: #C0A992;
+}
+.accessionNum{
+    margin-left: 20%;
+    width: 150px;
+    height: 30px;
+    background-color: #040200;
+}
+.answerHere p{
+    color: #C0A992;        
+}
+.submitButton{
+    background-image: url("../submit.png");
+    background-size: 100%;
+    border: transparent;
+    background-repeat: no-repeat;
+    background-color: transparent;
+    margin-left: 20%;
+    width: 50px;
+    height: 50px;
 }

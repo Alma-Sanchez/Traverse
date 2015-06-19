@@ -1,19 +1,41 @@
 <!DOCTYPE html>
 <html>
-   <head>
+    <head>
+        <meta charset="utf-8">
         <title>Title of Game</title>        
         <link rel = "stylesheet" type = "text/css" href = "./static/Styles/gameScrn.css">
     </head>
     <!-- This is going to be the hard page. With pulling the elements from the database -->
+    <body>
+        <form name = "menu" method = "POST" class = "navMenu">
+            <input  name="home" method = "POST" type="image" value="home" class = "homeButton"/>
 
-    <div class="scrollBox">
-        <p>
-            Stories go in here. It'll look better later. But got the scroll box to work! <br> 
-            <br> 
-            <b> Adding more text so you can see it scroll. </b> 
-            <br> Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-        </p>
-    </div>
+  <!--           <input  name="nav" method = "POST" type="image" src="./static/spElem/Progress(2).png" value="home" class = "progButton"/> -->
+            
+            <input  name="nav" method = "POST" type="image" value="home" class = "navButton"/>
+        
+        </form>
 
 
+        <div class="scrollBox">
+                <p>
+                stepText variable goes in here <br>
+                Stories go in here. It'll look better later. But got the scroll box to work! <br> 
+                <br> 
+                <b> Adding more text so you can see it scroll. </b> 
+                <br> Lorem Ipsum <br> is simply dummy text......
+            </p>
+        </div>
+
+        <div class = "answerHere">
+
+                <form name="accession" method = "POST" float="">
+                
+                <p> Answer: </p>
+                <input type="text" method="POST" name="accession" class = "accessionNum"/>
+
+                <input  name="main" method = "POST" type="submit" value="" class = "submitButton"/>
+
+                </form>
+    </body>
 </html>
