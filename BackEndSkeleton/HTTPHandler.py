@@ -105,6 +105,11 @@ class WebpyServer:
 				#return self.render.StepPrototype(stepText)
 			#elif postData['homeMenu'] == "home":
 				#return self.render.homeScreen()
+				
+		if DBManager.getAccessionAssociationFromDB(postData['user']):
+			aa=DBManager.getAccessionAssociationFromDB(postData.user0
+			return self.render.main(aa)
+			
 		'''
 		if action.main=="home":
 		action=web.input()
