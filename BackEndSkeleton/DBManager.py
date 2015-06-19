@@ -4,17 +4,49 @@ import sqlite3 #Imports sqlite3 module. Needed to work with the Database.
 import db_creator
 
 def connectToDB():
+    """
+    This function returns a connection to the database and a cursor for querying the database.
+
+    Parameters:
+        None
+
+    Returns:
+        conn: Connection to the database.
+        cur: a cursor for querying the database.
+    """
     conn = sqlite3.connect("SAAM_database_test2.db") #Connects database
     cur = conn.cursor()
     return conn,cur
 
 def commitToDB(connection):
+    """
+    This function commits all changes done to the database.
+
+    Parameter:
+        connection: A connection to a database.
+
+    Return:
+        TAYLOR PLEASE CHECK TO SEE IF RETURNING CONNECTION.COMMIT() WORKS.
+    """
     connection.commit()
 
 def closeDB(connection):
+    """
+    This function closes connection to the connected database.
+
+    Parameter:
+        connection: A connection to a database.
+
+    Return:
+        TAYLOR PLEASE CHECK TO SEE IF RETURNING CONNECTION.CLOSE() WORKS.
+    """
     connection.close()
 
 def checkDB():
+    """
+    This function checks to see if the connected database has 13 tables. 
+    If the table number is not 13, then this function drops pre-existing tables and creates new tables.
+    """
     conn,cur = connectToDB()
     cur.execute("select * from sqlite_master where type='table'")
     if 13 != len(cur.fetchall()):
