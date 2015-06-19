@@ -12,7 +12,7 @@ def cursorForDB(connection):
 def checkDB():
     cur = cursorForDB(connectToDB())
     cur.execute("select * from sqlite_master where type='table'")
-    if len(cur.fetchall()) != 14:
+    if 14 != len(cur.fetchall()):
         db_creator.dropTables(connectToDB())
         db_creator.createTables(connectToDB())
         db_creator.populateTables(connectToDB())
@@ -36,43 +36,29 @@ def getPlayerFromDB(ip):
     cur.execute("select * from Player_Data where IP=:ip", {"ip": ip})
     return cur.fetchone()
 
-def getCurrentPlayerActionFromDB(current_action_ID):
+def getPlayerCharacterActionFromDB(player_id):
     """
-    This function returns a row from the Player_Action table that corresponds 
-    to the current player action.
-
-    Parameters:
-        currentStepID (int): The ID of the current step taken from the Player_Data table.
-
-    Returns:
-        tuple: The tuple containing the row information.
-
-    Examples:
-        getCurrentPlayerActionFromDB(playerInfo.currentStepID) => (4 50, 22, 21, 2, 1)
+    NEED DOCSTRING.
     """
     cur = cursorForDB(connectToDB())
-    cur.execute("select * from Player_Action where Action_ID =:currentActionID", {"currentActionID": current_action_ID})
+    cur.execute("select * from Player_Character_Action where Player_ID =:player_id", {"player_id": player_id})
     return cur.fetchone()
 
-
-def getPrevioustPlayerActionFromDB(previous_step_ID):
+def getPlayerStoryActionFromDB(player_id):
     """
-    This function returns a row from the Player_Action table that corresponds 
-    to the previous player action.
-
-    Parameters:
-        PreviousStepID (int): The ID of the previous step taken from the Player_Data table.
-
-    Returns:
-        tuple: The tuple containing the row information.
-
-    Examples:
-        getPlayerActionFromDB(playerInfo.PreviousStepID) => (4 50, 22, 21, 2, 1)
+    NEED DOCSTRING.
     """
     cur = cursorForDB(connectToDB())
-    cur.execute("select * from Player_Action where Previous_Step_ID=:previousStepID", {"previousStepID": previous_step_ID})
+    cur.execute("select * from Player_Story_Action where Player_ID =:player_id", {"player_id": player_id})
     return cur.fetchone()
 
+def getPlayerStepActionFromDB(player_id):
+    """
+    NEED DOCSTRING.
+    """
+    cur = cursorForDB(connectToDB())
+    cur.execute("select * from Player_Step_Action where Player_ID =:player_id", {"player_id": player_id}) 
+    return cur.fetchone()
 
 def getCharacterFromDB(player_ID):
     """
@@ -168,7 +154,29 @@ def getStoryData(current_story_ID):
     cur.execute("select * from Story_Data where Current_Story_ID =:currentStoryID", {"currentStoryID": current_story_ID})
     return cur.fetchone()
 
-def checkPlayerInput(player_input,current_step_ID):
+def checkPlayerCharacterInput(player_character_input):
+    """
+    NEED DOCSTRING.
+    """
+    cur = cursorForDB(connectToDB())
+    cur.execute("select Character_ID from Character_Data where Character_ID =:player_character_input", {"player_character_input": player_character_input})
+    if None != cur.fetchone():
+        return True
+    else:
+        return False
+
+def checkPlayerStoryInput(player_story_input):
+    """
+    NEED DOCSTRING.
+    """
+    cur = cursorForDB(connectToDB())
+    cur.execute("select Story_ID from Story_Data where Story_ID =:player_story_input", {"player_story_input": player_story_input})
+    if None != cur.fetchone():
+        return True
+    else:
+        return False
+print checkPlayerStoryInput()
+def checkPlayerStepInput(player_input,current_step_ID):
     """
     This function checks the player input with the current step 
     and returns a boolean if the player's input is correct.
@@ -208,8 +216,15 @@ def insertPlayerData(ip):
     """
     conn = connectToDB()
     cur = cursorForDB(conn)
-    cur.execute("insert into Player_Data values (?,?,?)", (None,ip,None))
+    cur.execute("insert into Player_Data values (?,?,?,?,?)", (None,ip,None,None,None))
     conn.commit()
+
+def insertPlayerCharacterAction(player_id, player_character_input):
+    conn = connectToDB()
+    cur = cursorForDB(conn)
+    if checkPlayerCharacterInput(player_character_input):
+        cur.execute("insert into Player_Character_Action values (?,?,?,?)", (None,player_id,))
+
 
 def insertPlayerAction(player_ID,current_story_ID,current_character_ID,player_input):
     """
