@@ -2,18 +2,6 @@ import web
 import sqlite3
 import DBManager
 
-def getCharacterRequest():
-	pass
-
-def getStoryRequest():
-	pass
-
-def getStepCorrectRequest():
-	pass
-
-def getStepIncorrectRequest():
-	pass
-
 class homeScreen:
 	def __init__(self):
 		"""
