@@ -1,21 +1,21 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta charset="utf-8">
         <title>Title of Game</title>        
         <link rel = "stylesheet" type = "text/css" href = "./static/Styles/gameScrn.css">
     </head>
     <!-- This is going to be the hard page. With pulling the elements from the database -->
     <body>
-        <form name = "menu" method = "POST" class = "navMenu">
-            <input  name="home" method = "POST" type="image" value="home" class = "homeButton"/>
+        <div class = "game">
+            <form name = "gameMenu" method= "POST">
+                    
+                <input  name="home" method = "POST" type="submit" value="home" class = "homeButton"/>
 
-  <!--           <input  name="nav" method = "POST" type="image" src="./static/spElem/Progress(2).png" value="home" class = "progButton"/> -->
+                <input  name="nav" method = "POST" type="submit" value="home" class = "navButton"/>
             
-            <input  name="nav" method = "POST" type="image" value="home" class = "navButton"/>
+            </form>
         
-        </form>
-
+        </div>
 
         <div class="scrollBox">
                 <p>
@@ -29,12 +29,12 @@
 
         <div class = "answerHere">
 
-                <form name="accession" method = "POST" float="">
+            <form name="accession" method = "POST" float="">
                 
                 <p> Answer: </p>
-                <input type="text" method="POST" name="accession" class = "accessionNum"/>
+                    <input type="text" method="POST" name="accession" class = "accessionNum"/>
 
-                <input  name="main" method = "POST" type="submit" value="" class = "submitButton"/>
+                    <input  name="main" method = "POST" type="submit" value="" class = "submitButton"/>
 
                 </form>
     </body>
