@@ -13,8 +13,7 @@ def dropTables(connection):
 	Returns:
 	None
 	"""
-	conn = connection
-	c = conn.cursor() #Cursor for querying the database.
+	conn,c = connection
 
 	c.execute("DROP TABLE IF EXISTS Player_Data") #Drops (deletes) table named Player_Data if it exists.
 	c.execute("DROP TABLE IF EXISTS Player_Character_Action") #Drops (deletes) table named Player_Action if it exists.
@@ -41,13 +40,12 @@ def createTables(connection):
 	Returns:
 	None
 	"""
-	conn = connection
-	c = conn.cursor() #Cursor for querying database.
+	conn,c = connection
 
 	c.execute("CREATE TABLE Player_Data (Player_ID Integer primary key autoincrement, IP Text, Current_Character_Action_ID INT, Current_Story_Action_ID Int, Current_Step_Action_ID Int)") #Creates new table named Player_Data with hardcoded parameters.
 	c.execute("CREATE TABLE Player_Character_Action (Character_Action_ID Integer primary key autoincrement, Player_ID INT, Current_Character_ID INT, Player_Input Text)") #Creates new table named Player_Action with hardcoded parameters.
 	c.execute("CREATE TABLE Player_Story_Action (Story_Action_ID Integer primary key autoincrement, Player_ID INT, Current_Story_ID INT, Player_Input Text)")
-	c.execute("CREATE TABLE Player_Step_Action (Step_Action_ID Integer primary key autoincrement, Previous_Step_ID INT, Current_Step_ID INT, Next_Step_ID INT, Player_Input Text)")
+	c.execute("CREATE TABLE Player_Step_Action (Step_Action_ID Integer primary key autoincrement, Player_ID INT, Previous_Step_ID INT, Current_Step_ID INT, Next_Step_ID INT, Player_Input Text)")
 	c.execute("CREATE TABLE Archived_Player_Data (Player_ID INT, IP Text, Current_Character_Action_ID INT, Current_Story_Action_ID Int, Current_Step_Action_ID Int)") #Creates new table named Archived_Player_Data with hardcoded parameters.
 	c.execute("CREATE TABLE Archived_Player_Character_Action (Character_Action_ID Int, Player_ID INT, Current_Character_ID INT, Player_Input Text)") #Creates new table named Player_Action with hardcoded parameters.
 	c.execute("CREATE TABLE Archived_Player_Story_Action (Story_Action_ID Int, Player_ID INT, Current_Story_ID INT, Player_Input Text)")
@@ -68,8 +66,7 @@ def populateTables(connection):
 	Returns:
 	None
 	"""
-	conn = connection
-	c = conn.cursor() #Cursor for querying database.
+	conn,c = connection
 
 	with open('CSV_file\Accession.csv','rb') as accession_data_file: #Opens file and assigns it to a variable.
 		spamreader = csv.reader(accession_data_file) #Reads the csv file and sets it as a new variable
