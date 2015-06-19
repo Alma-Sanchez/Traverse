@@ -20,7 +20,12 @@ class WebpyServer:
 		The WebpyServer class is the blueprint for the server which will be called whenever a client begins a session.
 		This is how the server is initialized and how it is able to react to the client.
 		"""
-		self.urls = ('/', 'WebpyServer') #The structure of the url and the name of the class to send the request to.
+		self.urls = (
+
+			'/', 'WebpyServer'
+			'/homeScreen', 'homeScreen'
+
+		) #The structure of the url and the name of the class to send the request to.
 		self.app = web.application(self.urls, globals()) #The application object that needs to be created for the app to run.
 		self.render = web.template.render('templates/') #The file path for HTML templates.
 
@@ -71,9 +76,11 @@ class WebpyServer:
 		Returns:
 		Rendered HTML page
 		"""
+		return self.render.main()
+
 		playerStateObject = self.gameStart()
 		return self.pageToRender(playerStateObject) #Uses the template path that was defined earlier to find the correct HTML template. In this case, it is 'main.'
-
+	
 	def POST(self):
 		"""
 		The POST function is a HTTP method which allows for data to be sent from the client to the server.
@@ -89,38 +96,6 @@ class WebpyServer:
 		Returns:
 		Rendered HTML page
 		"""
-
-		#return "post" #This is just a test for the moment.
-
-		"""
-		Lines 70 through 76 are an example of taking user input, comparing it to the DB, and finally generating an HTML page that is populated with data from the DB.
-		"""
-		playerStateObject = PlayerState()
-		postData=web.input()
-		DBManager.insertPlayerAction(playerStateObject.player_id, playerStateObject.player_current_story_id, playerStateObject.player_current_character_id,postData)
-		#print postData
-		self.pageToRender(playerStateObject)
-			#if DBManager.checkPlayerInput(postData['homeMenu'],playerStateObject.player_current_action()[2]):
-				#stepText = DBManager.getStepDataFromDB(playerStateObject.player_current_action()[2])[5]
-				#return self.render.StepPrototype(stepText)
-			#elif postData['homeMenu'] == "home":
-				#return self.render.homeScreen()
-				
-		if DBManager.getAccessionAssociationFromDB(postData['user']):
-			aa=DBManager.getAccessionAssociationFromDB(postData.user)
-			return self.render.main(aa)
-			
-		'''
-		if action.main=="home":
-		action=web.input()
-		if action=="home":
-			return render.home()
-		elif action=="navigation":
-			return render.incorrect()
-		elif readdata(action.accession)==True:
-			return render.correct()
-		'''
-
 class PlayerState:
 	def __init__(self):
 		"""
