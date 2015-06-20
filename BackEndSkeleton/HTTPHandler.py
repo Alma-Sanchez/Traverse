@@ -22,8 +22,11 @@ class homeScreen:
 		self.app = web.application(self.urls, globals()) #The application object that needs to be created for the app to run.
 
 	def GET(self):
+		DBManager.insertPlayerData(web.ctx.ip)
+		playerStateObject = PlayerState()
 		return self.render.homeScreen()
 	def POST(self):
+		playerStateObject = PlayerState()
 		action = web.input()
 		if action['new'] == 'charScreen':
 			raise web.seeother('/char')
@@ -32,36 +35,48 @@ class charScreen:
 	def __init__(self):
 		self.render = web.template.render('templates/')
 	def GET(self):
+		playerStateObject = PlayerState()
 		return self.render.charScreen()
 	def POST(self):
+		playerStateObject = PlayerState()
 		action = web.input()
 		if action['Character'] == '1':
+			DBManager.insertPlayerCharacterAction(playerStateObject.player_id,action['Character'])
 			raise web.seeother('/story')
 		elif action['Character'] == '2':
+			DBManager.insertPlayerCharacterAction(playerStateObject.player_id,action['Character'])
 			raise web.seeother('/story')
 		elif action['Character'] == '3':
+			DBManager.insertPlayerCharacterAction(playerStateObject.player_id,action['Character'])
 			raise web.seeother('/story')
 
 class storyScreen:
 	def __init__(self):
 		self.render = web.template.render('templates/')
 	def GET(self):
+		playerStateObject = PlayerState()
 		return self.render.storyScreen()
 	def POST(self):
+		playerStateObject = PlayerState()
 		action = web.input()
 		if action['story'] == '1':
+			DBManager.insertPlayerStoryAction(playerStateObject.player_id,action['story'])
 			raise web.seeother('/game')
 		if action['story'] == '2':
+			DBManager.insertPlayerStoryAction(playerStateObject.player_id,action['story'])
 			raise web.seeother('/game')
 		if action['story'] == '3':
+			DBManager.insertPlayerStoryAction(playerStateObject.player_id,action['story'])
 			raise web.seeother('/game')
 
 class gameScreen:
 	def __init__(self):
 		self.render = web.template.render('templates/')
 	def GET(self):
+		playerStateObject = PlayerState()
 		return self.render.gameScreen()
 	def POST(self):
+		playerStateObject = PlayerState()
 		action = web.input()
 		if action['main'] == 'trueTest':
 			raise web.seeother('/end')
@@ -70,8 +85,10 @@ class endScreen:
 	def __init__(self):
 		self.render = web.template.render('templates/')
 	def GET(self):
+		playerStateObject = PlayerState()
 		return self.render.endScreen()
 	def POST(self):
+		playerStateObject = PlayerState()
 		pass
 
 class PlayerState:
@@ -91,22 +108,3 @@ class PlayerState:
 		self.player_data = DBManager.getPlayerFromDB(web.ctx.ip)
 
 		self.player_id = self.player_data[0]
-
-		self.player_current_action = DBManager.getCurrentPlayerActionFromDB(self.player_data[2])
-
-		if None != self.player_current_action:
-
-			self.player_current_story_id = self.player_current_action[4]
-
-			self.player_current_character_id = self.player_current_action[5]
-
-			self.player_current_step_id = self.player_current_action[2]
-
-		else:
-
-			self.player_current_story_id = None
-
-			self.player_current_character_id = None
-
-			self.player_current_step_id = None
-
