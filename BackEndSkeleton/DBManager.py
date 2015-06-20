@@ -78,7 +78,7 @@ def getPlayerFromDB(ip):
         getPlayerFromDB(playerinfo.ip) => (1,1.1.1.1,2)
     """
 
-    cur = cursorForDB(connectToDB())
+    conn,cur = connectToDB()
     cur.execute("select * from Player_Data where IP=:ip", {"ip": ip})
     player_data = cur.fetchone()
     closeDB(conn)
@@ -461,7 +461,7 @@ def insertPlayerStepAction(player_id, player_step_input, current_step_id):
     else:
         cur.execute("select * from Step_Data where Step_ID =:current_step_id",{"current_step_id":current_step_id})
         step_data = cur.fetchone() #Returns a tuple of all the step data that will be used to update player step action.
-        cur.execute("insert into Player_Step_Action values (?,?,?,?,?,?,?)", (None, player_id, step_data[2], step_data[1], step_data[3], player_step_input, None)
+        cur.execute("insert into Player_Step_Action values (?,?,?,?,?,?,?)", (None, player_id, step_data[2], step_data[1], step_data[3], player_step_input, None))
 
     
     updatePlayerData(cur,player_id,action_type)
