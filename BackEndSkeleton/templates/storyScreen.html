@@ -1,8 +1,15 @@
+$def with (poststory)
+
  <!DOCTYPE html>
 <html>
      <head>
         <title>Title of Game</title>
-        <link rel = "stylesheet" type = "text/css" href = "./static/Styles/storyScrn.css">
+        $if poststory==1:
+            <link rel = "stylesheet" type = "text/css" href = "./static/Styles/storyScrn1.css">
+        $elif poststory==2:
+            <link rel = "stylesheet" type = "text/css" href = "./static/Styles/storyScrn2.css">
+        $else:
+            <link rel = "stylesheet" type = "text/css" href = "./static/Styles/storyScrn3.css">
     </head>
     <body>
             <div class = "storyMenu">
