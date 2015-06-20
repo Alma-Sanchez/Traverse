@@ -253,7 +253,7 @@ def getStepTextFromDB(player_id):
     conn,cur = connectToDB()
     cur.execute("select Current_Step_Action_ID from Player_Data where Player_ID =:player_id", {"player_id":player_id})
     current_step_action = cur.fetchone()[0]
-    cur.execute("select Current_Step_ID from Player_Story_Action where Story_Action_ID =:current_story_action", {"current_Step_action":current_step_action})
+    cur.execute("select Current_Step_ID from Player_Step_Action where Step_Action_ID =:current_step_action", {"current_step_action":current_step_action})
     step_id = cur.fetchone()[0]
     cur.execute("select Step_Text from Step_Data where Step_ID =:step_id", {"step_id":step_id})
     return cur.fetchone()[0]
@@ -443,7 +443,7 @@ def insertPlayerStoryAction(player_id, player_story_input):
         action_type = "Step_Action"
         cur.execute("select * from Step_Data where Story_ID =:current_story_id", {"current_story_id":current_story_id})
         step_data = cur.fetchone() #Returns a tuple of all the step data that will be used to update player step action.
-        cur.execute("insert into Player_Step_Action values (?,?,?,?,?,?,?)", (None, player_id, step_data[2], step_data[1], step_data[3], player_step_input, None))
+        cur.execute("insert into Player_Step_Action values (?,?,?,?,?,?,?)", (None, player_id, step_data[2], step_data[1], step_data[3], None, None))
 
         updatePlayerData(cur,player_id,action_type)
 

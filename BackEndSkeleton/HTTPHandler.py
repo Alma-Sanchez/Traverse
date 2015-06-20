@@ -74,11 +74,10 @@ class gameScreen:
 		self.render = web.template.render('templates/')
 	def GET(self):
 		playerStateObject = PlayerState()
-		return self.render.gameScreen()
+		return self.render.StepPrototype(DBManager.getStepTextFromDB(playerStateObject.player_id))
 	def POST(self):
 		playerStateObject = PlayerState()
 		action = web.input()
-
 		if action['main'] == 'trueTest':
 			raise web.seeother('/end')
 
