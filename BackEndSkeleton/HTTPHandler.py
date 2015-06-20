@@ -55,7 +55,7 @@ class storyScreen:
 		self.render = web.template.render('templates/')
 	def GET(self):
 		playerStateObject = PlayerState()
-		return self.render.storyScreen()
+		return self.render.storyScreen(DBManager.getCharacterData(playerStateObject.player_id))
 	def POST(self):
 		playerStateObject = PlayerState()
 		action = web.input()

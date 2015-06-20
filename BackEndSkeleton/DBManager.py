@@ -230,7 +230,7 @@ def getCharacterData(player_id):
         getCharacterData(2) => 2, Diana, 1965.16.32a-b
     """
     conn,cur = connectToDB()
-    cur.execute("select Current_Character_Action_ID from Player_Data where Player_ID =:player_id", {"player_id",player_id})
+    cur.execute("select Current_Character_Action_ID from Player_Data where Player_ID =:player_id", {"player_id":player_id})
     current_character_action = cur.fetchone()[0]
     cur.execute("select Current_Character_ID from Player_Character_Action where Character_Action_ID =:current_character_action", {"current_character_action":current_character_action})
     return cur.fetchone()[0]
