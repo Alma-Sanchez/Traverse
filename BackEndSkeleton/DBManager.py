@@ -26,7 +26,7 @@ def commitToDB(connection):
         connection: A connection to a database.
 
     Return:
-        TAYLOR PLEASE CHECK TO SEE IF RETURNING CONNECTION.COMMIT() WORKS.
+        None
     """
     connection.commit()
 
@@ -38,7 +38,7 @@ def closeDB(connection):
         connection: A connection to a database.
 
     Return:
-        TAYLOR PLEASE CHECK TO SEE IF RETURNING CONNECTION.CLOSE() WORKS.
+       None 
     """
     connection.close()
 
@@ -46,6 +46,12 @@ def checkDB():
     """
     This function checks to see if the connected database has 13 tables. 
     If the table number is not 13, then this function drops pre-existing tables and creates new tables.
+
+    Parameter:
+        None
+
+    Returns:
+        None
     """
     conn,cur = connectToDB()
     cur.execute("select * from sqlite_master where type='table'")
@@ -68,7 +74,7 @@ def getPlayerFromDB(ip):
     Returns:
         tuple: A row from the Player_Data table associated with the player's IP address.
 
-    Examples:
+    Example:
         getPlayerFromDB(playerinfo.ip) => (1,1.1.1.1,2)
     """
 
@@ -80,7 +86,16 @@ def getPlayerFromDB(ip):
 
 def getPlayerCharacterActionFromDB(player_id):
     """
-    NEED DOCSTRING.
+    This funciton will return the player's most recently selected character
+
+    Parameters:
+        ip (int): the IP addess of the player connecting to the web.py server
+
+    Returns:
+        tuple: a Row from the Player_Character_Action table associated with the player's ip address
+
+    Example:
+        getPlayerCharacterActionFromDB(1.1.1.1.1) => (2,1,3,3)
     """
     conn,cur = connectToDB()
     cur.execute("select * from Player_Character_Action where Player_ID =:player_id", {"player_id": player_id})
@@ -90,7 +105,16 @@ def getPlayerCharacterActionFromDB(player_id):
 
 def getPlayerStoryActionFromDB(player_id):
     """
-    NEED DOCSTRING.
+    This funciton will return the player's most recently selected story
+
+    Parameters:
+        ip (int): the IP addess of the player connecting to the web.py server
+
+    Returns:
+        tuple: a Row from the Player_Story_Action table associated with the player's ip address
+
+    Example:
+        getPlayerStoryActionFromDB(1.1.1.1.1) => (1,3,2,2)
     """
     conn,cur = connectToDB()
     cur.execute("select * from Player_Story_Action where Player_ID =:player_id", {"player_id": player_id})
@@ -100,7 +124,16 @@ def getPlayerStoryActionFromDB(player_id):
 
 def getPlayerStepActionFromDB(player_id):
     """
-    NEED DOCSTRING.
+    This funciton will return the player's most recent step and all associated data
+
+    Parameters:
+        ip (int): the IP addess of the player connecting to the web.py server
+
+    Returns:
+        tuple: a Row from the Player_Step_Action table associated with the player's ip address
+
+    Example:
+        getPlayerStepActionFromDB(1.1.1.1.1) => (1,3,2,3,4,5,1)
     """
     conn,cur = connectToDB()
     cur.execute("select * from Player_Step_Action where Player_ID =:player_id", {"player_id": player_id})
@@ -114,10 +147,14 @@ def getStepDataFromDB(current_step_ID):
     This function will query the database and return the correct step data for the step the player is currently on.
 
     Parameters:
-        Current_Step_ID
+        int: Current_Step_ID
 
     Returns:
         tuple: Step fields
+
+    Example:
+        getStepDataFromDB(3) => (1,3,2,4)
+
     """
     cur = cursorForDB(connectToDB())
     cur.execute("select * from Step_Data where Current_Step_ID =:Step_ID", {"Step_ID": current_step_ID})
@@ -126,13 +163,17 @@ def getStepDataFromDB(current_step_ID):
 
 def getAccessionNumbersFromDB(accession_association):
     """
-    This function will query the database and return the list of possible accesion numbers associated with a particular accession association keyword
+    This function will query the database and return the list of possible 
+    accesion numbers associated with a particular accession association keyword
 
     Parameters:
-        accession_association
+        string: accession_association
 
     Returns:
         tuple: accession numbers
+
+    Example:
+        getAccessionNumbersFromDB(Predator) => 2002.31, 1985.4, 1913.1.3
     """
     cur = cursorForDB(connectToDB())
     cur.execute("select Accession_Number from Accession_Data where Accession_Association =: accessionAssociation", {"accessionAssociation": accession_association})
@@ -140,7 +181,17 @@ def getAccessionNumbersFromDB(accession_association):
 
 def getAccessionAssociationFromDB(accession_number):
     """
-    Need Docstring.
+    This function will query the database and return the assession association
+    associated wiht a particular assession number
+
+    Parameters:
+        string: accession_number 
+
+    Returns:
+        string: accession_association
+
+    Example:
+        getAccessionAssociationFromDB(1965.16.32a-b) => Diana
     """
     conn,cur = connectToDB()
     cur.execute("select Accession_Association from Accession_Association where Accession_Number =:accession_number", {"accession_number":accession_number})
@@ -150,13 +201,17 @@ def getAccessionAssociationFromDB(accession_number):
 
 def getCharacterData(current_character_ID):
     """
-    This function will query the database and return the correct character data for the character the player is currently using.
+    This function will query the database and return the correct character 
+    data for the character the player is currently using.
 
     Parameters:
         Current_Character_ID
 
     Returns:
         tuple: character fields 
+
+    Example:
+        getCharacterData(2) => 2, Diana, 1965.16.32a-b
     """
     conn,cur = connectToDB()
     cur.execute("select * from Step_Data where Current_Character_ID =:currentCharacterID", {"currentCharacterID": current_character_ID})
@@ -164,13 +219,17 @@ def getCharacterData(current_character_ID):
 
 def getStoryData(current_story_ID):
     """
-    This function will query the database and return the correct story data for the story the player is currently playing.
+    This function will query the database and return the correct story data
+    for the story the player is currently playing.
 
     Parameters:
         Current_Story_ID
 
     Returns:
         tuple: story fields
+
+    Example:
+        getStoryData(3) => (3,2,Mixed Dimensions,6)
     """
     conn,cur = connectToDB()
     cur.execute("select * from Story_Data where Current_Story_ID =:currentStoryID", {"currentStoryID": current_story_ID})
@@ -178,7 +237,18 @@ def getStoryData(current_story_ID):
 
 def checkPlayerCharacterInput(cursor,player_character_input):
     """
-    NEED DOCSTRING.
+    This function checks to see if the player has selected a character and returns a boolean
+
+    Parameters:
+        player_character_input - the player's input
+        current_character_ID - the player's selected character
+
+    Returns:
+        Boolean: True is character is selected, False if no character is selected 
+    
+    Example:
+        checkPlayerCharacterInput(2,2) => True
+
     """
     cur = cursor
     cur.execute("select Character_ID from Character_Data where Character_ID =:player_character_input", {"player_character_input": player_character_input})
@@ -190,7 +260,17 @@ def checkPlayerCharacterInput(cursor,player_character_input):
 
 def checkPlayerStoryInput(cursor,player_story_input):
     """
-    NEED DOCSTRING.
+    This function checks to see if the player has selected a story and return a boolean
+
+    Parameters
+        player_story_input - the player's input
+        current_story_ID - the player's selected story
+
+    Returns
+        boolean - True if player has selected a story, False is player has not yet selected a story
+
+    Example
+        checkPlayerStoryInput(3,3) => True
     """
     cur = cursor
 
@@ -213,7 +293,7 @@ def checkPlayerStepInput(cursor,player_input):
     Returns:
         boolean: True if player's input is correct. False if the player's input is incorrect.
 
-    Examples:
+    Example:
         checkPlayerInput(123.12,1) => False
     """
     cur = cursor
@@ -227,7 +307,21 @@ def checkPlayerStepInput(cursor,player_input):
 
 def shouldPlayerAdvance(cursor,player_input,current_step_id):
     """
-    NEED DOCSTRING.
+    This function determines if the player has entered a correct accession number 
+    and is thus able to go on to the next step.  It returns a boolean 
+
+    Parameters:
+        player_input  -the player's input
+        current_step_id - the step Id the player is curenntly on
+        accession_association - the accession association associated wiht the current step
+
+    Returns:
+        boolean - True if the accession number entered by the player matches one of the assession numbers 
+        associated with the assession association, False if the assession numbers do not matches
+
+    Example:
+    shouldPlayerAdvance(Prey, 2002.3, 9) => True
+
     """
     cur = cursor
 
@@ -244,7 +338,14 @@ def shouldPlayerAdvance(cursor,player_input,current_step_id):
 
 def updatePlayerData(cursor, player_id, action_type):
     """
-    NEED DOCSTRING.
+    This function updates the player's data as s/he moves through the game
+
+    Parameters:
+        player_id - the unique number associated with the player
+        action_type - the type of action being updated (character, story or step)
+
+    Returns:
+        None
     """
     cur = cursor
 
@@ -272,7 +373,14 @@ def insertPlayerData(ip):
 
 def insertPlayerCharacterAction(player_id, player_character_input):
     """
-    NEED DOCSTRING.
+    This function will insert a player's new character choice into the SQLite database
+    
+    Parameters:
+        player_id - the unique number associated with the player
+        player_character_input - the character selected by the player
+
+    Returns:
+        None
     """
     conn,cur = connectToDB()
     action_type = "Character_Action"
@@ -289,7 +397,15 @@ def insertPlayerCharacterAction(player_id, player_character_input):
 
 def insertPlayerStoryAction(player_id, player_story_input):
     """
-    NEED DOCSTRING
+    Thus function inserts the player's new story choice into the SQLite database
+
+    Parameters
+        player_id - the unique number associated with the player
+        player_story_input - the story the player has chosen
+
+    Returns
+        None
+
     """
     conn,cur = connectToDB()
     action_type = "Story_Action"
@@ -319,17 +435,22 @@ def insertPlayerStepAction(player_id, player_step_input, current_step_id):
     conn,cur = connectToDB()
     action_type = "Step_Action"
 
+
     if shouldPlayerAdvance(cur, player_step_input, current_step_id):
         cur.execute("select * from Step_Data where Step_ID =:current_step_id",{"current_step_id":current_step_id})
         step_data = cur.fetchone() #Returns a tuple of all the step data that will be used to update player step action.
         cur.execute("select Next_Step_ID from Step_Data where Step_ID =:next_step_id",{"next_step_id":step_data[3]})
         next_step_id = cur.fetchone()[0]
-        cur.execute("insert into Player_Step_Action values (?,?,?,?,?,?)", (None, player_id, step_data[1], step_data[3], next_step_id, player_step_input))
+        cur.execute("insert into Player_Step_Action values (?,?,?,?,?,?,?)", (None, player_id, step_data[1], step_data[3], next_step_id, player_step_input, None))
     else:
         cur.execute("select * from Step_Data where Step_ID =:current_step_id",{"current_step_id":current_step_id})
         step_data = cur.fetchone() #Returns a tuple of all the step data that will be used to update player step action.
-        cur.execute("insert into Player_Step_Action values (?,?,?,?,?,?)", (None, player_id, step_data[2], step_data[1], step_data[3], player_step_input))
+        cur.execute("insert into Player_Step_Action values (?,?,?,?,?,?,?)", (None, player_id, step_data[2], step_data[1], step_data[3], player_step_input, None)
+
     
     updatePlayerData(cur,player_id,action_type)
     commitToDB(conn)
     closeDB(conn)
+
+
+
