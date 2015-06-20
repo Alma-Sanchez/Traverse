@@ -158,25 +158,6 @@ def getStoriesFromDB(Character_ID):
     cur.execute("select Story_ID from Story_Data where Character_ID =: Character_ID", {"Character_ID": Character_ID})
     return cur.fetchall()
 
-def getStepDataFromDB(current_step_ID):
-    """
-    This function will query the database and return the correct step data for the step the player is currently on.
-
-    Parameters:
-        int: Current_Step_ID
-
-    Returns:
-        tuple: Step fields
-
-    Example:
-        getStepDataFromDB(3) => (1,3,2,4)
-
-    """
-    cur = cursorForDB(connectToDB())
-    cur.execute("select * from Step_Data where Current_Step_ID =:Step_ID", {"Step_ID": current_step_ID})
-    return cur.fetchone()
-
-
 def getAccessionNumbersFromDB(accession_association):
     """
     This function will query the database and return the list of possible 
@@ -253,6 +234,28 @@ def getStoryData(player_id):
     cur.execute("select Current_Story_Action_ID from Player_Data where Player_ID =:player_id", {"player_id":player_id})
     current_story_action = cur.fetchone()[0]
     cur.execute("select Current_Story_ID from Player_Story_Action where Story_Action_ID =:current_story_action", {"current_story_action":current_story_action})
+    return cur.fetchone()[0]
+
+def getStepTextFromDB(player_id):
+    """
+    This function will query the database and return the correct step data for the step the player is currently on.
+
+    Parameters:
+        int: Current_Step_ID
+
+    Returns:
+        tuple: Step fields
+
+    Example:
+        getStepDataFromDB(3) => (1,3,2,4)
+
+    """
+    conn,cur = connectToDB()
+    cur.execute("select Current_Step_Action_ID from Player_Data where Player_ID =:player_id", {"player_id":player_id})
+    current_step_action = cur.fetchone()[0]
+    cur.execute("select Current_Step_ID from Player_Story_Action where Story_Action_ID =:current_story_action", {"current_Step_action":current_step_action})
+    step_id = cur.fetchone()[0]
+    cur.execute("select Step_Text from Step_Data where Step_ID =:step_id", {"step_id":step_id})
     return cur.fetchone()[0]
 
 def checkPlayerCharacterInput(cursor,player_character_input):
@@ -434,6 +437,13 @@ def insertPlayerStoryAction(player_id, player_story_input):
         cur.execute("select Story_ID from Story_Data where Story_ID =:player_story_input", {"player_story_input": player_story_input})
         current_story_id = cur.fetchone()[0]
         cur.execute("insert into Player_Story_Action values (?,?,?,?)", (None,player_id,current_story_id,player_story_input))
+
+        updatePlayerData(cur,player_id,action_type)
+
+        action_type = "Step_Action"
+        cur.execute("select * from Step_Data where Story_ID =:current_story_id", {"current_story_id":current_story_id})
+        step_data = cur.fetchone() #Returns a tuple of all the step data that will be used to update player step action.
+        cur.execute("insert into Player_Step_Action values (?,?,?,?,?,?,?)", (None, player_id, step_data[2], step_data[1], step_data[3], player_step_input, None))
 
         updatePlayerData(cur,player_id,action_type)
 
