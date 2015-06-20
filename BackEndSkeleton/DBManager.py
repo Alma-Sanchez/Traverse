@@ -141,6 +141,22 @@ def getPlayerStepActionFromDB(player_id):
     closeDB(conn)
     return player_step_action
 
+def getStoriesFromDB(Character_ID):
+    """
+    This funciton returns a list of all stories associated with a particular Character
+
+    Parameters:
+        Character_ID (int): the ID associated wiht a particular character
+
+    Returns:
+        tuple: all Story_IDs associated with the Character_ID
+
+    Example: 
+        getStoriesFromDB(2) => 2,3,4
+    """
+    conn,cur = connectToDB()
+    cur.execute("select Story_ID from Story_Data where Character_ID =: Character_ID", {"Character_ID": Character_ID})
+    return cur.fetchall()
 
 def getStepDataFromDB(current_step_ID):
     """
