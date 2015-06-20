@@ -78,6 +78,7 @@ class gameScreen:
 	def POST(self):
 		playerStateObject = PlayerState()
 		action = web.input()
+
 		if action['main'] == 'trueTest':
 			raise web.seeother('/end')
 
