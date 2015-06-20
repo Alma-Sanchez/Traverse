@@ -235,7 +235,7 @@ def getCharacterData(player_id):
     cur.execute("select Current_Character_ID from Player_Character_Action where Character_Action_ID =:current_character_action", {"current_character_action":current_character_action})
     return cur.fetchone()[0]
 
-def getStoryData(current_story_ID):
+def getStoryData(player_id):
     """
     This function will query the database and return the correct story data
     for the story the player is currently playing.
@@ -250,8 +250,10 @@ def getStoryData(current_story_ID):
         getStoryData(3) => (3,2,Mixed Dimensions,6)
     """
     conn,cur = connectToDB()
-    cur.execute("select * from Story_Data where Current_Story_ID =:currentStoryID", {"currentStoryID": current_story_ID})
-    return cur.fetchone()
+    cur.execute("select Current_Story_Action_ID from Player_Data where Player_ID =:player_id", {"player_id":player_id})
+    current_story_action = cur.fetchone()[0]
+    cur.execute("select Current_Story_ID from Player_Story_Action where Story_Action_ID =:current_story_action", {"current_story_action":current_story_action})
+    return cur.fetchone()[0]
 
 def checkPlayerCharacterInput(cursor,player_character_input):
     """
