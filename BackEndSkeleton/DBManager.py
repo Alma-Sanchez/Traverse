@@ -215,7 +215,7 @@ def getAccessionAssociationFromDB(accession_number):
     closeDB(conn)
     return accession_association
 
-def getCharacterData(current_character_ID):
+def getCharacterData(player_id):
     """
     This function will query the database and return the correct character 
     data for the character the player is currently using.
@@ -230,8 +230,10 @@ def getCharacterData(current_character_ID):
         getCharacterData(2) => 2, Diana, 1965.16.32a-b
     """
     conn,cur = connectToDB()
-    cur.execute("select * from Step_Data where Current_Character_ID =:currentCharacterID", {"currentCharacterID": current_character_ID})
-    return cur.fetchone()
+    cur.execute("select Current_Character_Action_ID from Player_Data where Player_ID =:player_id", {"player_id",player_id})
+    current_character_action = cur.fetchone()[0]
+    cur.execute("select Current_Character_ID from Player_Character_Action where Character_Action_ID =:current_character_action", {"current_character_action":current_character_action})
+    return cur.fetchone()[0]
 
 def getStoryData(current_story_ID):
     """
@@ -463,10 +465,6 @@ def insertPlayerStepAction(player_id, player_step_input, current_step_id):
         step_data = cur.fetchone() #Returns a tuple of all the step data that will be used to update player step action.
         cur.execute("insert into Player_Step_Action values (?,?,?,?,?,?,?)", (None, player_id, step_data[2], step_data[1], step_data[3], player_step_input, None)
 
-    
     updatePlayerData(cur,player_id,action_type)
     commitToDB(conn)
     closeDB(conn)
-
-
-
