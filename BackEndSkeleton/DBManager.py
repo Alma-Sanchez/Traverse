@@ -89,10 +89,10 @@ def getPlayerCharacterActionFromDB(player_id):
     This funciton will return the player's most recently selected character
 
     Parameters:
-        ip (int): the IP addess of the player connecting to the web.py server
+        id (int): the ID of the player connecting to the web.py server
 
     Returns:
-        tuple: a Row from the Player_Character_Action table associated with the player's ip address
+        tuple: a Row from the Player_Character_Action table associated with the player's ID.
 
     Example:
         getPlayerCharacterActionFromDB(1.1.1.1.1) => (2,1,3,3)
