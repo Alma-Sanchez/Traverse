@@ -1,41 +1,59 @@
+$def with(steptext,stepart,stephint)
+
+
 <!DOCTYPE html>
+<style>
+    body {
+    background-image: url("../static/main.png");
+    background-color: #000000; 
+    background-size: 80%;
+    background-position: center top;
+    background-repeat: no-repeat;}
+</style>
 <html>
+<script type="text/javascript">
+<!--
+    function toggle_visibility(id) {
+       var e = document.getElementById(id);
+       if(e.style.display == 'block')
+          e.style.display = 'none';
+       else
+          e.style.display = 'block';
+    }
+//-->
+</script>
     <head>
         <title>Title of Game</title>        
-        <link rel = "stylesheet" type = "text/css" href = "./static/Styles/gameScrn.css">
     </head>
     <!-- This is going to be the hard page. With pulling the elements from the database -->
     <body>
-        <div class = "game">
-            <form name = "gameMenu" method= "POST">
-                    
-                <input  name="home" method = "POST" type="submit" value="home" class = "homeButton"/>
+        <form name="game" method="POST">
+            <input  name="home" method = "POST" type="image" src="../static/home.png" value="home" class = "homeButton" style="height:35%;left:9.5%;position:fixed;z-index:2"/> <br>
 
-                <input  name="nav" method = "POST" type="submit" value="home" class = "navButton"/>
-            
-            </form>
-        
-        </div>
+            <input  name="nav" method = "POST" type="image" src="../static/navigation.png" value="home" class = "navButton" style="height:25%;top:11%;left:55%;position:fixed;z-index=4"/> <br>
+        </form>
+        <form name="accession" method="POST">
+            <input type="text" method="POST" name="accession" placeholder="Enter your asc #:" style="font-size:25px; background-color:black;border:none;height:4.5%;width:48%;left:19%;top:91.5%;position:fixed;z-index:5"/>
+                <input  name="nav" method = "POST" type="image" src="../static/submit.png" value="home" class = "submitButton" style="height:5%;left:68%;top:91.5%;position:fixed;z-index:5"/> <br>
 
-        <div class="scrollBox">
-                <p>
+        form name="game" method="POST">
+            <input  name="home" method = "POST" type="image" src="../static/home.png" value="home" class = "homeButton" style="height:35%;left:9.5%;position:fixed;z-index:2"/> <br>
+
+            <input  name="nav" method = "POST" type="image" src="../static/navigation.png" value="home" class = "navButton" style="height:25%;top:11%;left:55%;position:fixed;z-index=4"/> <br>
+        </form>
+        <form name="accession" method="POST">
+            <input type="text" method="POST" name="accession" placeholder="Enter your asc #:" style="font-size:25px; background-color:black;border:none;height:4.5%;width:48%;left:19%;top:91.5%;position:fixed;z-index:5"/>
+                <input  name="nav" method = "POST" type="image" src="../static/submit.png" value="home" class = "submitButton" style="height:5%;left:68%;top:91.5%;position:fixed;z-index:5"/> <br>
+
+        <a href="#" onclick="toggle_visibility('foo');"/>
+            <div id="foo">
+                <img src="../static/dialogue.png" style="color:white;width:65%;top:65%;left:17%;position:fixed;z-index:5;">
+                <div class="scrollBox" style="color:white;font:12px;height:30%;width:55%;top:68%;left:22%;position:fixed;z-index:7;overflow:auto;"/>
+                <p> $steptext $stepart $stephint
                 stepText variable goes in here <br>
-                Stories go in here. It'll look better later. But got the scroll box to work! <br> 
-                <br> 
-                <b> Adding more text so you can see it scroll. </b> 
-                <br> Lorem Ipsum <br> is simply dummy text......
-            </p>
-        </div>
-
-        <div class = "answerHere">
-
-            <form name="accession" method = "POST" float="">
-                
-                <p> Answer: </p>
-                    <input type="text" method="POST" name="accession" class = "accessionNum"/>
-
-                    <input  name="main" method = "POST" type="submit" value="trueTest" class = "submitButton"/>
-
-                </form>
+                Stories go in here. It'll look better later. But got the scroll box to work!<br> 
+ 
+            </div>
+        </form>
     </body>
 </html>

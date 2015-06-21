@@ -268,6 +268,79 @@ def getStepTextFromDB(player_id):
     cur.execute("select Step_Text from Step_Data where Step_ID =:step_id", {"step_id":step_id})
     return cur.fetchone()[0]
 
+def getStepArtFromDB(player_id):
+    """
+    This function will query the database and return the correct step art for the step the player is currently on.
+
+    Parameters:
+        int: Current_Step_ID
+
+    Returns:
+
+    Example:
+
+    """
+    conn,cur = connectToDB()
+    cur.execute("select Current_Step_Action_ID from Player_Data where Player_ID =:player_id", {"player_id":player_id})
+    current_step_action = cur.fetchone()[0]
+    cur.execute("select Current_Step_ID from Player_Step_Action where Step_Action_ID =:current_step_action", {"current_step_action":current_step_action})
+    step_id = cur.fetchone()[0]
+    cur.execute("select Step_Art from Step_Data where Step_ID =:step_id", {"step_id":step_id})
+    return cur.fetchone()[0]
+    
+def getHintTextFromDB(player_id):
+    """
+    This function will query the database and return the correct hint data for the step the player is currently on.
+
+    Parameters:
+
+    Returns:
+
+    Example:
+
+    """
+    conn,cur = connectToDB()
+    cur.execute("select Current_Step_Action_ID from Player_Data where Player_ID =:player_id", {"player_id":player_id})
+    current_step_action = cur.fetchone()[0]
+    cur.execute("select Current_Step_ID from Player_Step_Action where Step_Action_ID =:current_step_action", {"current_step_action":current_step_action})
+    step_id = cur.fetchone()[0]
+    cur.execute("select Step_Hint from Step_Data where Step_ID =:step_id", {"step_id":step_id})
+    return cur.fetchone()[0]
+    
+def getStoryIDFromDB(player_id):
+    """
+    This function will query the database and return the correct story ID data for the step the player is currently on.
+
+    Parameters:
+
+    Returns:
+
+    Example:
+
+    """
+    conn,cur = connectToDB()
+    cur.execute("select Current_Step_Action_ID from Player_Data where Player_ID =:player_id", {"player_id":player_id})
+    current_step_action = cur.fetchone()[0]
+    cur.execute("select Current_Step_ID from Player_Step_Action where Step_Action_ID =:current_step_action", {"current_step_action":current_step_action})
+    step_id = cur.fetchone()[0]
+    cur.execute("select Story_ID from Step_Data where Story_ID =:step_id", {"step_id":step_id})
+    return cur.fetchone()[0]
+
+def getNumberofStepsFromDB(story_id):
+    """
+    This function will query the database and return the correct number of steps data for the story the player is currently on.
+
+    Parameters:
+
+    Returns:
+
+    Example:
+
+    """
+    conn,cur = connectToDB()
+    cur.execute("select Number_Of_Steps from Story_Data where Story_ID =:story_id", {"story_id":story_id})
+    return cur.fetchone()[0]
+    
 def checkPlayerCharacterInput(cursor,player_character_input):
     """
     This function checks to see if the player has selected a character and returns a boolean
