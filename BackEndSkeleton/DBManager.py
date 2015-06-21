@@ -122,7 +122,17 @@ def getPlayerStoryActionFromDB(player_id):
     closeDB(conn)
     return player_story_action
 
-def getPlayerStepActionFromDB(player_id):
+
+def gettHighestStepAction(player_id):
+    """
+    """
+    conn,cur = connectToDB()
+    cur.execute("select MAX(Step_ACtion_ID) WHERE Player_ID =:Player_id", {"player_id"; player_id})
+    highest_step_action_ID = cur.fetchone
+    closeBD(conn)
+    return highest_step_action_ID
+
+def getPlayerStepActionFromDB(player_id, highest_step):
     """
     This funciton will return the player's most recent step and all associated data
 
@@ -136,7 +146,7 @@ def getPlayerStepActionFromDB(player_id):
         getPlayerStepActionFromDB(1.1.1.1.1) => (1,3,2,3,4,5,1)
     """
     conn,cur = connectToDB()
-    cur.execute("select * from Player_Step_Action where Player_ID =:player_id", {"player_id": player_id})
+    cur.execute("select * from Player_Step_Action where Player_ID =:player_id and highest_step = highest_step", {"player_id": player_id, "highest_step": highest_step})
     player_step_action = cur.fetchone() 
     closeDB(conn)
     return player_step_action
