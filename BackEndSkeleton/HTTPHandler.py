@@ -81,7 +81,7 @@ class gameScreen:
 	def POST(self):
 		playerStateObject = PlayerState()
 		accession = web.input()['accession']
-		if accession == 'trueTest':
+		if DBManager.shouldPlayerAdvance(cursor, accession, DBManager.getPlayerStepActionFromDB(playerStateObject.player_id, DBManager.gettHighestStepAction(playerStateObject.player_id)):
 			raise web.seeother('/game')
 		else:
 			raise web.seeother('/end')

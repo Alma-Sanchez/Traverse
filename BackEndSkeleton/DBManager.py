@@ -127,8 +127,8 @@ def gettHighestStepAction(player_id):
     """
     """
     conn,cur = connectToDB()
-    cur.execute("select MAX(Step_ACtion_ID) WHERE Player_ID =:Player_id", {"player_id"; player_id})
-    highest_step_action_ID = cur.fetchone
+    cur.execute("select MAX(Step_ACtion_ID) WHERE Player_ID =:Player_id", {"player_id": player_id})
+    highest_step_action_ID = cur.fetchone()
     closeBD(conn)
     return highest_step_action_ID
 
