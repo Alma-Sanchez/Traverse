@@ -1,4 +1,4 @@
-$def with(steptext,stepart,stephint)
+$def with(steptext,stepart,stephint,storytitle)
 
 
 <!DOCTYPE html>
@@ -27,23 +27,16 @@ $def with(steptext,stepart,stephint)
     </head>
     <!-- This is going to be the hard page. With pulling the elements from the database -->
     <body>
-        <form name="game" method="POST">
-            <input  name="home" method = "POST" type="image" src="../static/home.png" value="home" class = "homeButton" style="height:35%;left:9.5%;position:fixed;z-index:2"/> <br>
+        <p type="text" style="z-index:7;top:20%;text-align:center;position:fixed;color:white;font-size:20px;">$storytitle</p>
+        <form name="home" method="POST">
+            <input  name="home" method = "POST" type="image" src="../static/home.png" value="home" class = "homeButton" style="width:48%;left:9.5%;position:fixed;z-index:2"/> <br>
 
-            <input  name="nav" method = "POST" type="image" src="../static/navigation.png" value="home" class = "navButton" style="height:25%;top:11%;left:55%;position:fixed;z-index=4"/> <br>
+            <input  name="home" method = "POST" type="image" src="../static/navigation.png" value="home" class = "navButton" style="width:35%;top:11%;left:55%;position:fixed;z-index=4"/> <br>
         </form>
-        <form name="accession" method="POST">
-            <input type="text" method="POST" name="accession" placeholder="Enter your asc #:" style="font-size:25px; background-color:black;border:none;height:4.5%;width:48%;left:19%;top:91.5%;position:fixed;z-index:5"/>
-                <input  name="nav" method = "POST" type="image" src="../static/submit.png" value="home" class = "submitButton" style="height:5%;left:68%;top:91.5%;position:fixed;z-index:5"/> <br>
 
-        <form name="game" method="POST">
-            <input  name="home" method = "POST" type="image" src="../static/home.png" value="home" class = "homeButton" style="height:35%;left:9.5%;position:fixed;z-index:2"/> <br>
-
-            <input  name="nav" method = "POST" type="image" src="../static/navigation.png" value="home" class = "navButton" style="height:25%;top:11%;left:55%;position:fixed;z-index=4"/> <br>
-        </form>
-        <form name="accession" method="POST">
-            <input type="text" method="POST" name="accession" placeholder="Enter your asc #:" style="font-size:25px; background-color:black;border:none;height:4.5%;width:48%;left:19%;top:91.5%;position:fixed;z-index:5"/>
-                <input  name="nav" method = "POST" type="image" src="../static/submit.png" value="home" class = "submitButton" style="height:5%;left:68%;top:91.5%;position:fixed;z-index:5"/> <br>
+        <form name="home" method="POST">
+            <input type="text" method="POST" name="home" placeholder="Enter your asc #:" style="font-size:25px; background-color:black;border:none;height:4.5%;width:48%;left:19%;top:91.5%;position:fixed;z-index:5"/>
+                <input  name="home" method = "POST" type="image" src="../static/submit.png" value="accession" class = "submitButton" style="height:5%;left:68%;top:91.5%;position:fixed;z-index:5"/> <br>
 
         <a href="#" onclick="toggle_visibility('foo');"/>
             <div id="foo">

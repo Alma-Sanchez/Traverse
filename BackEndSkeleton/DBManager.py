@@ -152,8 +152,13 @@ def getPlayerStepActionFromDB(player_id, highest_step):
     cur.execute("select * from Player_Step_Action where Player_ID =:player_id and Current_Step_ID =:highest_step", {"player_id": player_id, "highest_step": highest_step})
     player_step_action = cur.fetchone()
     closeDB(conn)
-    print player_step_action
     return player_step_action
+
+def getStoryTitle(story_id):
+    conn,cur=connectToDB()
+    cur.execute("select Title_Of_Story from Story_Data where Story_ID=:story_id", {"story_id":story_id})
+    story_title=cur.fetchone()
+    return story_title[0]
 
 def getStoriesFromDB(Character_ID):
     """

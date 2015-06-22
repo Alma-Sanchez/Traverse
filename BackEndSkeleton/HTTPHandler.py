@@ -17,7 +17,8 @@ class homeScreen:
 			'/char',"charScreen",
 			'/story',"storyScreen",
 			'/game',"gameScreen",
-			'/end',"endScreen"
+			'/end',"endScreen",
+			'/homeScreen', "homeScreen"
 
 		) #The structure of the url and the name of the class to send the request to.
 		self.render = web.template.render('templates/') #The file path for HTML templates.
@@ -77,19 +78,23 @@ class gameScreen:
 		self.render = web.template.render('templates/')
 	def GET(self):
 		playerStateObject = PlayerState()
+		print 
 		current_story_ID=DBManager.getPlayerStepActionFromDB(playerStateObject.player_id, DBManager.getHighestStepAction(playerStateObject.player_id))
-		return self.render.gameScreen(DBManager.getStepTextFromDB(current_story_ID),DBManager.getStepArtFromDB(playerStateObject.player_id),DBManager.getHintTextFromDB(playerStateObject.player_id))
+		title=DBManager.getStoryTitle(DBManager.getStoryData(playerStateObject.player_id))
+		text=DBManager.getStepTextFromDB(current_story_ID)
+		art=DBManager.getStepArtFromDB(playerStateObject.player_id)
+		hint=DBManager.getHintTextFromDB(playerStateObject.player_id)
+		return self.render.gameScreen(text,art,hint,title)
 	def POST(self):
 		playerStateObject = PlayerState()
-		accession = web.input()['accession']
-		print playerStateObject.player_id
-		print DBManager.getHighestStepAction(playerStateObject.player_id)
-		print DBManager.getPlayerStepActionFromDB(playerStateObject.player_id, DBManager.getHighestStepAction(playerStateObject.player_id))
-		print DBManager.shouldPlayerAdvance(accession, DBManager.getPlayerStepActionFromDB(playerStateObject.player_id, DBManager.getHighestStepAction(playerStateObject.player_id)))
-		if DBManager.shouldPlayerAdvance(accession, DBManager.getPlayerStepActionFromDB(playerStateObject.player_id, DBManager.getHighestStepAction(playerStateObject.player_id)))==True:
-			raise web.seeother('/game')
-		else:
-			raise web.seeother('/end')
+		if web.input()['home']=='home':
+			raise web.seeother('/homeScreen')
+		if web.input()['home']=='accession':
+			accession= web.input()['home']
+			if DBManager.shouldPlayerAdvance(accession, DBManager.getPlayerStepActionFromDB(playerStateObject.player_id, DBManager.getHighestStepAction(playerStateObject.player_id)))==True:
+				raise web.seeother('/game')
+			else:
+				raise web.seeother('/end')
 
 class endScreen:
 	def __init__(self):
