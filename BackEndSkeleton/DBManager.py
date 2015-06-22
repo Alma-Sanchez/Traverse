@@ -253,7 +253,7 @@ def getCharacterData(player_id):
     cur.execute("select Current_Character_ID from Player_Character_Action where Character_Action_ID =:current_character_action", {"current_character_action":current_character_action})
     return cur.fetchone()[0]
 
-def getStoryData(player_id):
+def getStoryIDFromDB(player_id):
     """
     This function will query the database and return the correct story data
     for the story the player is currently playing.
@@ -268,10 +268,19 @@ def getStoryData(player_id):
         getStoryData(3) => (3,2,Mixed Dimensions,6)
     """
     conn,cur = connectToDB()
-    cur.execute("select Current_Story_Action_ID from Player_Data where Player_ID =:player_id", {"player_id":player_id})
-    current_story_action = cur.fetchone()[0]
-    cur.execute("select Current_Story_ID from Player_Story_Action where Story_Action_ID =:current_story_action", {"current_story_action":current_story_action})
-    return cur.fetchone()[0]
+    cur.execute("select Current_Character_Action_ID from Player_Data where Player_ID =:player_id", {"player_id":player_id})
+    current_character_action_id = cur.fetchone()[0]
+    print current_character_action_id
+    cur.execute("select Current_Character_ID from Player_Character_Action where Character_Action_ID =:current_character_action_id", {"current_character_action_id":current_character_action_id})
+    character_id = cur.fetchone()[0]
+    cur.execute("select Story_ID from Story_Data where Character_ID =:character_id", {"character_id":character_id})
+    story1,story2,story3 = cur.fetchall()
+    
+    story1 = str(story1[0])
+    story2 = str(story2[0])
+    story3 = str(story3[0])
+    
+    return story1,story2,story3
 
 def getStepTextFromDB(step_id):
     """
@@ -328,25 +337,6 @@ def getHintTextFromDB(player_id):
     cur.execute("select Current_Step_ID from Player_Step_Action where Step_Action_ID =:current_step_action", {"current_step_action":current_step_action})
     step_id = cur.fetchone()[0]
     cur.execute("select Step_Hint from Step_Data where Step_ID =:step_id", {"step_id":step_id})
-    return cur.fetchone()[0]
-    
-def getStoryIDFromDB(player_id):
-    """
-    This function will query the database and return the correct story ID data for the step the player is currently on.
-
-    Parameters:
-
-    Returns:
-
-    Example:
-
-    """
-    conn,cur = connectToDB()
-    cur.execute("select Current_Step_Action_ID from Player_Data where Player_ID =:player_id", {"player_id":player_id})
-    current_step_action = cur.fetchone()[0]
-    cur.execute("select Current_Step_ID from Player_Step_Action where Step_Action_ID =:current_step_action", {"current_step_action":current_step_action})
-    step_id = cur.fetchone()[0]
-    cur.execute("select Story_ID from Step_Data where Story_ID =:step_id", {"step_id":step_id})
     return cur.fetchone()[0]
 
 def getNumberofStepsFromDB(story_id):

@@ -59,17 +59,19 @@ class storyScreen:
 		self.render = web.template.render('templates/')
 	def GET(self):
 		playerStateObject = PlayerState()
-		return self.render.storyScreen(DBManager.getCharacterData(playerStateObject.player_id))
+		story1,story2,story3 = DBManager.getStoryIDFromDB(playerStateObject.player_id)
+		return self.render.storyScreen(DBManager.getCharacterData(playerStateObject.player_id),story1,story2,story3)
 	def POST(self):
 		playerStateObject = PlayerState()
 		action = web.input()
-		if action['story'] == '1':
+		story1,story2,story3 = DBManager.getStoryIDFromDB(playerStateObject.player_id)
+		if action['story'] == story1:
 			DBManager.insertPlayerStoryAction(playerStateObject.player_id,action['story'])
 			raise web.seeother('/game')
-		if action['story'] == '2':
+		if action['story'] == story2:
 			DBManager.insertPlayerStoryAction(playerStateObject.player_id,action['story'])
 			raise web.seeother('/game')
-		if action['story'] == '3':
+		if action['story'] == story3:
 			DBManager.insertPlayerStoryAction(playerStateObject.player_id,action['story'])
 			raise web.seeother('/game')
 
@@ -87,7 +89,6 @@ class gameScreen:
 			raise web.seeother('/homeScreen')
 		else:
 			accession= web.input()['home']
-			#broken code, won't end game
 			if DBManager.shouldGameEnd(playerStateObject.player_id):
 				raise web.seeother('/end')
 			else:
