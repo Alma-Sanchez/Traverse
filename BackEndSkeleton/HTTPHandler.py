@@ -77,11 +77,16 @@ class gameScreen:
 		self.render = web.template.render('templates/')
 	def GET(self):
 		playerStateObject = PlayerState()
-		return self.render.gameScreen(DBManager.getStepTextFromDB(playerStateObject.player_id),DBManager.getStepArtFromDB(playerStateObject.player_id),DBManager.getHintTextFromDB(playerStateObject.player_id))
+		current_story_ID=DBManager.getPlayerStepActionFromDB(playerStateObject.player_id, DBManager.getHighestStepAction(playerStateObject.player_id))
+		return self.render.gameScreen(DBManager.getStepTextFromDB(current_story_ID),DBManager.getStepArtFromDB(playerStateObject.player_id),DBManager.getHintTextFromDB(playerStateObject.player_id))
 	def POST(self):
 		playerStateObject = PlayerState()
 		accession = web.input()['accession']
-		if DBManager.shouldPlayerAdvance(cursor, accession, DBManager.getPlayerStepActionFromDB(playerStateObject.player_id, DBManager.gettHighestStepAction(playerStateObject.player_id)):
+		print playerStateObject.player_id
+		print DBManager.getHighestStepAction(playerStateObject.player_id)
+		print DBManager.getPlayerStepActionFromDB(playerStateObject.player_id, DBManager.getHighestStepAction(playerStateObject.player_id))
+		print DBManager.shouldPlayerAdvance(accession, DBManager.getPlayerStepActionFromDB(playerStateObject.player_id, DBManager.getHighestStepAction(playerStateObject.player_id)))
+		if DBManager.shouldPlayerAdvance(accession, DBManager.getPlayerStepActionFromDB(playerStateObject.player_id, DBManager.getHighestStepAction(playerStateObject.player_id)))==True:
 			raise web.seeother('/game')
 		else:
 			raise web.seeother('/end')

@@ -123,14 +123,14 @@ def getPlayerStoryActionFromDB(player_id):
     return player_story_action
 
 
-def gettHighestStepAction(player_id):
+def getHighestStepAction(player_id):
     """
     """
     conn,cur = connectToDB()
-    cur.execute("select MAX(Step_ACtion_ID) WHERE Player_ID =:Player_id", {"player_id": player_id})
+    cur.execute("select MAX(Step_Action_ID) from Player_Step_Action where Player_ID =:player_id", {"player_id": player_id})
     highest_step_action_ID = cur.fetchone()
-    closeBD(conn)
-    return highest_step_action_ID
+    closeDB(conn)
+    return highest_step_action_ID[0]
 
 def getPlayerStepActionFromDB(player_id, highest_step):
     """
@@ -146,9 +146,13 @@ def getPlayerStepActionFromDB(player_id, highest_step):
         getPlayerStepActionFromDB(1.1.1.1.1) => (1,3,2,3,4,5,1)
     """
     conn,cur = connectToDB()
-    cur.execute("select * from Player_Step_Action where Player_ID =:player_id and highest_step = highest_step", {"player_id": player_id, "highest_step": highest_step})
-    player_step_action = cur.fetchone() 
+    #cur.execute("select * from Player_Step_Action where Player_ID =:player_id", {"player_id": player_id})
+    #something=cur.fetchall()
+    #cur.execute("select * from something where Current_Step_ID=:highest_step", {"highest_step":highest_step})
+    cur.execute("select * from Player_Step_Action where Player_ID =:player_id and Current_Step_ID =:highest_step", {"player_id": player_id, "highest_step": highest_step})
+    player_step_action = cur.fetchone()
     closeDB(conn)
+    print player_step_action
     return player_step_action
 
 def getStoriesFromDB(Character_ID):
@@ -246,7 +250,7 @@ def getStoryData(player_id):
     cur.execute("select Current_Story_ID from Player_Story_Action where Story_Action_ID =:current_story_action", {"current_story_action":current_story_action})
     return cur.fetchone()[0]
 
-def getStepTextFromDB(player_id):
+def getStepTextFromDB(step_id):
     """
     This function will query the database and return the correct step data for the step the player is currently on.
 
@@ -261,12 +265,8 @@ def getStepTextFromDB(player_id):
 
     """
     conn,cur = connectToDB()
-    cur.execute("select Current_Step_Action_ID from Player_Data where Player_ID =:player_id", {"player_id":player_id})
-    current_step_action = cur.fetchone()[0]
-    cur.execute("select Current_Step_ID from Player_Step_Action where Step_Action_ID =:current_step_action", {"current_step_action":current_step_action})
-    step_id = cur.fetchone()[0]
     cur.execute("select Step_Text from Step_Data where Step_ID =:step_id", {"step_id":step_id})
-    return cur.fetchone()[0]
+    return cur.fetchone()
 
 def getStepArtFromDB(player_id):
     """
@@ -387,7 +387,7 @@ def checkPlayerStoryInput(cursor,player_story_input):
     else:
         return False
 
-def checkPlayerStepInput(cursor,player_input):
+def checkPlayerStepInput(player_input):
     """
     This function checks the player input with the current step 
     and returns a boolean if the player's input is correct.
@@ -402,7 +402,7 @@ def checkPlayerStepInput(cursor,player_input):
     Example:
         checkPlayerInput(123.12,1) => False
     """
-    cur = cursor
+    conn,cur = connectToDB()
     
     cur.execute("select * from Accession_Association where Accession_Number =:player_input", {"player_input":player_input})
     
@@ -411,7 +411,7 @@ def checkPlayerStepInput(cursor,player_input):
     else:
         return False
 
-def shouldPlayerAdvance(cursor,player_input,current_step_id):
+def shouldPlayerAdvance(player_input,current_step_id):
     """
     This function determines if the player has entered a correct accession number 
     and is thus able to go on to the next step.  It returns a boolean 
@@ -429,11 +429,10 @@ def shouldPlayerAdvance(cursor,player_input,current_step_id):
     shouldPlayerAdvance(Prey, 2002.3, 9) => True
 
     """
-    cur = cursor
-
-    if checkPlayerStepInput(cur, player_input):
+    conn,cur = connectToDB()
+    if checkPlayerStepInput(player_input):
         cur.execute("select Accession_Association from Step_Data where Step_ID =:current_step_id", {"current_step_id":current_step_id})
-        current_step_association = cur.fetchone()[0]
+        current_step_association = cur.fetchone()
         cur.execute("select Accession_Association from Accession_Association where Accession_Number =:player_input", {"player_input":player_input})
         if current_step_association == cur.fetchone()[0]:
             return True
