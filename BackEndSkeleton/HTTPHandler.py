@@ -82,10 +82,12 @@ class gameScreen:
 		return self.render.gameScreen(text,art,hint,title)
 	def POST(self):
 		playerStateObject = PlayerState()
+		print web.input()
 		if web.input()['home']=='home':
 			raise web.seeother('/homeScreen')
-		if web.input()['home']=='accession':
+		else:
 			accession= web.input()['home']
+			#broken code, won't end game
 			if DBManager.shouldGameEnd(playerStateObject.player_id):
 				raise web.seeother('/end')
 			else:

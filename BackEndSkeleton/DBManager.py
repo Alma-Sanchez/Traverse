@@ -373,6 +373,7 @@ def shouldGameEnd(player_id):
     step_action_id = cur.fetchone()[0]
     cur.execute("select Next_Step_ID from Player_Step_Action where Step_Action_ID =:step_action_id", {"step_action_id":step_action_id})
     next_step_id = cur.fetchone()[0]
+    print next_step_id
     if None == next_step_id:
         return True
     else:
@@ -442,7 +443,6 @@ def checkPlayerStepInput(player_input):
     conn,cur = connectToDB()
     
     cur.execute("select * from Accession_Association where Accession_Number =:player_input", {"player_input":player_input})
-    
     if None != cur.fetchone():
         return True
     else:
@@ -467,9 +467,10 @@ def shouldPlayerAdvance(cursor,player_input,current_step_id):
 
     """
     cur = cursor
+    print current_step_id
     if checkPlayerStepInput(player_input):
         cur.execute("select Accession_Association from Step_Data where Step_ID =:current_step_id", {"current_step_id":current_step_id})
-        current_step_association = cur.fetchone()
+        current_step_association = cur.fetchone()[0]
         cur.execute("select Accession_Association from Accession_Association where Accession_Number =:player_input", {"player_input":player_input})
         if current_step_association == cur.fetchone()[0]:
             return True
@@ -588,13 +589,15 @@ def insertPlayerStepAction(player_id, player_step_input):
     step_action_id = cur.fetchone()[0]
     cur.execute("select Current_Step_ID from Player_Step_Action where Step_Action_ID =:step_action_id", {"step_action_id":step_action_id})
     current_step_id = cur.fetchone()[0]
-    if shouldPlayerAdvance(cur, player_step_input, current_step_id):
+    if shouldPlayerAdvance(cur, player_step_input, current_step_id) and not shouldGameEnd(player_id):
+        print 'should advance'
         cur.execute("select * from Step_Data where Step_ID =:current_step_id",{"current_step_id":current_step_id})
         step_data = cur.fetchone() #Returns a tuple of all the step data that will be used to update player step action.
         cur.execute("select Next_Step_ID from Step_Data where Step_ID =:next_step_id",{"next_step_id":step_data[3]})
         next_step_id = cur.fetchone()[0]
         cur.execute("insert into Player_Step_Action values (?,?,?,?,?,?,?)", (None, player_id, step_data[1], step_data[3], next_step_id, player_step_input, None))
     else:
+        print 'should loop'
         cur.execute("select * from Step_Data where Step_ID =:current_step_id",{"current_step_id":current_step_id})
         step_data = cur.fetchone() #Returns a tuple of all the step data that will be used to update player step action.
         cur.execute("insert into Player_Step_Action values (?,?,?,?,?,?,?)", (None, player_id, step_data[2], step_data[1], step_data[3], player_step_input, None))
