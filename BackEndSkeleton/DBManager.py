@@ -154,6 +154,24 @@ def getPlayerStepActionFromDB(player_id, highest_step):
     closeDB(conn)
     return player_step_action
 
+def getDataFromDBForGameScreen(player_id):
+    """
+    """
+    conn,cur = connectToDB()
+    cur.execute("select Current_Story_Action_ID from Player_Data where Player_ID =:player_id", {"player_id":player_id})
+    story_action_id = cur.fetchone()[0]
+    cur.execute("select Current_Story_ID from Player_Story_Action where Story_Action_ID =:story_action_id", {"story_action_id":story_action_id})
+    story_id = cur.fetchone()[0]
+    cur.execute("select Title_Of_Story from Story_Data where Story_ID =:story_id", {"story_id":story_id})
+    title_of_story = cur.fetchone()
+    cur.execute("select Current_Step_Action_ID from Player_Data where Player_ID =:player_id", {"player_id":player_id})
+    step_action_id = cur.fetchone()[0]
+    cur.execute("select Current_Step_ID from Player_Step_Action where Step_Action_ID =:step_action_id", {"step_action_id":step_action_id})
+    step_id = cur.fetchone()[0]
+    cur.execute("select Step_Text,Step_Art,Step_Hint from Step_Data where Step_ID =:step_id", {"step_id":step_id})
+    data_to_return = title_of_story + cur.fetchone()
+    return data_to_return
+
 def getStoryTitle(story_id):
     conn,cur=connectToDB()
     cur.execute("select Title_Of_Story from Story_Data where Story_ID=:story_id", {"story_id":story_id})
@@ -345,7 +363,21 @@ def getNumberofStepsFromDB(story_id):
     conn,cur = connectToDB()
     cur.execute("select Number_Of_Steps from Story_Data where Story_ID =:story_id", {"story_id":story_id})
     return cur.fetchone()[0]
+
+def shouldGameEnd(player_id):
+    """
+    """
+    conn,cur = connectToDB()
     
+    cur.execute("select Current_Step_Action_ID from Player_Data where Player_ID =:player_id", {"player_id":player_id})
+    step_action_id = cur.fetchone()[0]
+    cur.execute("select Next_Step_ID from Player_Step_Action where Step_Action_ID =:step_action_id", {"step_action_id":step_action_id})
+    next_step_id = cur.fetchone()[0]
+    if None == next_step_id:
+        return True
+    else:
+        return False
+
 def checkPlayerCharacterInput(cursor,player_character_input):
     """
     This function checks to see if the player has selected a character and returns a boolean
@@ -416,7 +448,7 @@ def checkPlayerStepInput(player_input):
     else:
         return False
 
-def shouldPlayerAdvance(player_input,current_step_id):
+def shouldPlayerAdvance(cursor,player_input,current_step_id):
     """
     This function determines if the player has entered a correct accession number 
     and is thus able to go on to the next step.  It returns a boolean 
@@ -434,7 +466,7 @@ def shouldPlayerAdvance(player_input,current_step_id):
     shouldPlayerAdvance(Prey, 2002.3, 9) => True
 
     """
-    conn,cur = connectToDB()
+    cur = cursor
     if checkPlayerStepInput(player_input):
         cur.execute("select Accession_Association from Step_Data where Step_ID =:current_step_id", {"current_step_id":current_step_id})
         current_step_association = cur.fetchone()
@@ -537,7 +569,7 @@ def insertPlayerStoryAction(player_id, player_story_input):
         commitToDB(conn)
     closeDB(conn)
 
-def insertPlayerStepAction(player_id, player_step_input, current_step_id):
+def insertPlayerStepAction(player_id, player_step_input):
     """
     This function inserts player action into the database.
 
@@ -552,7 +584,10 @@ def insertPlayerStepAction(player_id, player_step_input, current_step_id):
     conn,cur = connectToDB()
     action_type = "Step_Action"
 
-
+    cur.execute("select Current_Step_Action_ID from Player_Data where Player_ID =:player_id", {"player_id":player_id})
+    step_action_id = cur.fetchone()[0]
+    cur.execute("select Current_Step_ID from Player_Step_Action where Step_Action_ID =:step_action_id", {"step_action_id":step_action_id})
+    current_step_id = cur.fetchone()[0]
     if shouldPlayerAdvance(cur, player_step_input, current_step_id):
         cur.execute("select * from Step_Data where Step_ID =:current_step_id",{"current_step_id":current_step_id})
         step_data = cur.fetchone() #Returns a tuple of all the step data that will be used to update player step action.

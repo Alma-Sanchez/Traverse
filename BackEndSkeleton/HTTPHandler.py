@@ -78,12 +78,7 @@ class gameScreen:
 		self.render = web.template.render('templates/')
 	def GET(self):
 		playerStateObject = PlayerState()
-		print 
-		current_story_ID=DBManager.getPlayerStepActionFromDB(playerStateObject.player_id, DBManager.getHighestStepAction(playerStateObject.player_id))
-		title=DBManager.getStoryTitle(DBManager.getStoryData(playerStateObject.player_id))
-		text=DBManager.getStepTextFromDB(current_story_ID)
-		art=DBManager.getStepArtFromDB(playerStateObject.player_id)
-		hint=DBManager.getHintTextFromDB(playerStateObject.player_id)
+		title,text,art,hint = DBManager.getDataFromDBForGameScreen(playerStateObject.player_id)
 		return self.render.gameScreen(text,art,hint,title)
 	def POST(self):
 		playerStateObject = PlayerState()
@@ -91,10 +86,12 @@ class gameScreen:
 			raise web.seeother('/homeScreen')
 		if web.input()['home']=='accession':
 			accession= web.input()['home']
-			if DBManager.shouldPlayerAdvance(accession, DBManager.getPlayerStepActionFromDB(playerStateObject.player_id, DBManager.getHighestStepAction(playerStateObject.player_id)))==True:
-				raise web.seeother('/game')
-			else:
+			if DBManager.shouldGameEnd(playerStateObject.player_id):
 				raise web.seeother('/end')
+			else:
+				DBManager.insertPlayerStepAction(playerStateObject.player_id,accession)
+				raise web.seeother('/game')
+
 
 class endScreen:
 	def __init__(self):
