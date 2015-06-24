@@ -67,3 +67,18 @@ body {
     z-index: 7;
     overflow: auto;
 }
+
+.nextButton{
+    background-image: url("../submit.png");
+    background-size: 100%;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    width: 13.5%;
+    height: 5.5%;
+    left: 68%;
+    top: 91.5%;
+    position: fixed;
+    z-index: 7;
+    border: none;
+    font-size: 0;
+}
