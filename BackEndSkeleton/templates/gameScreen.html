@@ -1,60 +1,53 @@
 $def with(steptext,stepart,stephint,storytitle)
 
-
 <!DOCTYPE html>
 <html>
-<script type="text/javascript">
-<!--
-function toggle_visibility(id) {
-var e = document.getElementById(id);
-if(e.style.visibility == 'visible')
-    e.style.visibility = 'hidden'
-else
-    e.style.visibility = 'visible'
-}
-//-->
-</script>
-    <head>
+    <script type="text/javascript">
+        function toggle_visibility(id) {
+            var e = document.getElementById(id);
+            if(e.style.visibility == 'visible')
+                e.style.visibility = 'hidden'
+            else
+                e.style.visibility = 'visible'
+        }
+    </script>
 
+    <head>
         <title>Title of Game</title>   
 
          <link rel = "stylesheet" type = "text/css" href = "./static/Styles/gameScrn.css"> 
-
     </head>
-    <!-- This is going to be the hard page. With pulling the elements from the database -->
+
     <body>
         <div class="title" type="text">$storytitle</div>
 
-        <p>
-            <form name="home" method="POST">
+        <form name="home" method="POST">
 
-                <input  name="home" method = "POST" type="submit" value="home" class = "homeButton"/><br>
+            <input  name="home" method = "POST" type="submit" value="home" class = "homeButton"/><br>
 
-                <input  name="home" method = "POST" type="submit" value="home" class = "navButton"/><br>
+            <input  name="home" method = "POST" type="submit" value="home" class = "navButton"/><br>
 
-            </form>
+        </form>
 
-            <form name="home" method="POST">
+        <form name="inputs" method="POST">
 
-                <input type="text" placeholder="  Enter your asc #:" class="inputBar"/>
+            <input name = "textBox" type="text" placeholder="  Enter your asc #:" class="inputBar"/>
 
-                    <input type="submit" class = "submitButton" />
+            <input name = "submitButton" type="submit" value = "submit" class = "submitButton" />
 
             <a href="#" onclick="toggle_visibility('foo');" class="toggle"/>expand/collapse</a>
 
-                <div id="foo">
+            <div id="foo">
 
-                    <img class="textimg" src="./static/dialogue.png">
+                <img class="textimg" src="./static/dialogue.png">
 
-                    <div class="scrollBox"/>
-                    <p> $steptext $stepart $stephint
-                    stepText variable goes in here <br>
-                    Stories go in here. It'll look better later. But got the scroll box to work!<br>
-                    <br>
-                    <br> 
-                </div>
-                
-            </form>
-        </p>
+            <div class="scrollBox"/>
+                <p> 
+                    $steptext $stepart $stephint
+                </p> 
+            </div>
+            
+        </form>
+
     </body>
 </html>

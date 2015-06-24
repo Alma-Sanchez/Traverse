@@ -18,6 +18,7 @@ body {
     padding-left:30%;
     margin-left:40%;
     border:none;
+    font-size: 0;
 }
 .loadstory{
     background-image: url("../load.png");
@@ -25,28 +26,31 @@ body {
     background-repeat: no-repeat;
     background-color:transparent;
     padding-bottom: 15%;
-    padding-left:30%;
-    margin-left:40%;
-    border:none;
+    padding-left: 30%;
+    margin-left: 40%;
+    border: none;
+    font-size: 0;
 }
 .about{
     background-image: url("../about.png");
     background-size: 87%;
     background-repeat: no-repeat;
-    background-color:transparent;
+    background-color: transparent;
     padding-bottom: 15%;
-    padding-left:30%;
-    margin-left:37%;
-    border:none;
+    padding-left: 30%;
+    margin-left: 37%;
+    border: none;
+    font-size: 0;
 }
 .help{
     background-image: url("../help.png");
     background-size: 72%;
     background-repeat: no-repeat;
-    background-color:transparent;
+    background-color: transparent;
     padding-bottom: 10%;
-    padding-left:26%;
-    margin-left:38%;
-    margin-bottom:10%;
-    border:none;
+    padding-left: 26%;
+    margin-left: 38%;
+    margin-bottom: 10%;
+    border: none;
+    font-size: 0;
 }
