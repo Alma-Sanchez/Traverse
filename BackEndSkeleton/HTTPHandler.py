@@ -19,7 +19,8 @@ class homeScreen:
 			'/game',"gameScreen",
 			'/end',"endScreen",
 			'/home', "homeScreen",
-			'/hint', "hintScreen"
+			'/hint', "hintScreen",
+			'/last', "lastScreen"
 
 		) #The structure of the url and the name of the class to send the request to.
 		self.render = web.template.render('templates/') #The file path for HTML templates.
@@ -90,8 +91,8 @@ class gameScreen:
 			raise web.seeother('/home')
 		else:
 			accession= web.input()['home']
-			if DBManager.shouldGameEnd(playerStateObject.player_id):
-				raise web.seeother('/end')
+			if DBManager.needLastScreen(playerStateObject.player_id):
+				raise web.seeother('/last')
 			else:
 				DBManager.insertPlayerStepAction(playerStateObject.player_id,accession)
 				if DBManager.checkPlayerStepInput(accession) is True:
@@ -118,6 +119,21 @@ class hintScreen:
 			else:
 				DBManager.insertPlayerStepAction(playerStateObject.player_id,accession)
 				raise web.seeother('/game')
+
+class lastScreen:
+	def __init__(self):
+		self.render = web.template.render('templates/')
+	def GET(self):
+		playerStateObject = PlayerState()
+		title,text,art,hint = DBManager.getDataFromDBForGameScreen(playerStateObject.player_id)
+		return self.render.lastScreen(text,art,"",title)
+	def POST(self):
+		playerStateObject = PlayerState()
+		action= web.input()['home']
+		if action != None:
+			accession=None
+			DBManager.insertPlayerStepAction(playerStateObject.player_id,accession)
+			raise web.seeother('/end')
 
 class endScreen:
 	def __init__(self):
