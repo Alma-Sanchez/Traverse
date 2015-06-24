@@ -2,51 +2,59 @@ $def with(steptext,stepart,stephint,storytitle)
 
 
 <!DOCTYPE html>
-<style>
-    body {
-    background-image: url("../static/main.png");
-    background-color: #000000; 
-    background-size: 80%;
-    background-position: center top;
-    background-repeat: no-repeat;}
-</style>
 <html>
 <script type="text/javascript">
 <!--
-    function toggle_visibility(id) {
-       var e = document.getElementById(id);
-       if(e.style.display == 'block')
-          e.style.display = 'none';
-       else
-          e.style.display = 'block';
-    }
+function toggle_visibility(id) {
+var e = document.getElementById(id);
+if(e.style.visibility == 'visible')
+    e.style.visibility = 'hidden'
+else
+    e.style.visibility = 'visible'
+}
 //-->
 </script>
     <head>
-        <title>Title of Game</title>        
+
+        <title>Title of Game</title>   
+
+         <link rel = "stylesheet" type = "text/css" href = "./static/Styles/gameScrn.css"> 
+
     </head>
     <!-- This is going to be the hard page. With pulling the elements from the database -->
     <body>
-        <p type="text" style="z-index:7;top:20%;text-align:center;position:fixed;color:white;font-size:20px;">$storytitle</p>
-        <form name="home" method="POST">
-            <input  name="home" method = "POST" type="image" src="../static/home.png" value="home" class = "homeButton" style="width:48%;left:9.5%;position:fixed;z-index:2"/> <br>
+        <div class="title" type="text">$storytitle</div>
 
-            <input  name="home" method = "POST" type="image" src="../static/navigation.png" value="home" class = "navButton" style="width:35%;top:11%;left:55%;position:fixed;z-index=4"/> <br>
-        </form>
+        <p>
+            <form name="home" method="POST">
 
-        <form name="home" method="POST">
-            <input type="text" name="home" placeholder="Enter your asc #:" style="font-size:25px; background-color:black;border:none;height:4.5%;width:48%;left:19%;top:91.5%;position:fixed;z-index:5"/>
-                <input type="image" src="../static/submit.png" class = "submitButton" style="height:5%;left:68%;top:91.5%;position:fixed;z-index:5"/> <br>
+                <input  name="home" method = "POST" type="image" value="home" class = "homeButton"/><br>
 
-        <a href="#" onclick="toggle_visibility('foo');"/>
-            <div id="foo">
-                <img src="../static/dialogue.png" style="color:white;width:65%;top:65%;left:17%;position:fixed;z-index:5;">
-                <div class="scrollBox" style="color:white;font:12px;height:30%;width:55%;top:68%;left:22%;position:fixed;z-index:7;overflow:auto;"/>
-                <p> $steptext $stepart $stephint
-                stepText variable goes in here <br>
-                Stories go in here. It'll look better later. But got the scroll box to work!<br> 
- 
-            </div>
-        </form>
+                <input  name="home" method = "POST" type="image" value="home" class = "navButton"/><br>
+
+            </form>
+
+            <form name="home" method="POST">
+
+                <input type="text" placeholder="  Enter your asc #:" class="inputBar"/>
+
+                    <input type="image" class = "submitButton" />
+
+            <a href="#" onclick="toggle_visibility('foo');" class="toggle"/>expand/collapse</a>
+
+                <div id="foo">
+
+                    <img class="textimg" src="./static/dialogue.png">
+
+                    <div class="scrollBox"/>
+                    <p> $steptext $stepart $stephint
+                    stepText variable goes in here <br>
+                    Stories go in here. It'll look better later. But got the scroll box to work!<br>
+                    <br>
+                    <br> 
+                </div>
+                
+            </form>
+        </p>
     </body>
 </html>
