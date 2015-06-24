@@ -83,42 +83,18 @@ class gameScreen:
 	def GET(self):
 		playerStateObject = PlayerState()
 		title,text,art,hint = DBManager.getDataFromDBForGameScreen(playerStateObject.player_id)
-		return self.render.gameScreen(text,art,"",title)
+		shouldDisplayHint = DBManager.shouldDisplayHint(playerStateObject.player_id)
+		if DBManager.needLastScreen(playerStateObject.player_id):
+			raise web.seeother('/last')
+		return self.render.gameScreen(text,art,hint,title,shouldDisplayHint)
 	def POST(self):
 		playerStateObject = PlayerState()
-		print web.input()
 		if web.input()['home']=='home':
 			raise web.seeother('/home')
 		else:
 			accession= web.input()['home']
-			if DBManager.needLastScreen(playerStateObject.player_id):
-				raise web.seeother('/last')
-			else:
-				DBManager.insertPlayerStepAction(playerStateObject.player_id,accession)
-				if DBManager.checkPlayerStepInput(accession) is True:
-					raise web.seeother('/game')
-				else:
-					raise web.seeother('/hint')
-
-class hintScreen:
-	def __init__(self):
-		self.render = web.template.render('templates/')
-	def GET(self):
-		playerStateObject = PlayerState()
-		title,text,art,hint = DBManager.getDataFromDBForGameScreen(playerStateObject.player_id)
-		return self.render.gameScreen("",art,hint,title)
-	def POST(self):
-		playerStateObject = PlayerState()
-		print web.input()
-		if web.input()['home']=='home':
-			raise web.seeother('/homeScreen')
-		else:
-			accession= web.input()['home']
-			if DBManager.shouldGameEnd(playerStateObject.player_id):
-				raise web.seeother('/end')
-			else:
-				DBManager.insertPlayerStepAction(playerStateObject.player_id,accession)
-				raise web.seeother('/game')
+			DBManager.insertPlayerStepAction(playerStateObject.player_id,accession)
+			raise web.seeother('/game')
 
 class lastScreen:
 	def __init__(self):
@@ -126,12 +102,12 @@ class lastScreen:
 	def GET(self):
 		playerStateObject = PlayerState()
 		title,text,art,hint = DBManager.getDataFromDBForGameScreen(playerStateObject.player_id)
-		return self.render.lastScreen(text,art,"",title)
+		return self.render.lastScreen(text,art,title)
 	def POST(self):
 		playerStateObject = PlayerState()
-		action= web.input()['home']
-		if action != None:
-			accession=None
+		if web.input()['home']=='home':
+			raise web.seeother('/home')
+		else:
 			DBManager.insertPlayerStepAction(playerStateObject.player_id,accession)
 			raise web.seeother('/end')
 

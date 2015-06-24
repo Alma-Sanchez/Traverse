@@ -1,4 +1,4 @@
-$def with(steptext,stepart,stephint,storytitle)
+$def with(steptext,stepart,stephint,storytitle,shouldDisplayHint)
 
 <!DOCTYPE html>
 <html>
@@ -43,7 +43,9 @@ $def with(steptext,stepart,stephint,storytitle)
 
             <div class="scrollBox"/>
                 <p> 
-                    $steptext $stepart $stephint
+                    $steptext $stepart 
+                    $if shouldDisplayHint:
+                        $stephint
                 </p> 
             </div>
             
