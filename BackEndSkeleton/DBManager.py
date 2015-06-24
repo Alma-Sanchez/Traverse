@@ -368,6 +368,22 @@ def shouldGameEnd(player_id):
     else:
         return False
 
+def needLastScreen(player_id):
+    """
+    """
+    conn,cur=connectToDB()
+
+    cur.execute("select Current_Step_Action_ID from Player_Data where Player_ID =:player_id", {"player_id":player_id})
+    step_action_id=cur.fetchone()[0]
+    step=int(step_action_id)+1
+    cur.execute("select Next_Step_ID from Player_Step_Action where Step_Action_ID =:step_action_id", {"step_action_id":step_action_id})
+    next_step_id = cur.fetchone()[0]
+    if "null" == next_step_id:
+        return True
+    else:
+        return False
+
+
 def checkPlayerCharacterInput(cursor,player_character_input):
     """
     This function checks to see if the player has selected a character and returns a boolean
