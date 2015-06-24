@@ -127,7 +127,8 @@ class endScreen:
 		return self.render.endScreen()
 	def POST(self):
 		playerStateObject = PlayerState()
-		pass
+		if web.input()['home']=='home':
+			raise web.seeother('/home')
 
 class PlayerState:
 	def __init__(self):
