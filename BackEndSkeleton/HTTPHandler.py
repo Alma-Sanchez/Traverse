@@ -108,7 +108,7 @@ class lastScreen:
 		if web.input()['home']=='home':
 			raise web.seeother('/home')
 		else:
-			DBManager.insertPlayerStepAction(playerStateObject.player_id,accession)
+			DBManager.insertPlayerStepAction(playerStateObject.player_id)
 			raise web.seeother('/end')
 
 class endScreen:
