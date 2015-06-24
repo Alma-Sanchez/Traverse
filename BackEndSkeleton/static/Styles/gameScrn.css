@@ -15,7 +15,6 @@ body {
     position:fixed;
     color:white;
     font-size:35px;
-    border:none;
     z-index:-1;
 }
 
@@ -27,75 +26,75 @@ body {
     height:30%;
     left:9.5%;
     position:fixed;
-    border:none;
     z-index:2;
+    border: none;
 }
 
 .navButton{
     background-image: url("../navigation.png");
     background-size: 100%;
     background-color: transparent;
-    background-repeat:no-repeat;
-    width:35%;
-    height:30%;
-    top:11%;
-    left:55%;
-    position:fixed;
-    border:none;
-    z-index:3;
+    background-repeat: no-repeat;
+    width: 35%;
+    height: 30%;
+    top: 11%;
+    left: 55%;
+    position: fixed;
+    z-index: 3;
+    border: none;
 }
 
 .inputBar{
-    background-color:black;
-    border:none;
-    font-size:25px;
-    color:white;
-    height:5%;
-    width:48%;
-    top:91.5%;
-    left:19%;
-    position:fixed;
-    z-index:5;
+    background-color: black;
+    border: none;
+    font-size: 25px;
+    color: white;
+    height: 5%;
+    width: 48%;
+    top: 91.5%;
+    left: 19%;
+    position: fixed;
+    z-index: 5;
 }
 
 .submitButton{
     background-image: url("../submit.png");
     background-size: 100%;
     background-color: transparent;
-    width:13.5%;
-    height:5.5%;
-    left:68%;
-    top:91.5%;
-    position:fixed;
-    border:none;
-    z-index:7;
+    width: 13.5%;
+    height: 5.5%;
+    left: 68%;
+    top: 91.5%;
+    position: fixed;
+    z-index: 7;
+    border: none;
 }
 
 .toggle{
-    color:white;
-    top:86.5%;
-    left:62%;
-    position:fixed;
-    z-index:8;
+    color: white;
+    top: 86.5%;
+    left: 62%;
+    position: fixed;
+    z-index: 8;
 }
 
 .textimg{
-    background-color:transparent;
-    width:65%;
-    top:56%;
-    left:17%;
-    position:fixed;
-    z-index:5;
+    background-color: transparent;
+    width: 65%;
+    top: 56%;
+    left: 17%;
+    position: fixed;
+    z-index: 5;
 }
 
 .scrollBox{
-    color:white;
-    font-size:18px;
-    height:30%;
-    width:55%;
-    top:58%;
-    left:22%;
-    position:fixed;
-    z-index:7;
-    overflow:auto;
+    color: white;
+    font-size: 18px;
+    height: 30%;
+    width: 55%;
+    top: 58%;
+    left: 22%;
+    position: fixed;
+    z-index: 7;
+    overflow: auto;
 }
