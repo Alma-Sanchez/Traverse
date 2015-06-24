@@ -105,7 +105,7 @@ class hintScreen:
 	def GET(self):
 		playerStateObject = PlayerState()
 		title,text,art,hint = DBManager.getDataFromDBForGameScreen(playerStateObject.player_id)
-		return self.render.gameScreen("",art,hint,"")
+		return self.render.gameScreen("",art,hint,title)
 	def POST(self):
 		playerStateObject = PlayerState()
 		print web.input()
