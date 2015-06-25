@@ -233,7 +233,7 @@ def getAccessionAssociationFromDB(accession_number):
     closeDB(conn)
     return accession_association
 
-def getCharacterData(player_id):
+def getCharacterData():
     """
     This function will query the database and return the correct character 
     data for the character the player is currently using.
@@ -248,11 +248,13 @@ def getCharacterData(player_id):
         getCharacterData(2) => 2, Diana, 1965.16.32a-b
     """
     conn,cur = connectToDB()
-    cur.execute("select Current_Character_Action_ID from Player_Data where Player_ID =:player_id", {"player_id":player_id})
-    current_character_action = cur.fetchone()[0]
-    cur.execute("select Current_Character_ID from Player_Character_Action where Character_Action_ID =:current_character_action", {"current_character_action":current_character_action})
-    return cur.fetchone()[0]
-
+    cur.execute("select Character_ID from Character_Data")
+    character_id = cur.fetchall()
+    character_id_tuple = ()
+    for character in character_id:
+        character_id_tuple += character
+    return character_id_tuple
+print getCharacterData()
 def getStoryIDFromDB(player_id):
     """
     This function will query the database and return the correct story data

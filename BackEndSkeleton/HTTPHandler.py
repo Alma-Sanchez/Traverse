@@ -42,7 +42,8 @@ class charScreen:
 		self.render = web.template.render('templates/')
 	def GET(self):
 		playerStateObject = PlayerState()
-		return self.render.charScreen()
+		character_ids = DBManager.getCharacterData()
+		return self.render.charScreen(character_ids)
 	def POST(self):
 		playerStateObject = PlayerState()
 		action = web.input()
