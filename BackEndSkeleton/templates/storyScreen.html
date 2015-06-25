@@ -1,15 +1,10 @@
-$def with (poststory,story1,story2,story3)
+$def with (story_ids)
 
  <!DOCTYPE html>
 <html>
      <head>
         <title>Title of Game</title>
-        $if poststory==1:
-            <link rel = "stylesheet" type = "text/css" href = "./static/Styles/storyScrn1.css">
-        $elif poststory==2:
-            <link rel = "stylesheet" type = "text/css" href = "./static/Styles/storyScrn2.css">
-        $else:
-            <link rel = "stylesheet" type = "text/css" href = "./static/Styles/storyScrn3.css">
+        <link rel = "stylesheet" type = "text/css" href = "./static/Styles/storyScrn1.css">
     </head>
     <body>
             <div class = "storyMenu">
@@ -17,11 +12,8 @@ $def with (poststory,story1,story2,story3)
 
                     <form name = "storyMenuButtons" method = "POST">
 
-                        <input name = "story" method = "POST" type = "Submit" value = $story1 class = "story1"/> <br>
-
-                        <input name = "story" method = "POST" type = "Submit" value = $story2 class = "story2"/> <br>
-
-                        <input name = "story" method= "POST" type = "Submit" value = $story3 class = "story3"/> <br>
+                        $for story_id in story_ids:
+                            <input name = "story" method = "POST" type = "Submit" value = $story_id class = "story1"/> <br>
                         
                     </form>
 

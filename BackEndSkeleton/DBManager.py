@@ -168,7 +168,7 @@ def getDataFromDBForGameScreen(player_id):
     step_action_id = cur.fetchone()[0]
     cur.execute("select Current_Step_ID from Player_Step_Action where Step_Action_ID =:step_action_id", {"step_action_id":step_action_id})
     step_id = cur.fetchone()[0]
-    cur.execute("select Step_Text,Step_Art,Step_Hint from Step_Data where Step_ID =:step_id", {"step_id":step_id})
+    cur.execute("select Step_Text,Step_Hint from Step_Data where Step_ID =:step_id", {"step_id":step_id})
     data_to_return = title_of_story + cur.fetchone()
     return data_to_return
 
@@ -192,8 +192,12 @@ def getStoriesFromDB(Character_ID):
         getStoriesFromDB(2) => 2,3,4
     """
     conn,cur = connectToDB()
-    cur.execute("select Story_ID from Story_Data where Character_ID =: Character_ID", {"Character_ID": Character_ID})
-    return cur.fetchall()
+    cur.execute("select Story_ID from Story_Data where Character_ID =:Character_ID", {"Character_ID": Character_ID})
+    story_ids = cur.fetchall()
+    story_id_tuple = ()
+    for story_id in story_ids:
+        story_id_tuple += story_id
+    return story_id_tuple
 
 def getAccessionNumbersFromDB(accession_association):
     """
@@ -254,7 +258,7 @@ def getCharacterData():
     for character in character_id:
         character_id_tuple += character
     return character_id_tuple
-print getCharacterData()
+
 def getStoryIDFromDB(player_id):
     """
     This function will query the database and return the correct story data
@@ -386,7 +390,7 @@ def needLastScreen(player_id):
         return False
 
 
-def checkPlayerCharacterInput(cursor,player_character_input):
+def checkPlayerCharacterInput(player_character_input):
     """
     This function checks to see if the player has selected a character and returns a boolean
 
@@ -401,15 +405,16 @@ def checkPlayerCharacterInput(cursor,player_character_input):
         checkPlayerCharacterInput(2,2) => True
 
     """
-    cur = cursor
+    conn,cur = connectToDB()
     cur.execute("select Character_ID from Character_Data where Character_ID =:player_character_input", {"player_character_input": player_character_input})
     
     if None != cur.fetchone():
         return True
     else:
         return False
+    closeDB(conn)
 
-def checkPlayerStoryInput(cursor,player_story_input):
+def checkPlayerStoryInput(player_story_input):
     """
     This function checks to see if the player has selected a story and return a boolean
 
@@ -423,7 +428,7 @@ def checkPlayerStoryInput(cursor,player_story_input):
     Example
         checkPlayerStoryInput(3,3) => True
     """
-    cur = cursor
+    conn,cur = connectToDB()
 
     cur.execute("select Story_ID from Story_Data where Story_ID =:player_story_input", {"player_story_input": player_story_input})
     
@@ -431,8 +436,9 @@ def checkPlayerStoryInput(cursor,player_story_input):
         return True
     else:
         return False
+    closeDB(conn)
 
-def checkPlayerStepInput(cursor,player_input):
+def checkPlayerStepInput(player_input):
     """
     This function checks the player input with the current step 
     and returns a boolean if the player's input is correct.
@@ -447,13 +453,14 @@ def checkPlayerStepInput(cursor,player_input):
     Example:
         checkPlayerInput(123.12,1) => False
     """
-    cur = cursor
+    conn,cur = connectToDB()
 
     cur.execute("select * from Accession_Association where Accession_Number =:player_input", {"player_input":player_input})
     if None != cur.fetchone():
         return True
     else:
         return False
+    closeDB(conn)
 
 def shouldPlayerAdvance(cursor,player_input,current_step_id):
     """
@@ -475,7 +482,7 @@ def shouldPlayerAdvance(cursor,player_input,current_step_id):
     """
     cur = cursor
 
-    if checkPlayerStepInput(cur,player_input):
+    if checkPlayerStepInput(player_input):
         cur.execute("select Accession_Association from Step_Data where Step_ID =:current_step_id", {"current_step_id":current_step_id})
         current_step_association = cur.fetchone()[0]
         cur.execute("select Accession_Association from Accession_Association where Accession_Number =:player_input", {"player_input":player_input})
@@ -548,7 +555,7 @@ def insertPlayerCharacterAction(player_id, player_character_input):
     conn,cur = connectToDB()
     action_type = "Character_Action"
 
-    if checkPlayerCharacterInput(cur,player_character_input):
+    if checkPlayerCharacterInput(player_character_input):
         cur.execute("select Character_ID from Character_Data where Character_ID =:player_character_input", {"player_character_input": player_character_input})
         current_character_id = cur.fetchone()[0]
         cur.execute("insert into Player_Character_Action values (?,?,?,?)", (None,player_id,current_character_id,player_character_input))
@@ -573,7 +580,7 @@ def insertPlayerStoryAction(player_id, player_story_input):
     conn,cur = connectToDB()
     action_type = "Story_Action"
 
-    if checkPlayerStoryInput(cur,player_story_input):
+    if checkPlayerStoryInput(player_story_input):
         cur.execute("select Story_ID from Story_Data where Story_ID =:player_story_input", {"player_story_input": player_story_input})
         current_story_id = cur.fetchone()[0]
         cur.execute("insert into Player_Story_Action values (?,?,?,?)", (None,player_id,current_story_id,player_story_input))
@@ -609,7 +616,7 @@ def insertPlayerStepAction(player_id, player_step_input=None):
     step_action_id = cur.fetchone()[0]
     cur.execute("select Current_Step_ID from Player_Step_Action where Step_Action_ID =:step_action_id", {"step_action_id":step_action_id})
     current_step_id = cur.fetchone()[0]
-    if shouldPlayerAdvance(cur, player_step_input, current_step_id):
+    if shouldPlayerAdvance(player_step_input, current_step_id):
         cur.execute("select * from Step_Data where Step_ID =:current_step_id",{"current_step_id":current_step_id})
         step_data = cur.fetchone() #Returns a tuple of all the step data that will be used to update player step action.
         cur.execute("select Next_Step_ID from Step_Data where Step_ID =:next_step_id",{"next_step_id":step_data[3]})

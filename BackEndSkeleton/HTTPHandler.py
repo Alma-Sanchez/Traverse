@@ -47,13 +47,7 @@ class charScreen:
 	def POST(self):
 		playerStateObject = PlayerState()
 		action = web.input()
-		if action['Character'] == '1':
-			DBManager.insertPlayerCharacterAction(playerStateObject.player_id,action['Character'])
-			raise web.seeother('/story')
-		elif action['Character'] == '2':
-			DBManager.insertPlayerCharacterAction(playerStateObject.player_id,action['Character'])
-			raise web.seeother('/story')
-		elif action['Character'] == '3':
+		if DBManager.checkPlayerCharacterInput(action['Character']):
 			DBManager.insertPlayerCharacterAction(playerStateObject.player_id,action['Character'])
 			raise web.seeother('/story')
 
@@ -62,19 +56,12 @@ class storyScreen:
 		self.render = web.template.render('templates/')
 	def GET(self):
 		playerStateObject = PlayerState()
-		story1,story2,story3 = DBManager.getStoryIDFromDB(playerStateObject.player_id)
-		return self.render.storyScreen(DBManager.getCharacterData(playerStateObject.player_id),story1,story2,story3)
+		story_ids = DBManager.getStoriesFromDB(playerStateObject.player_id)
+		return self.render.storyScreen(story_ids)
 	def POST(self):
 		playerStateObject = PlayerState()
 		action = web.input()
-		story1,story2,story3 = DBManager.getStoryIDFromDB(playerStateObject.player_id)
-		if action['story'] == story1:
-			DBManager.insertPlayerStoryAction(playerStateObject.player_id,action['story'])
-			raise web.seeother('/game')
-		if action['story'] == story2:
-			DBManager.insertPlayerStoryAction(playerStateObject.player_id,action['story'])
-			raise web.seeother('/game')
-		if action['story'] == story3:
+		if DBManager.checkPlayerStoryInput(action['story']):
 			DBManager.insertPlayerStoryAction(playerStateObject.player_id,action['story'])
 			raise web.seeother('/game')
 
@@ -83,11 +70,11 @@ class gameScreen:
 		self.render = web.template.render('templates/')
 	def GET(self):
 		playerStateObject = PlayerState()
-		title,text,art,hint = DBManager.getDataFromDBForGameScreen(playerStateObject.player_id)
+		title,text,hint = DBManager.getDataFromDBForGameScreen(playerStateObject.player_id)
 		shouldDisplayHint = DBManager.shouldDisplayHint(playerStateObject.player_id)
 		if DBManager.needLastScreen(playerStateObject.player_id):
 			raise web.seeother('/last')
-		return self.render.gameScreen(text,art,hint,title,shouldDisplayHint)
+		return self.render.gameScreen(text,hint,title,shouldDisplayHint)
 	def POST(self):
 		playerStateObject = PlayerState()
 		if web.input()['home']=='home':
