@@ -1,13 +1,14 @@
-Story_ID,Character_ID,Title_of_story,Number_or_Steps
-1,1,Three Ideas,5
-2,1,Mixed Dimensions,7
-3,1,A Story in Statues,5
-4,2,New Deal,3
-5,3,DC Funk,3
-6,4,Gumption,3
-7,5,Gone to Pieces,4
-8,6,Secret President,4
-9,7,Cypher,6
-10,8,Time Travel,4
-11,8,Who Let the Zoo Out,3
-12,8,Adams Origin,2
+Story_ID,Character_ID,Title_Of_Story
+1,1,Washington(1)
+2,2,Salome(1)
+3,3,Diana(1)
+4,1,Washington(2)
+5,4,Turing(1)
+6,3,Diana(2)
+7,3,Diana(3)
+8,2,Salome(2)
+9,4,Turing(2)
+10,1,Washington(3)
+11,1,Washington(4)
+12,4,Turing(3)
+13,2,Salome(3)

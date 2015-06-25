@@ -50,9 +50,9 @@ def createTables(connection):
 	c.execute("CREATE TABLE Archived_Player_Character_Action (Character_Action_ID Int, Player_ID INT, Current_Character_ID INT, Player_Input Text)") #Creates new table named Player_Action with hardcoded parameters.
 	c.execute("CREATE TABLE Archived_Player_Story_Action (Story_Action_ID Int, Player_ID INT, Current_Story_ID INT, Player_Input Text)")
 	c.execute("CREATE TABLE Archived_Player_Step_Action (Step_Action_ID Int, Previous_Step_ID INT, Current_Step_ID INT, Next_Step_ID INT, Player_Input Text)")
-	c.execute("CREATE TABLE Story_Data (Story_ID INT, Character_ID INT, Title_Of_Story TEXT, Number_Of_Steps INT)") #Creates new table named Story_Data with hardcoded parameters.
-	c.execute("CREATE TABLE Character_Data(Character_ID INT, Character_Name TEXT, Accession_Number TEXT)") #Creates new table named Character_Data with hardcoded parameters.
-	c.execute("CREATE TABLE Step_Data(Story_ID INT, Step_ID INT, Previous_step_ID INT, Next_Step_ID INT, Accession_Association TEXT, Step_Text TEXT, Step_Art TEXT, Step_Hint TEXT)") #Creates new table named Step_Data with hardcoded parameters.
+	c.execute("CREATE TABLE Story_Data (Story_ID INT, Character_ID INT, Title_Of_Story TEXT)") #Creates new table named Story_Data with hardcoded parameters.
+	c.execute("CREATE TABLE Character_Data(Character_ID INT, Character_Name TEXT)") #Creates new table named Character_Data with hardcoded parameters.
+	c.execute("CREATE TABLE Step_Data(Story_ID INT, Step_ID INT, Previous_step_ID INT, Next_Step_ID INT, Accession_Association TEXT, Step_Text TEXT, Step_Hint TEXT)") #Creates new table named Step_Data with hardcoded parameters.
 	c.execute("CREATE TABLE Accession_Association(Accession_Association TEXT, Accession_Number TEXT)") #Creates new table named Accession_Association with hardcoded parameters.
 
 def populateTables(connection):
@@ -78,20 +78,20 @@ def populateTables(connection):
 	with open('CSV_file\Character_Data.csv','rb') as character_data_file: #Opens file and assigns it to a variable.
 		spamreader = csv.reader(character_data_file) #Reads the csv file and sets ut as a new variable.
 		for row in spamreader: #Iterates through csv file rows.
-			c.execute("INSERT INTO Character_Data VALUES (?,?,?)", (unicode(row[0], "utf-8"),unicode(row[1], "utf-8"),unicode(row[2], "utf-8"))) #Encodes and inserts data from the csv file.
+			c.execute("INSERT INTO Character_Data VALUES (?,?)", (unicode(row[0], "utf-8"),unicode(row[1], "utf-8"))) #Encodes and inserts data from the csv file.
 	conn.commit() #Commits (permanently changes) the database.
 	character_data_file.close() #Closes the csv file.
 
 	with open('CSV_file\Story_Data.csv', 'rb') as story_data_file: #Opens file and assigns it to a variable.
 		spamreader = csv.reader(story_data_file) #Reads the csv file and sets it as a new variable.
 		for row in spamreader: #Iterates through csv file rows.
-			c.execute("INSERT INTO Story_Data VALUES (?,?,?,?)", (unicode(row[0], "utf-8"),unicode(row[1], "utf-8"),unicode(row[2], "utf-8"),unicode(row[3], "utf-8"))) #Encodes and inserts data from the csv file.
+			c.execute("INSERT INTO Story_Data VALUES (?,?,?)", (unicode(row[0], "utf-8"),unicode(row[1], "utf-8"),unicode(row[2], "utf-8"))) #Encodes and inserts data from the csv file.
 	conn.commit() #Commits (permanently changes) the database.
 	story_data_file.close() #Closes the csv file.
 
 	with open('CSV_file\Step_Data.csv', 'rb') as step_data_file: #Opens file and assigns it to a variable.
 		spamreader = csv.reader(step_data_file) #Reads the csv file and sets it a new variable.
 		for row in spamreader: #Iterates through csv file rows.
-			c.execute("INSERT INTO Step_Data VALUES (?,?,?,?,?,?,?,?)", (unicode(row[0], "utf-8"),unicode(row[1], "utf-8"),unicode(row[2], "utf-8"),unicode(row[3], "utf-8"),unicode(row[4], "utf-8"),unicode(row[5], "utf-8"),unicode(row[6], "utf-8"),unicode(row[7], "utf-8"))) #Encodes and inserts data from the csv file.
+			c.execute("INSERT INTO Step_Data VALUES (?,?,?,?,?,?,?)", (unicode(row[0], "utf-8"),unicode(row[1], "utf-8"),unicode(row[2], "utf-8"),unicode(row[3], "utf-8"),unicode(row[4], "utf-8"),unicode(row[5], "utf-8"),unicode(row[6], "utf-8"))) #Encodes and inserts data from the csv file.
 	conn.commit() #Commits (permanently changes) the database.
 	step_data_file.close() #Closes the csv file.

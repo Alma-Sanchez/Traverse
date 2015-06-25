@@ -1,60 +1,110 @@
-Story_ID,Step_ID,Previous_Step_ID,Next_Step_ID,Accession_association,Step_Text,Step_Art,Step_Hint
-1,1,null,2,Diana,,,
-1,2,1,3,Jack,,,
-1,3,2,4,Forest,,,
-1,4,3,5,Predator,,,
-1,5,4,null,Youth,,,
-2,6,null,7,Diana,,,
-2,7,6,8,Horse,,,
-2,8,7,9,City,,,
-2,9,8,10,Vase,,,
-2,10,9,11,Creature,,,
-2,11,10,12,Portal,,,
-2,12,11,null,New_city,,,
-3,13,null,14,Diana,,,
-3,14,13,15,Other_Diana,,,
-3,15,14,16,Movement,,,
-3,16,15,17,Story,,,
-3,17,16,null,Direction,,,
-4,18,null,2,fruit,,,
-4,19,1,3,work,,,
-4,20,2,null,fun,,,
-5,21,null,2,"""There's nothing wrong with you baby""",,,
-5,22,1,3,"""Don't Try and Take It All In""",,,
-5,23,2,null,"""The 7 OO's of Love""",,,
-6,24,null,2,attack,,,
-6,25,1,3,horses,,,
-6,26,2,null,medal,,,
-7,27,null,28,Bust,,,
-7,28,27,29,Painting,,,
-7,29,28,30,hand,,,
-7,30,29,null,stick,,,
-8,31,null,32,Find a piece of art which evokes feelings of a deeply human experience.,"Hello, I’m Edith Wilson. I was married to Woodrow Wilson, 28th president of the United States. From the outside, my terms as First Lady seems completely ordinary. But from the inside, well, that’s a different matter entirely. Come with me in this quest to unlock the mystery of my story. I will never forget when I first met Woody. It was 1915 and I had been invited to the White House for tea with my good friend Helen Woodrow Bones. Woody had just come in from playing golf and I dare say he was enchanted with me. After many invitations to dinner, automobile rides, and trips on the Potomac on the presidential yacht, Woody told me he fancied me. I even took up golf to spend time with dear Woody. When I finally allowed him to propose, he said, “in this place time is not measured by weeks, or months, or years, but by deep human experiences…”
-",,
-8,32,31,33,Find a work of art depicting a woman caring for a man,"Less than two years after our nuptials, The Great War broke out in Europe. The war took a terrible toll on everyone, including Woody. I did my best to care for him, but after the war’s resolution he suffered a severe stroke. Partly paralyzed, I attended him as best I could.",,
-8,33,32,34,Find a work of art depicting a woman in control from behind the scenes or is not the main focus of the work.,"I did all I could to lighten his load and took over many routine presidential duties: opening mail, filtering through reports, letters from Secretaries and Senators. I set the litmus for deciding what was important enough to garner Woody’s attention and what was not.",,
-8,34,33,null,Find a work of art which features a woman with a secret.,"I was called a “Presidentress” and “Acting First Man” and am still sometimes referred to as the “Secret President” or “First Lady President.” Even if I were the first presidentress, history is rife with other women working behind the scenes. Lady Bird Johnson, Jackie Kennedy, Nancy Regan, just to name a few. We may look sweet and innocent on the outside, but if you look closely…",,
-9,35,null,36,Money,"Locate ‘Money’ by Mel Bochner 3rd Floor, East Wing, Smithsonian American Art Museum. The painting before you contains a password. You must find clues hidden in other works to decode it. All clues are located within the 3rd Floor, East Wing gallery. The following is the cypher needed to decode the artist’s hidden password and unlock what secrets lay within.",,
-9,36,35,37,Atomic; Nenuphar,Find the missing number.,,
-9,37,36,38,untitled; superhighway,Find the missing number.,,
-9,38,37,39,destiny; drag-on,Find the missing number.,,
-9,39,38,40,vigra; x,Find the missing number.,,
-,40,39,41,valencia; maesta,Find the missing number.,,
-,41,40,null,cypher solution ,Enter the cypher. ,,
-,42,,,,,,
-,43,,,,,,
-,44,,,,,,
-,45,,,,,,
-,46,,,,,,
-,47,,,,,,
-,48,,,,,,
-10,49,null,50,Nature,You currently sit in a forest with your companion Clover Adams.  It is your responsibility to escort him on his quest.  Night begins to descend and the king of pop advises you that it may be wise to stop and build a fire.,,
-10,50,49,51,Muse,You now return with plenty of firewood to keep warm for the night.  As you sit down and tend to the fire you notice something odd: the smoke plumes rising from your campsite merge together to create the image of a skull.  You look to Clover to see if she noticed the skulls as well and you observe a very worried look on his face.  She hurriedly tells you to go find the muses as they may have some answers.,,
-10,51,50,52,Null,"You tell the Clover Adams that while foraging for wood you came across a great tree spirit that said it had the power to spare the world from the apocalypse.  However, it has been angered by the way mankind has treated the environment.  Clover trusts your judgement and tells you to try to appeal to the tree spirit. ",,
-10,52,51,53,Horse,You return to Clover Adams to ask for guidance on tracking down these animals. Clover Adams begins to explain that the tree spirit contacted her and that the first animal that needs to be saved is a mystical horse.,,
-10,53,52,54,Bull,"You find the horse and after a short struggle you are able to rein the horse in and mount it. You ride your new companion back to the campsite.  “Great you found the horse!” Clover Adams says. “Now, I hope you brought something red because we need to find our Bull.”",,
-10,54,53,55,TV,"Once you find the bull, it begins to charge at you.  You quickly dodge out of the way injuring your leg in the process. The wound is not serious, but you will not be able to run.  As the bull charges at you once more to finish the job, you feel a warm sensation rush through your body and galloping in your ears.  The horse that you saved earlier has come to your aid and knocks the bull over. You watch the bull and horse stare each other down as if silently communicating. Almost like magic, the bull dips its head and you have the sudden feeling it is now on your side.  After receiving the aid of the bull and horse, there remains one more animal.
+Story_ID,Step_ID,Previous_Step_ID,Next_Step_ID,Accession_Association,Step_Text,Step_Hint
+1,1,null,2,Bounetheau,"Well, they finally did it.  You knew that there was some bad blood between the colonies and the Kingdom, but you were hoping that it never came to this.  The battles near Boston have decided it.  We will go to war with Great Britain.
 
-Clover Adams tells you that the tree spirit wants to see you personally for this final quest.  As you re-enter the forest where you first met the spirit, the spirit begins to speak to you.  The spirit says that this final animal represents the very strength of the world and must be protected at all costs.  In order to better protect it, the tree spirits shows you illusory images of this mythical creature.",,
-10,55,54,56,Zoo,Ah that’s right! Its called a Quadrop.  Its a very rare animal.  It has a weird name if you ask me though. It sounds old to.  Its probably all bones by now.,,
-10,56,55,null,null,"Pleased with your devotion to protecting the environment the tree spirit decides to lend you its power.  A flash of light blinds your vision as wake up next to a campfire with Clover Adams seated opposite you.  As you stir and your vision becomes clear you notice the smoke rising off of the campfire.  You tense up thinking that a skull will appear in the campfire, but instead the shape of a leaf begins to emerge.  The Clover Adams smiles as she suggests you both get rest for the journey tomorrow. ",,
+Find the painting of George Washington in his military uniform.  He has a gloved hand on a cane, and his other hand on a dagger at his hip.  What is the last name of the painter who created this portrait?","(Hint: This piece can be found on the 3rd floor of the Luce Center, in section 16B in drawer 22)."
+1,2,1,3,Wanting,"This is not going to be a war fought by professional soldiers.  The King (wisely) never allowed the colonies to form an army.  This war has cost the colonies almost everything, and your soldiers aren’t getting the pay they’re owed.  You’ve learned that someone has written a petition for the army to mutiny if they don’t receive what they’re owed.  They’ll leave the American people to fend for themselves against the British. You’ve been tirelessly lobbying Congress to get them their money. Your soldiers plan to meet at Newburgh, and you’re going to be there when they do.
+
+Find the bronze plaque depicting what Washington addressing his men at Newburgh.  What is the fifth word of the sentence on the bottom of this plaque?","(Hint: You can find this piece on the 4th floor of the Luce center, in section 46A.)"
+1,3,2,4,Stars,"Against all odds, you and your army have emerged victorious.  The United States are finally free to set an example for the world in republicanism and democracy.  
+
+Find the painting of Washington sitting on top of a rainbow.  Below him is a woman carrying a sword and shield, accompanied by a bald eagle.  She wears a headband with three white shapes on it.  What are the shapes on her headband?"," (Hint: You can find this piece in the 2nd floor, east wing.)"
+1,4,3,5,15,"During the war, Congress granted you powers akin to those of a dictator.  You have even heard rumors that some may ask you to become the king of this fledgling country.  It’s a tempting offer.
+
+Find the bronze sculpture commemorating Washington’s decision about the future of his military career at the end of the Revolutionary War.  Enter the number of buttons visible on Washington’s jacket and vest.","(Hint: You can find this piece in the 2nd floor, east wing.)"
+1,5,4,null,null,"Your military career is over.  You can finally return home to Virginia to retire in peace and pursue your other passion -- agricultural innovation.  You will go on to serve two terms as President of the United States.  A line from your eulogy will reflect your impact on the American people, still felt over 200 years later: “First in war, first in peace, and first in the hearts of his countrymen.”",
+2,6,null,7,2,"Everyone has heard stories of evil stepmothers.  It’s not so surprising to hear of the jealousy of a widow’s new bride toward her beautiful stepdaughter.  But what do you do when the monster is your own mother?  Sometimes you feel insignificant.  Like a fly, watching the world through dozens of different eyes, only trying to anticipate the next time you’ll be swatted.
+
+Find the a place in the museum where there are many different images, always changing, sometimes seeming to make sense and then fading into chaos.  There is one square that remains unchanging.  How many figures are in that square?"," (Hint: You can find this piece in the 3rd floor, north wing)
+"
+2,7,6,8,3,"Your mother has recently remarried.  Your new stepfather is kind to you, but you’ve noticed that in the past year a lot of men have begun to look at you more, talk to you more.  This enrages your mother.  She calls you lazy, ugly, a tramp.  You wonder why someone ever married her -- let alone the King!  Especially since your father is still alive.  Some holy men have come forward to say the marriage is illegitimate.  Your mother’s eyes turn black when she hears their names, and you mostly try to avoid her.
+
+Find a sculpture of a young woman looking out a curtained window.  How many bricks are painted white on the wall outside her window?",
+2,8,7,9,Reiner,"It is your stepfather’s birthday, and everyone wants to see you dance.  You have always loved dancing, but you only dance when you’re alone.  Who knows what your mother will do when she sees you.  You can almost feel the beatings already.  He’s the king, though, so she doesn’t have much say.  You might as well dance your heart out.
+
+Find the bronze statue of the dancer with bobbed hair and a downward gaze.  What is the last name of the artist who created this statue?","(Hint: It’s located in the Luce Center, 4th floor, 47B.)"
+2,9,8,10,Stone,"You finish twirling and your stepfather stares at you, wide-eyed.  He stands up and walks toward you, takes your hand.  He tells you that you can have anything in his kingdom -- anything that you want.  Your mother glides across the open floor and sweeps you off to the side.  Her eyes are dark with fury but she is grinning.  She tells you what you must go to the king and ask for the head of her nemesis, the prophet John the Baptist.  You can barely hold back the tears as you walk to your stepfather and tell him your request.
+
+Find the sculpture of the item you requested.  What material was the item carved from?","(Hint: The piece can be found in the Luce Foundation Center, 4th Floor, 48A)"
+2,10,9,null,null,"You don’t stay to receive your gift.  You steal away during the commotion that always accompanies a public beheading.  You know now that whatever life awaits you alone in the world, it cannot be worse than a sociopathic mother and a stepfather who is in love with you.  You walk until midnight -- no one seems to be looking for you.  You find an area that is hidden off the path and you lie down to sleep a few hours.  You dream of the horror of what you’ve done.",
+7,11,null,12,Diana,"Can you hear me?  Can you hear me?  Oh good, perhaps you can help me.  I’m trapped within this museum and I want so badly to go home, but I need your help.  My name is Diana.  I am the Roman Goddess of the Hunt.  Please come find my statue and I’ll tell you more. 
+
+You are looking for the statue of Diana.  Enter the Accession number to move forward.",
+7,12,11,13,Jack,"Good, you’ve found me!  Now let me explain all of this.  I’ve been trapped in this museum for a while now, and I’ve finally discovered a way to travel back to my home.  There is a key hidden within this museum that will allow me to unlock Three Ideas.  These Ideas will allow me to reconnect with my home and give me the strength to find it again.  But to do any of that I need to you to find the key for me.  I don’t know much about it, only that it represents a childhood game.  Can you find it?
+
+You are looking for a large statue of a toy used in a classic childhood game.  Enter the Accession number to move forward.",
+7,13,12,14,Forest," You’ve found the key!  Now we must unlock the first Idea – the Idea of Life.  You can find it in a picture reminiscent of my home. My natural home is the forest, surrounded by plants and animals.  My home is a place of life.  Seek it out for me.
+
+You are looking for a painting of a forest.  Enter the accession number to move forward.",
+7,14,13,15,Predator,"That’s the first Idea.  I can already feel my connection with home growing stronger.  The key is working.  Let us hurry on to the second Idea before the connection begins to fade.  I told you before that my home was a place of life, but like any place of life, my home is also a place of death.  There was once a young man named Aceton who was hunting in my forest.  He happened upon me while I was bathing in the river.  Such an act was unacceptable for I am a goddess and he was a mere mortal.  I turned him into a deer then and his own hunting dogs chased him down.  In that moment the hunter became the prey, but that is the natural way of my home.  Seek out a forest hunter, seek out the Idea of the Hunt.
+
+You are looking for a statue or painting of a predator.  Enter the accession number to move forward.",
+7,15,14,16,null,"There is only more Idea to find, but I fear that it is the most difficult to seek.  My home is not only a place of life and death, but also a place of youth.  I am forever embodied as a young woman.  A huntress in the prime of her life.  Seek out the Idea of Youth.
+
+You are looking for a statue associated with Youth.  Find it and look at it’s title.  Enter the age of youth to move forward.",
+7,16,15,null,null," And that’s the last Idea I need.  I’ll be going now, back to my forests, back to my home.  Perhaps one day we’ll meet there.  Thank you my friend!",
+8,17,null,18,Salome,"Listen closely, for two worlds need your help.  We’ve had a bit of a problem with interdimensional portals of late and we need someone on the ground to repair any damage that’s been done. You seem like the perfect choice for the job, but before you start, you’ll need a quick debriefing.  Come find your guide.  Her name is Salome. ",
+8,18,17,19,City,"So you’re the new field agent?  Nice to meet you, I’m afraid we don’t have more time for pleasantries.  You’ll have to be off right away if we want these portals closed properly. You have to travel to the New York City, current dimension.  That’s where the portal opened. We’ll be in touch once you arrive.
+
+You are looking for a painting of an urban environment in the winter.  Enter its accession number to move forward.",
+8,19,18,20,Container,"Good, I see you’ve arrived.  Now we caught this one pretty early, so there’s only a few creatures who managed to accidently slip through.  It should be short order to get them back to their home.  First though, you’ll have to find a way to contain them.  They creature in question are aquatic,so you’ll need some sort of container.  But be careful what you choose. they are sensitive to most colors.  Try to pick something red.
+
+You are looking for a red urn.  Enter the accession number to move forward.",
+8,20,19,21,Creature,"That should work perfectly.  Now for the creatures themselves.  My sensors indicated they are close to you.  Remember they are aquatic and quite otherworldly in appearance.
+
+You are looking for two glass statues of aquatic life.  Enter either accession number to move forward",
+8,21,20,22,Portal,"Well aren’t they beautiful little creatures.  It seems you’ve found them just in time. Now you just have to take them through the portal  back to their usual dimension and then the ground team can close everything up.
+
+You are looking for a statue involving light and significant three dimensional aspects.  This is the portal.",
+8,22,21,23,Other_Dimension,"Yep that’s the portal for sure.  Now you just pass through quickly drop off the creatures and your work will be done.
+
+You are looking for a painting representative of the other dimension.  Enter its accession number to move forward",
+8,23,22,null,null,"You’ve done well today field agent. You can relax now your job is finished.  In fact, why don’t you just take a look at that alternate dimension before the ground team arrives to close the portal.  It certainly seems to be a beautiful world.",
+11,24,null,25,Fruit,"We’ve only got somewhere between four and six thousand men. And seventeen hundred are in need of hospital care. They’re unfit for duty. The retreat across New Jersey has hit us hard. I’ve lost contact with General Gates and General Lee, both of whom controll two very import divisions of our army. We’ve lost so much supplies as well. Many of our soldiers enlistments are also set to expire and may just leave. All of these things have left many in doubt of our prospects of winning this war. We must prove them wrong. First to end the bloodshed. Too many of our soldiers have been taken prisoner or killed and the rest of our men are in poor health. We owe it to them to end this so they can go home to their families. And, most importantly, we must win this war to gain independence. This attack tonight, should we succeed, will get us even closer to seeing the end. We’re going to cross tonight. The British will be asleep and off guard. After all, who would expect an attack on Christmas? And with the weather conditions and ice in the water, no one would think anyone would dare cross the Delaware. But to do it we must be smart. The journey will be treacherous. First things first, I need you to help me procure some supplies. Please enter in the accession number of a piece that has fruit in it. Our rations need to be replenished.",
+11,25,24,26,Supplies,"Perfect, our men can now eat a decent meal before tonight. They will need their strength and the morale boost. We can not rest, however. We didn’t just lose food- we lost a lot of weapons. If we do not find more we cannot hope to crush their forces even if we make it across the river safely. That or we could use more manpower. Please see if you can fetch us more soldiers or guns.",
+11,26,25,27,Freedom,"Excellent work. We’ll be much better of now. However, while you were gone I’ve been hearing whispers among the troops. Our intelligence on the British suggests they are planning to cross the Delaware when it freezes over. Luckily it’s not quite frozen over and I doubt they’ll try anything on Christmas. It’s killing morale though. We’ve got to figure out a way to inspire the troops. We to rally them around a symbol of strength and freedom. Let’s see if we can find a flag or an eagle. ",
+11,27,26,28,Horse,It looks like morale has boosted a bit. But we’re not quite ready for tonight. We must move swiftly- it is getting late and the weather is getting worse. The conditions are getting blizzard like and the river itself is only getting icier. If we don’t act soon we’ll lose our opportunity. We only need to collect a few more things. Let’s see if we can find ourselves more horses. We’ll need to take them over in the boats with us. ,
+11,28,27,29,Boat,"Good work, soldier. I think we finally have all of our needed supplies. Now it’s time to cross. All we need now is to get in the boats with our supplies. Everyone is up to speed on our tactical plan and is carrying what they need. We can move out. Let’s find ourselves a boat and show them how it’s done. ",
+11,29,28,null,null,"December 26th, 1776 was our first move against the Hessian forces in Trenton, New Jersey. At 3 in the morning in treacherous conditions we successfully ambushed them. It wouldn’t have been possible without our men and those of the Pennsylvania Navy. Many of these men are experienced watermen. They are seamen, shipbuilders, dockworkers, and ferry operators. With all of their hard work we managed to get our men, horses, and artillery over. But, most importantly, all of these men are heroes. And so are you. Despite the odds stacked against us all, we persevered and we are closer to securing a better future, a future where we are free from British control. And, going forward, let us therefore animate and encourage each other, and show the whole world that a Freeman, contending for liberty on his own ground, is superior to any slavish mercenary on earth. Your own enlistment is up, so you are free to choose a new adventure. But before you go, I’d like to thank you for all of your hard work and service to all of us and your country. We couldn’t have done it without you.",
+12,30,null,31,Bell,"I need more time. But time is one commodity that we cannot afford. Every second that ticks by merely counts another casualty in this war. It’s all because of Enigma, a rotor cipher machine, which enciphers secret messages for the Germans. If we cannot break it, we cannot hope to win this war. But you already know that, of course. That’s why we’re here. To crack Enigma. I’ve got an idea of how to do it, but I need your help. I’ve taken the liberty of drawing up a blueprint for a machine I believe can do it. To create it I’ll need a few things. Each task I’ve written as a riddle or puzzle. I then enciphered it. After all we can’t risk it falling into the wrong hands! To help you out I’ve solved a few letters for you. And don’t worry- if you end up fetching me the wrong thing I’ll be sure to give you a hint. Anyway, good luck, and work swiftly! We’ll start out easy:
+
+Find me a: LEBL
+",Hint: LEBL is an anagram for bell. Please search the museum and enter the accession number of a bell. There is one on the Luce Foundation Center on the 4th floor. 
+12,31,30,32,Orange,"Perfect- just what I need. And you did a great job solving my anagram! Looks like I can make my next task a bit harder. One item down, four more to go. Here’s your next task:
+
+Find me:
+roloc ym si eman ym
+",Hint: If you write “roloc ym si eman ym” backwards you get: my name is my color. I’m an orange. Please search the museum and enter the accession number of an orange. There is a teapot in the Luce Foundation Center on the 4th floor that has an orange on it.
+12,32,31,33,Machine,"Excellent work. Two items down, three more to go. I know these items seem random, but I promise it’ll make sense when we have them all. Trust me. Anyway, here’s your next task (and I’ve decoded a bit to help you out):
+
+Find me:
+Nz obnf nfbot fohjof, hbehfu, uppm, bqqmjbodf, boe efwjdf.
+_y  n_m_ m_ _n _  e_g_ _ e, g_d_ _ t, _ ool, appl_ _ _ ce, _ _ _  d_ v_c_.
+","Hint: If you shift the letters to the left one you get: My name means engine, gadget, tool, appliance, and device. I am a machine. Please search the museum and enter the accession number of a machine."
+12,33,32,34,Box,"We’re almost there. Three items down, two more two go. You’re getting even better at this! This next task is a little bit harder. But I know you can do it. Once we’ve got all 5 items, we’ll know what our machine will be. Here’s your next task:
+
+
+Find me:
+V unir fvk snprf, guerr yrggref, naq fcnpr vafvqr. 
+I  h_v_  _ix  fa_e_, th_ _ _ l_t_e_r_,  _n_  _p_ _ _  _ _ _ _ _ _.","Hint: If you shift the letters over 13 you get: I have six faces, three letters, and space inside. I’m a box. Please search the museum and enter the accession number of a box.
+"
+12,34,33,35,Earth,"Only one more item to go. It’s so hard to believe we’re so close to cracking Enigma. Once we collect this last item we’ll be ready to put everything together. Please enter in the title last item I need:
+
+My title has this in it’s name:
+hwttiou  tar, I ma olyn he.
+Wit_ _ o_ _   a_ _ , I  a_   o_ _ _  eh. ","Hint: If you switch around the letters of “hwttiou  tar, I ma olyn he” you get:Without art, I am only eh. I am Earth. Please enter in “Earth”."
+12,35,34,36,bombe,"I can’t believe it. We’ve got everything we need to proceed. I couldn’t have done it without you. You’ve done some fantastic work. We’ve only got one last thing to do. I’ll let you have the honors of putting it all together. Let’s see if you can discover the name of our machine. We’ll need to use each item we’ve found to do it (a bell, an orange, a machine, a box, and earth).
+
+To find the name of our machine:
+19/00/10/04    19/07/04    05/08/17/18/19    11/04/19 19/04/17    14/05    04/00/02/07    08/19/04/12    22/04”21/04   05/14/20/13/03 .  
+T_ k_   _ h _  f_ rs_  l_ _ _ _ _  o_  _ _ c h  i_e_  w_’v_  f_ _ nd. ","Hint: Each number corresponds to its position in the alphabet where a is 0, b is 1, c is 2, d is 3, and so on. If you correctly substitute the letters in you find, “take the first letter of each item we’ve found”. Box, Orange, Machine, Box, Earth: BOMBE. Please enter BOMBE in the accession input bar to proceed."
+12,36,35,null,null,"Excellent work; it is called bombe. We did it- we’ve stopped Enigma. We can finally end this bloody war. However, even though the war is over we must keep our work to ourselves. We must keep all of our work secret and speak to no one. It’s a matter of national security that no one find out about this. The public will likely not learn of our role in ending this war for many years. We will have to wait to be honored for our contribution until then. However, it is a very small price we must pay. I know I for one find reward enough in knowing no more men and women must give their lives to stop Germany. I suppose it’s goodbye for now. Although none of your future endeavours will likely be as significant as ending World War II, if you’d like to start a new adventure, please press any button.",
+13,37,null,38,Veil,"There is only one thing in life that I desire. I want John’s head on a silver platter. And I will not be happy until that day. When I told my stepfather of it he told be that he will grant me one single wish if I can dance for him. And you’re going to help me. Because I’ll curse you and you’ll end up like the other people who crossed me if you don’t. And you don’t seem like you’d like being dead at the bottom of a river. I know the last few people didn’t. So here’s what I need you to do. I need you to find me a veil- any sort of veil, curtain, screen, headdress, scarf, blanket or covering that conceals things. I need you to find three veils for me in total. Go get me the accession number for one. ",
+13,38,37,39,Lorelei,"Okay one down two to go, but before you move on I need you to check on something. I keep hearing something…. “Lorelei”. Over and over and over I hear it whispered. Everyone who walks by me keeps talking about it too. About how beautiful it is but how lonely it makes them feel. I need you to find it. It sounds like it’s coming from the 3rd floor of the Luce Foundation center. Find the source and enter the accession number.",Hint: It’s 2011.8
+13,39,38,40,Veil,"I hear it. It’s so much louder now. Lorelei….Lorelei… Lore Lay. I now understand all of the whispers. When I look at your ominous beauty I, too, am struck by an overwhelming sense of loneliness. It’s as if I lost someone. Lore Lay… who did you lose? And why do you seem so familiar. But I suppose it doesn’t matter. All I need is two more veils and I will have my wish. Go find me another accession number of a veil.",
+13,40,39,41,Veil," can still hear the echo of her name. And while you’ve been searching for the veil she’s whispered her story to me. She’s like me. She too has had siren powers thrusted upon her even though she does not want it. I wish I couldn’t hear her. Can’t you hear it too? Why am I the only one who can hear it? Since you don’t have an answer for me, how about you go make yourself useful and find the last veil. The sooner I get John’s head, the sooner I can find happiness.",
+13,41,40,42,Head,Excellent work. I can finally dance for my stepfather and get my wish. But it’ll be so hard to hear the music over her whispers. They’re so quiet but I can’t ignore them. And I can’t ignore the loneliness either. It doesn’t matter though because I will have my wish and I will find my happiness. The only thing left is to show my stepfather my wish. Go find “Head of the Prophet”- it should be on the 4th floor of the Luce Foundation Center. Give me the accession number.,
+13,42,41,43,Dance,"...Looking at it no longer fills me with anything. Just emptiness. So much emptiness. That woman, Lore Lay, it is what she feels. It’s the same feeling I have had since the death of Philip the Tetrarch, my husband. But it’s worse for her in some ways. The one she loves is not dead- he’s just far away. But I don’t have time to sit and ponder it. I need to dance now or Herod will become impatient. Please find me the accession number of a dance.",
+13,43,42,44,Aristname,"One wish. I finally have my one wish. Before I use it I need you to do me one last thing. Go back up to Lorelei and give me the full name of the artist.
+",
+13,44,43,45,happiness,"Her creator can fix it. If he changes it so that she still has him, whoever he is. Or find her a friend to join her. My only wish is that she find her happiness, whatever that may mean to her. To make it happen please enter in “happiness” so that Herod will hear my wish.",
+13,45,44,null,null,"Where…. where am I? I’m on the Rhine. Lorelei. I’m on the Lorelei rock. I understand now, Lore Lay. I understand why you were whispering to me. I’m glad I made the wish I did because now we both have our wish.  At first I thought having John’s head would make me feel better. You showed me that it wouldn’t. That it wouldn’t change anything. It wouldn’t bring Phillip back and that getting John’s head wouldn’t fill the hole in my heart. I understand now. We have someone to share everything with. We are no longer alone. Thank you for your help, traveller. Both of us owe you. For your efforts we’ll be sure to watch over you for your future adventures. Best of luck in your future quests!",
