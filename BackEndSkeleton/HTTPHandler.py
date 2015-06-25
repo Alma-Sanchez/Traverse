@@ -2,9 +2,6 @@ import web
 import sqlite3
 import DBManager
 
-
-#THIS IS A CHANGE
-
 class homeScreen:
 	def __init__(self):
 		"""
@@ -18,9 +15,10 @@ class homeScreen:
 			'/story',"storyScreen",
 			'/game',"gameScreen",
 			'/end',"endScreen",
-			'/home', "homeScreen",
 			'/hint', "hintScreen",
 			'/last', "lastScreen"
+			'/about',"aboutScreen",
+			'/help',"helpScreen",
 
 		) #The structure of the url and the name of the class to send the request to.
 		self.render = web.template.render('templates/') #The file path for HTML templates.
@@ -36,6 +34,10 @@ class homeScreen:
 		action = web.input()
 		if action['new'] == 'charScreen':
 			raise web.seeother('/char')
+		elif action['new'] == 'aboutScreen':
+			raise web.seeother('/about')
+		elif action['new'] == 'helpScreen':
+			raise web.seeother('/help')
 
 class charScreen:
 	def __init__(self):
@@ -110,6 +112,24 @@ class lastScreen:
 		else:
 			DBManager.insertPlayerStepAction(playerStateObject.player_id)
 			raise web.seeother('/end')
+
+class aboutScreen:
+	def __init__(self):
+		self.render = web.template.render('templates/')
+	def GET(self):
+		return self.render.aboutScreen()
+	def POST(self):
+		action = web.input()
+		if action['back'] == 'backButton':
+			raise web.seeother('/')
+
+class helpScreen:
+	def __init__(self):
+		self.render = web.template.render('templates/')
+	def GET(self):
+		return self.render.helpScreen()
+	def POST(self):
+		pass
 
 class endScreen:
 	def __init__(self):
