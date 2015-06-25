@@ -1,10 +1,11 @@
 body{
     background-color: #000000;
-    background-image: url("../aboutpage.png");
+    background-image: url("../helppage.png");
     background-size: 80%;
     background-position: center top;
     background-repeat: no-repeat; 
 }
+
 .backButton{
     background-image: url("../back.png");
     background-size: 100%;
@@ -22,7 +23,7 @@ body{
 .scrollBox{
     /*position: center;*/
     color: white;
-    height: 37%;
+    height: 30%;
     width: 55%;
     top: 45%;
     left: 22%;
@@ -30,13 +31,12 @@ body{
     z-index: 7;
     overflow: auto;
     border: 5px solid #B1A272;
-    /*#93834D;*/
 }
 .scrollBox h1{
     text-align: center;
-    font-size: 22px;
+    font-size: 20px;
 }
 .scrollBox p{
     text-align: left;
-    font-size: 17px;
+    font-size: 18px;
 }
