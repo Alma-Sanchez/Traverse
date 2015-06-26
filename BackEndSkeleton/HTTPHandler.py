@@ -53,6 +53,7 @@ class charScreen:
 	def POST(self):
 		playerStateObject = PlayerState()
 		action = web.input()
+		print action
 		if DBManager.checkPlayerCharacterInput(action['Character']):
 			DBManager.insertPlayerCharacterAction(playerStateObject.player_id,action['Character'])
 			raise web.seeother('/story')
@@ -62,7 +63,8 @@ class storyScreen:
 		self.render = web.template.render('templates/')
 	def GET(self):
 		playerStateObject = PlayerState()
-		story_ids = DBManager.getStoriesFromDB(playerStateObject.player_id)
+		story_ids = DBManager.getStoriesFromDB(web.ctx.ip)
+		print story_ids
 		return self.render.storyScreen(story_ids)
 	def POST(self):
 		playerStateObject = PlayerState()
