@@ -20,6 +20,8 @@ class homeScreen:
 			'/end',"endScreen",
 			'/home', "homeScreen",
 			'/hint', "hintScreen",
+			'/about','aboutScreen',
+			'/help','helpScreen',
 			'/last', "lastScreen"
 
 		) #The structure of the url and the name of the class to send the request to.
@@ -36,6 +38,10 @@ class homeScreen:
 		action = web.input()
 		if action['new'] == 'charScreen':
 			raise web.seeother('/char')
+		elif action['new'] == 'aboutScreen':
+			raise web.seeother('/about')
+		elif action['new'] == 'helpScreen':
+			raise web.seeother('/help')
 
 class charScreen:
 	def __init__(self):
@@ -109,6 +115,26 @@ class endScreen:
 		playerStateObject = PlayerState()
 		if web.input()['home']=='home':
 			raise web.seeother('/home')
+
+class aboutScreen:
+	def __init__(self):
+		self.render = web.template.render('templates/')
+	def GET(self):
+		return self.render.aboutScreen()
+	def POST(self):
+		action = web.input()
+		if action['back'] == 'backButton':
+			raise web.seeother('/')
+
+class helpScreen:
+	def __init__(self):
+		self.render = web.template.render('templates/')
+	def GET(self):
+		return self.render.helpScreen()
+	def POST(self):
+		action = web.input()
+		if action['back'] == 'backButton':
+			raise web.seeother('/')
 
 class PlayerState:
 	def __init__(self):
