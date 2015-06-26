@@ -4,12 +4,11 @@ body{
     background-size: 80%;
     background-position: center top;
     background-repeat: no-repeat; 
-    
+    overflow: auto;
 }
 .storyInput{
     margin-top: 57%;
     margin-left: 28%
-
 }
 .story1{
     background-image: url("../choice1.png");

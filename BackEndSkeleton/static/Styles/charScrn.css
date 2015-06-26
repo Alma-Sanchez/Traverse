@@ -4,6 +4,7 @@ body{
     background-size: 80%;
     background-position: center top;
     background-repeat: no-repeat;  
+    overflow: auto;
 }
 .charInput{
     margin-top: 57%;
