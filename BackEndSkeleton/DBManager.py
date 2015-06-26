@@ -79,7 +79,9 @@ def getPlayerFromDB(ip):
     """
 
     conn,cur = connectToDB()
-    cur.execute("select * from Player_Data where IP=:ip", {"ip": ip})
+    cur.execute("select max(Player_ID) from Player_Data where IP=:ip", {"ip": ip})
+    player_id = cur.fetchone()[0]
+    cur.execute("select * from Player_Data where Player_ID =:player_id", {"player_id":player_id})
     player_data = cur.fetchone()
     closeDB(conn)
     return player_data
@@ -178,7 +180,7 @@ def getStoryTitle(story_id):
     story_title=cur.fetchone()
     return story_title[0]
 
-def getStoriesFromDB(Character_ID):
+def getStoriesFromDB(player_ip):
     """
     This funciton returns a list of all stories associated with a particular Character
 
@@ -192,7 +194,11 @@ def getStoriesFromDB(Character_ID):
         getStoriesFromDB(2) => 2,3,4
     """
     conn,cur = connectToDB()
-    cur.execute("select Story_ID from Story_Data where Character_ID =:Character_ID", {"Character_ID": Character_ID})
+    cur.execute("select max(Player_ID) from Player_Data where IP=:ip", {"ip":player_ip})
+    player_id = cur.fetchone()[0]
+    cur.execute("select Current_Character_ID from Player_Character_Action where Player_ID =:player_id", {"player_id":player_id})
+    character_id = cur.fetchone()[0]
+    cur.execute("select Story_ID from Story_Data where Character_ID =:character_id", {"character_id":character_id})
     story_ids = cur.fetchall()
     story_id_tuple = ()
     for story_id in story_ids:
