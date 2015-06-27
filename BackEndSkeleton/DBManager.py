@@ -259,7 +259,7 @@ def getCharacterData():
     """
     conn,cur = connectToDB()
     cur.execute("select Character_ID from Character_Data")
-    character_id = cur.fetchall()[1:]
+    character_id = cur.fetchall() # if you get too many choice boxes it could be b/c the header is in the table itself, if so, please add this or append the db [1:]
     character_id_tuple = ()
     for character in character_id:
         character_id_tuple += character
