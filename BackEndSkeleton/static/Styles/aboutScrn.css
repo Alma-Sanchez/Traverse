@@ -21,6 +21,7 @@ body{
 }
 .scrollBox{
     /*position: center;*/
+    background-color:black;
     color: white;
     height: 37%;
     width: 55%;

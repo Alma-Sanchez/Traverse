@@ -18,6 +18,20 @@ body {
     z-index: -1;
 }
 
+.logo{
+    background-image: url("../logo.png");
+    background-color:transparent;
+    background-repeat:no-repeat;
+    position:fixed;
+    box-shadow: 5% 5% 5% 5% black;
+    left:13%;
+    width:74%;
+    height:30%;
+    background-size:100%;
+    border:0pc;
+    z-index:10;
+}
+
 .homeButton{
     background-image: url("../home.png");
     background-repeat: no-repeat;
@@ -57,12 +71,17 @@ body {
 }
 
 .scrollBox{
+    background-color:black;
+    background-opacity:.4;
     color: white;
     font-size: 18px;
-    height: 30%;
-    width: 55%;
-    top: 58%;
-    left: 22%;
+    height: 50%;
+    width: 55.8%;
+    top: 38.5%;
+    left: 19%;
+    padding-left:3%;
+    padding-right:3%;
+    padding-bottom: 3%;
     position: fixed;
     z-index: 7;
     overflow: auto;
