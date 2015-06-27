@@ -622,7 +622,7 @@ def insertPlayerStepAction(player_id, player_step_input=None):
     step_action_id = cur.fetchone()[0]
     cur.execute("select Current_Step_ID from Player_Step_Action where Step_Action_ID =:step_action_id", {"step_action_id":step_action_id})
     current_step_id = cur.fetchone()[0]
-    if shouldPlayerAdvance(player_step_input, current_step_id):
+    if shouldPlayerAdvance(cur,player_step_input, current_step_id):
         cur.execute("select * from Step_Data where Step_ID =:current_step_id",{"current_step_id":current_step_id})
         step_data = cur.fetchone() #Returns a tuple of all the step data that will be used to update player step action.
         cur.execute("select Next_Step_ID from Step_Data where Step_ID =:next_step_id",{"next_step_id":step_data[3]})
