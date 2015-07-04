@@ -158,21 +158,52 @@ def getPlayerStepActionFromDB(player_id, highest_step):
 
 def getDataFromDBForGameScreen(player_id):
     """
+    This function returns all the informaiton neccessary to populate the game screen 
+    incuding the title of the story, the cuttent step text and the current hint
     """
     conn,cur = connectToDB()
-    cur.execute("select Current_Story_Action_ID from Player_Data where Player_ID =:player_id", {"player_id":player_id})
+    cur.execute("select Max(Character_Action_ID) from Player_Character_Action where Player_ID =:player_id", {"player_id":player_id})
+    char_action_id = cur.fetchone()[0]
+    print char_action_id
+    cur.execute("select * from Player_Character_Action where Character_Action_ID =:char_action_id", {"char_action_id":char_action_id})
+    current_character = cur.fetchone()[2]
+    print current_character
+    cur.execute("select Max(Story_Action_ID) from Player_Story_Action where Player_ID =:player_id", {"player_id":player_id})
     story_action_id = cur.fetchone()[0]
-    cur.execute("select Current_Story_ID from Player_Story_Action where Story_Action_ID =:story_action_id", {"story_action_id":story_action_id})
-    story_id = cur.fetchone()[0]
-    cur.execute("select Title_Of_Story from Story_Data where Story_ID =:story_id", {"story_id":story_id})
-    title_of_story = cur.fetchone()
-    cur.execute("select Current_Step_Action_ID from Player_Data where Player_ID =:player_id", {"player_id":player_id})
+    print story_action_id
+    cur.execute("select * from Player_Story_Action where Story_Action_ID =:story_action_id", {"story_action_id":story_action_id})
+    current_story = cur.fetchone()[2]
+    print current_story
+    cur.execute("select Title_Of_Story from Story_Data where Story_ID =:current_story", {"current_story":current_story})
+    title_of_story = cur.fetchone()[0]
+    print title_of_story
+    cur.execute("select Max(Step_Action_ID) from Player_Step_Action where Player_ID =:player_id", {"player_id":player_id})
     step_action_id = cur.fetchone()[0]
-    cur.execute("select Current_Step_ID from Player_Step_Action where Step_Action_ID =:step_action_id", {"step_action_id":step_action_id})
-    step_id = cur.fetchone()[0]
-    cur.execute("select Step_Text,Step_Hint from Step_Data where Step_ID =:step_id", {"step_id":step_id})
-    data_to_return = title_of_story + cur.fetchone()
+    print step_action_id
+    cur.execute("select * from player_Step_Action where Step_Action_ID =:step_action_id", {"step_action_id":step_action_id})
+    current_step = cur.fetchone()[3]
+    print current_step
+    cur.execute("select * from Step_Data where Step_ID =:current_step", {"current_step":current_step})
+    game_text = cur.fetchone()[5]
+    game_hint = cur.fetchone()
+    if game_hint == None:
+        relevant_game_hint = " "
+    else:
+        relevant_game_hint = game_hint
+    print relevant_game_hint
+    #relevant_game_text = game_text , relevant_game_hint
+    data_to_return = title_of_story , game_text, relevant_game_hint
+    print data_to_return
     return data_to_return
+    
+    #cur.execute("select Current_Step_Action_ID from Player_Data where Player_ID =:player_id", {"player_id":player_id})
+    #step_action_id = cur.fetchone()[0]
+    #cur.execute("select Current_Step_ID from Player_Step_Action where Step_Action_ID =:step_action_id", {"step_action_id":step_action_id})
+    #step_id = cur.fetchone()[0]
+    #cur.execute("select Step_Text,Step_Hint from Step_Data where Step_ID =:step_id", {"step_id":step_id})
+    #data_to_return = title_of_story + cur.fetchone()
+    #return data_to_return
+
 
 def getStoryTitle(story_id):
     conn,cur=connectToDB()
