@@ -219,6 +219,12 @@ def getStoryTitles(player_ip):
         story_title_tuple += story_title
     return story_title_tuple
 
+def getStoryIDFromTitle(title_of_story):
+    conn,cur=connectToDB()
+    cur.execute("select Story_ID from Story_Data where Title_Of_Story=:title_of_story", {"title_of_story":title_of_story})
+    story_id= cur.fetchone()[0]
+    return story_id
+
 def getStoriesFromDB(player_ip):
     """
     This funciton returns a list of all stories associated with a particular Character

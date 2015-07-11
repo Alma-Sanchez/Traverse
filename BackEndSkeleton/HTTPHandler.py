@@ -65,14 +65,13 @@ class storyScreen:
 		playerStateObject = PlayerState()
 		story_ids = DBManager.getStoriesFromDB(web.ctx.ip)
 		story_titles=DBManager.getStoryTitles(web.ctx.ip)
-		print story_ids
-		print story_titles
 		return self.render.storyScreen(story_ids, story_titles)
 	def POST(self):
 		playerStateObject = PlayerState()
 		action = web.input()
-		if DBManager.checkPlayerStoryInput(action['story']):
-			DBManager.insertPlayerStoryAction(playerStateObject.player_id,action['story'])
+		story_id= DBManager.getStoryIDFromTitle(action['story'])
+		if DBManager.checkPlayerStoryInput(story_id):
+			DBManager.insertPlayerStoryAction(playerStateObject.player_id,story_id)
 			raise web.seeother('/game')
 
 class gameScreen:

@@ -4,26 +4,21 @@ $def with (story_ids, story_title)
 <html>
 <head>
   <title>Title of Game</title>
-  <link rel="stylesheet" type="text/css" href="./static/Styles/storyScrn1.css">
+  <link rel="stylesheet" type="text/css" href="./static/Styles/storyScrn.css">
 </head>
 
 <body>
-  <div class="storyMenu">
-    <div class="storyInput">
-      <p>
-      <form name="storyMenuButtons" method="POST">
+  <div class="charMenu">
+  <div class="storyInput">
+    <p>
+      <form method="POST">
         $for story_id in story_ids:
-          <!-- 
-          Gets title for buttons.
-
           $code:
             tupindex=story_ids.index(story_id)
-          $story_title[tupindex]-->
-      
-      <input name="story" method="POST" type="Submit" value=$story_id class="story1"/><br>
+          <input name="story" method="POST" type="Submit" value= $story_title[tupindex] class="stories"/>  <br> 
       </form>
-      </p>
-    </div>
+    </p>
+
   </div>
 </body>
 </html>

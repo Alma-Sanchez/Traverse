@@ -1,21 +1,14 @@
 html { 
     height: 100%; 
-    font-color:white;
-    font-size:18px;
-    font-family:courier;
 }
 
 body{
-    background-image: url("../story.png") no-repeat center center fixed;
+    background: url("../story.png") no-repeat center center fixed;
     -webkit-background-size: contain;
     -moz-background-size: contain;
     -o-background-size: contain;
     background-size: contain;
     background-color: #000000;
-    font-color:white;
-    font-family: verdana;
-    font-size:20px;
-    z-index:3;
 }
 
 .storyInput{
@@ -23,24 +16,11 @@ body{
     left: 27%;
     height:38%;
     width:47%;
-    position:relative;
-    overflow:auto;
-    z-index:3;
-}
-
-title {
-    font-size: 18px;
-    color: white;
-    font-size: 18px;
-    height: 50%;
-    width: 55.5%;
-    top: 38%;
-    left: 19%;
     position:fixed;
-    z-index:20;
+    overflow:auto;
 }
 
-.story1{
+.stories{
     background: url("../choice1.png");
     background-repeat: no-repeat;
     background-size:100%;
@@ -50,12 +30,6 @@ title {
     padding-bottom: 30%;
     margin-bottom: 10%;
     border: none;
-    font-size: 18px;
-    font-color:white;
-    font-family: verdana;
-    position:relativeSSS;
-    width:100%;
-    top:50%;
-    left:50%;
-    z-index:20;
+    color:white;
+    font-size: 20px;
 }
