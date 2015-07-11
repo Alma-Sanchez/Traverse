@@ -185,7 +185,8 @@ def getDataFromDBForGameScreen(player_id):
     print current_step
     cur.execute("select * from Step_Data where Step_ID =:current_step", {"current_step":current_step})
     game_text = cur.fetchone()[5]
-    game_hint = cur.fetchone()
+    cur.execute("select Step_Hint from Step_Data where Step_ID =:current_step", {"current_step":current_step})
+    game_hint = cur.fetchone()[0]
     if game_hint == None:
         relevant_game_hint = " "
     else:

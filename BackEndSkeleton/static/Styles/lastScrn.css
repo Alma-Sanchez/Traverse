@@ -1,10 +1,15 @@
 /* Last Step Screen */
+html { 
+    height: 100%; 
+}
+
 body {
-    background-image: url("../main.png");
+    background: url("../main.png") no-repeat center center fixed;
+    -webkit-background-size: contain;
+    -moz-background-size: contain;
+    -o-background-size: contain;
+    background-size: contain;
     background-color: #000000; 
-    background-size: 80%;
-    background-position: center top;
-    background-repeat: no-repeat;
 }
 
 .title{

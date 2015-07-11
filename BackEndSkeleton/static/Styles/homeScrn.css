@@ -1,14 +1,21 @@
-body {
-    background-color: #000000; 
-    background-image: url("../background.png");
-    background-size: 80%;    
-    background-position: center top;
-    background-repeat: no-repeat; 
+html { 
+    height: 100%; 
 }
+
+body {
+    background: url("../background.png") no-repeat center center fixed;
+    -webkit-background-size: contain;
+    -moz-background-size: contain;
+    -o-background-size: contain;
+    background-size: contain;
+    background-color: #000000; 
+}
+
 .menuInput{
     /*text-align: center;*/
     margin-top: 52%;
 }
+
 .newstory{
     background-image: url("../new.png");
     background-size: 72%;
@@ -20,28 +27,31 @@ body {
     border:none;
     font-size: 0;
 }
+
 .loadstory{
     background-image: url("../load.png");
     background-size: 72%;
     background-repeat: no-repeat;
     background-color:transparent;
-    padding-bottom: 15%;
+    padding-bottom: 14%;
     padding-left: 30%;
     margin-left: 40%;
     border: none;
     font-size: 0;
 }
+
 .about{
     background-image: url("../about.png");
     background-size: 87%;
     background-repeat: no-repeat;
     background-color: transparent;
-    padding-bottom: 13%;
+    padding-bottom: 14%;
     padding-left: 30%;
     margin-left: 37%;
     border: none;
     font-size: 0;
 }
+
 .help{
     background-image: url("../help.png");
     background-size: 66%;

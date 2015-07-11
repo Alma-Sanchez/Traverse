@@ -1,23 +1,22 @@
 $def with (story_ids)
 
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html>
-     <head>
-        <title>Title of Game</title>
-        <link rel = "stylesheet" type = "text/css" href = "./static/Styles/storyScrn1.css">
-    </head>
-    <body>
-            <div class = "storyMenu">
-                <div class = "storyInput">
+<head>
+  <title>Title of Game</title>
+  <link rel="stylesheet" type="text/css" href="./static/Styles/storyScrn1.css">
+</head>
 
-                    <form name = "storyMenuButtons" method = "POST">
-
-                        $for story_id in story_ids:
-                            <input name = "story" method = "POST" type = "Submit" value = $story_id class = "story1"/> <br>
-                        
-                    </form>
-
-                </div>
-            </div>
-    </body>
+<body>
+  <div class="storyMenu">
+    <div class="storyInput">
+      <p>
+      <form name="storyMenuButtons" method="POST">
+        $for story_id in story_ids:
+          <input name="story" method="POST" type="Submit" value=$story_id class="story1"/> <br>
+      </form>
+      </p>
+    </div>
+  </div>
+</body>
 </html>

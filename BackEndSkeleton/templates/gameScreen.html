@@ -1,58 +1,44 @@
-$def with(steptext,stephint,storytitle,shouldDisplayHint)
+$def with(steptext,stephint,storytitle)
 
 <!DOCTYPE html>
 <html>
-    <script type="text/javascript">
-        function toggle_visibility(id) {
-            var e = document.getElementById(id);
-            if(e.style.visibility == 'visible')
-                e.style.visibility = 'hidden'
-            else
-                e.style.visibility = 'visible'
-        }
-    </script>
+  <script type="text/javascript">
+    function toggle_visibility(id) {
+        var e = document.getElementById(id);
+        if(e.style.visibility == 'visible')
+            e.style.visibility = 'hidden'
+        else
+            e.style.visibility = 'visible'
+    }
+  </script>
 
-    <head>
-        <title>Title of Game</title>   
+<head>
+  <title>Title of Game</title>   
+  <link rel="stylesheet" type="text/css" href="./static/Styles/gameScrn.css"> 
+</head>
 
-         <link rel = "stylesheet" type = "text/css" href = "./static/Styles/gameScrn.css"> 
-    </head>
+<body>
+  <div class="title" type="text">$storytitle</div>
+    <form name="home" method="POST">
+      <input name="home" method="POST" type="submit" value="home" class ="logo">
+      <input  name="home" method = "POST" type="submit" value="home" class="homeButton"/><br>
+      <a  href="#" name="home" method="POST" type="submit" onclick="toggle_visibility('foo');toggle_visibility('text');" class="navButton"/><br>
+        <div>
+          <img id="foo" src="./static/dialogue.png" class="textimg">
+          <p id="text" class="hinttext">
+            $stephint <br>
+          </p>
+        </div>
+    </form>
 
-    <body>
-        <div class="title" type="text">$storytitle</div>
-
-        <form name="home" method="POST">
-
-            <input name="home" method="POST" type="submit" value="home" class ="logo">
-
-            <input  name="home" method = "POST" type="submit" value="home" class = "homeButton"/><br>
-
-            <input  name="home" method = "POST" type="submit" value="home" class = "navButton"/><br>
-
-        </form>
-
-        <form name="inputs" method="POST">
-
-            <input name = "home" type="text" placeholder="  Enter your asc #:" class="inputBar"/>
-
-            <input name = "home" type="image" class = "submitButton" />
-
-            <!-- Not needed for now if we're not displaying any images 
-            <a href="#" onclick="toggle_visibility('foo');" class="toggle"/>expand/collapse</a>
-
-            <div id="foo">
-
-                <img class="textimg" src="./static/dialogue.png"> Not needed if we're not displaying an image -->
-
-            <div class="scrollBox"/>
-                <p> 
-                    $steptext
-                    $if shouldDisplayHint:
-                        $stephint
-                </p> 
-            </div>
-            
-        </form>
-
-    </body>
+    <form name="inputs" method="POST">
+      <input name="home" type="text" placeholder="  Enter your asc #:" class="inputBar"/>
+      <input name = "home" type="image" class = "submitButton" />
+        <div class="scrollBox"/>
+          <p> 
+            $steptext <br>
+          </p> 
+        </div>
+    </form>
+</body>
 </html>
