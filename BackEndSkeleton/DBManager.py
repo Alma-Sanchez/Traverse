@@ -206,11 +206,18 @@ def getDataFromDBForGameScreen(player_id):
     #return data_to_return
 
 
-def getStoryTitle(story_id):
-    conn,cur=connectToDB()
-    cur.execute("select Title_Of_Story from Story_Data where Story_ID=:story_id", {"story_id":story_id})
-    story_title=cur.fetchone()
-    return story_title[0]
+def getStoryTitles(player_ip):
+    conn,cur = connectToDB()
+    cur.execute("select max(Player_ID) from Player_Data where IP=:ip", {"ip":player_ip})
+    player_id = cur.fetchone()[0]
+    cur.execute("select Current_Character_ID from Player_Character_Action where Player_ID =:player_id", {"player_id":player_id})
+    character_id = cur.fetchone()[0]
+    cur.execute("select Title_Of_Story from Story_Data where Character_ID =:character_id", {"character_id":character_id})
+    story_titles = cur.fetchall()
+    story_title_tuple = ()
+    for story_title in story_titles:
+        story_title_tuple += story_title
+    return story_title_tuple
 
 def getStoriesFromDB(player_ip):
     """

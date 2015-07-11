@@ -1,4 +1,4 @@
-$def with (story_ids)
+$def with (story_ids, story_title)
 
 <!DOCTYPE html>
 <html>
@@ -13,7 +13,14 @@ $def with (story_ids)
       <p>
       <form name="storyMenuButtons" method="POST">
         $for story_id in story_ids:
-          <input name="story" method="POST" type="Submit" value=$story_id class="story1"/> <br>
+          <!-- 
+          Gets title for buttons.
+
+          $code:
+            tupindex=story_ids.index(story_id)
+          $story_title[tupindex]-->
+      
+      <input name="story" method="POST" type="Submit" value=$story_id class="story1"/><br>
       </form>
       </p>
     </div>

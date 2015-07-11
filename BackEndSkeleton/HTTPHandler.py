@@ -64,8 +64,10 @@ class storyScreen:
 	def GET(self):
 		playerStateObject = PlayerState()
 		story_ids = DBManager.getStoriesFromDB(web.ctx.ip)
+		story_titles=DBManager.getStoryTitles(web.ctx.ip)
 		print story_ids
-		return self.render.storyScreen(story_ids)
+		print story_titles
+		return self.render.storyScreen(story_ids, story_titles)
 	def POST(self):
 		playerStateObject = PlayerState()
 		action = web.input()
