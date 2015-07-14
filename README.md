@@ -1,6 +1,5 @@
 # SmithsonianProject
 To view the web page and play our game visit: www.linkcomingsoon.com <br>
-<br>
 Or
 <br>
 After git cloning or downlaoding the zip file:  <br>
