@@ -185,26 +185,30 @@ def getDataFromDBForGameScreen(player_id):
     print current_step
     cur.execute("select * from Step_Data where Step_ID =:current_step", {"current_step":current_step})
     game_text = cur.fetchone()[5]
-    cur.execute("select Step_Hint from Step_Data where Step_ID =:current_step", {"current_step":current_step})
-    game_hint = cur.fetchone()[0]
-    if game_hint == None:
-        relevant_game_hint = " "
+    cur.execute("select Step_Hint_1 from Step_Data where Step_ID =:current_step", {"current_step":current_step})
+    game_hint_1 = cur.fetchone()[0]
+    cur.execute("select Step_Hint_2 from Step_Data where Step_ID =:current_step", {"current_step":current_step})
+    game_hint_2 = cur.fetchone()[0]
+    cur.execute("select Step_Hint_3 from Step_Data where Step_ID =:current_step", {"current_step":current_step})
+    game_hint_3 = cur.fetchone()[0]
+    if game_hint_1 == None:
+        relevant_game_hint_1 = " "
     else:
-        relevant_game_hint = game_hint
+        relevant_game_hint_1 = game_hint_1
+    if game_hint_2 == None:
+        relevant_game_hint_2 = " "
+    else:
+        relevant_game_hint_2 = game_hint_2
+    if game_hint_3 == None:
+        relevant_game_hint_3 = " "
+    else:
+        relevant_game_hint_3 = game_hint_3
     print relevant_game_hint
-    #relevant_game_text = game_text , relevant_game_hint
-    data_to_return = title_of_story , game_text, relevant_game_hint
+    data_to_return = title_of_story , game_text, relevant_game_hint_1, relevant_game_hint_2, relevant_game_hint_3
     print data_to_return
     return data_to_return
-    
-    #cur.execute("select Current_Step_Action_ID from Player_Data where Player_ID =:player_id", {"player_id":player_id})
-    #step_action_id = cur.fetchone()[0]
-    #cur.execute("select Current_Step_ID from Player_Step_Action where Step_Action_ID =:step_action_id", {"step_action_id":step_action_id})
-    #step_id = cur.fetchone()[0]
-    #cur.execute("select Step_Text,Step_Hint from Step_Data where Step_ID =:step_id", {"step_id":step_id})
-    #data_to_return = title_of_story + cur.fetchone()
-    #return data_to_return
 
+getDataFromDBForGameScreen(1)
 
 def getStoryTitles(player_ip):
     conn,cur = connectToDB()
@@ -377,25 +381,6 @@ def getStepArtFromDB(player_id):
     cur.execute("select Step_Art from Step_Data where Step_ID =:step_id", {"step_id":step_id})
     return cur.fetchone()[0]
     
-def getHintTextFromDB(player_id):
-    """
-    This function will query the database and return the correct hint data for the step the player is currently on.
-
-    Parameters:
-
-    Returns:
-
-    Example:
-
-    """
-    conn,cur = connectToDB()
-    cur.execute("select Current_Step_Action_ID from Player_Data where Player_ID =:player_id", {"player_id":player_id})
-    current_step_action = cur.fetchone()[0]
-    cur.execute("select Current_Step_ID from Player_Step_Action where Step_Action_ID =:current_step_action", {"current_step_action":current_step_action})
-    step_id = cur.fetchone()[0]
-    cur.execute("select Step_Hint from Step_Data where Step_ID =:step_id", {"step_id":step_id})
-    return cur.fetchone()[0]
-
 def getNumberofStepsFromDB(story_id):
     """
     This function will query the database and return the correct number of steps data for the story the player is currently on.
@@ -544,18 +529,6 @@ def shouldPlayerAdvance(cursor,player_input,current_step_id):
     else:
         return False
 
-def shouldDisplayHint(player_id):
-    """
-    """
-    conn,cur = connectToDB()
-    cur.execute("select Current_Step_Action_ID from Player_Data where Player_ID =:player_id", {"player_id":player_id})
-    step_action_id = cur.fetchone()[0]
-    cur.execute("select Misses from Player_Step_Action where Step_Action_ID =:step_action_id", {"step_action_id":step_action_id})
-    misses = cur.fetchone()[0]
-    if misses > 0:
-        return True
-    else:
-        return False
 
 def updatePlayerData(cursor, player_id, action_type):
     """
@@ -687,3 +660,5 @@ def insertPlayerStepAction(player_id, player_step_input=None):
     updatePlayerData(cur,player_id,action_type)
     commitToDB(conn)
     closeDB(conn)
+
+
