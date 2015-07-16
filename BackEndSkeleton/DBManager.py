@@ -165,14 +165,14 @@ def getDataFromDBForGameScreen(player_id):
     cur.execute("select Max(Character_Action_ID) from Player_Character_Action where Player_ID =:player_id", {"player_id":player_id})
     char_action_id = cur.fetchone()[0]
     print char_action_id
-    cur.execute("select * from Player_Character_Action where Character_Action_ID =:char_action_id", {"char_action_id":char_action_id})
-    current_character = cur.fetchone()[2]
+    cur.execute("select Current_Character_ID from Player_Character_Action where Character_Action_ID =:char_action_id", {"char_action_id":char_action_id})
+    current_character = cur.fetchone()[0]
     print current_character
     cur.execute("select Max(Story_Action_ID) from Player_Story_Action where Player_ID =:player_id", {"player_id":player_id})
     story_action_id = cur.fetchone()[0]
     print story_action_id
-    cur.execute("select * from Player_Story_Action where Story_Action_ID =:story_action_id", {"story_action_id":story_action_id})
-    current_story = cur.fetchone()[2]
+    cur.execute("select Current_Story_ID from Player_Story_Action where Story_Action_ID =:story_action_id", {"story_action_id":story_action_id})
+    current_story = cur.fetchone()[0]
     print current_story
     cur.execute("select Title_Of_Story from Story_Data where Story_ID =:current_story", {"current_story":current_story})
     title_of_story = cur.fetchone()[0]
@@ -180,11 +180,11 @@ def getDataFromDBForGameScreen(player_id):
     cur.execute("select Max(Step_Action_ID) from Player_Step_Action where Player_ID =:player_id", {"player_id":player_id})
     step_action_id = cur.fetchone()[0]
     print step_action_id
-    cur.execute("select * from player_Step_Action where Step_Action_ID =:step_action_id", {"step_action_id":step_action_id})
-    current_step = cur.fetchone()[3]
+    cur.execute("select Current_Step_ID from player_Step_Action where Step_Action_ID =:step_action_id", {"step_action_id":step_action_id})
+    current_step = cur.fetchone()[0]
     print current_step
-    cur.execute("select * from Step_Data where Step_ID =:current_step", {"current_step":current_step})
-    game_text = cur.fetchone()[5]
+    cur.execute("select Step_Text from Step_Data where Step_ID =:current_step", {"current_step":current_step})
+    game_text = cur.fetchone()[0]
     cur.execute("select Step_Hint_1 from Step_Data where Step_ID =:current_step", {"current_step":current_step})
     game_hint_1 = cur.fetchone()[0]
     cur.execute("select Step_Hint_2 from Step_Data where Step_ID =:current_step", {"current_step":current_step})
@@ -203,12 +203,9 @@ def getDataFromDBForGameScreen(player_id):
         relevant_game_hint_3 = " "
     else:
         relevant_game_hint_3 = game_hint_3
-    print relevant_game_hint
     data_to_return = title_of_story , game_text, relevant_game_hint_1, relevant_game_hint_2, relevant_game_hint_3
     print data_to_return
     return data_to_return
-
-getDataFromDBForGameScreen(1)
 
 def getStoryTitles(player_ip):
     conn,cur = connectToDB()
