@@ -203,7 +203,12 @@ def getDataFromDBForGameScreen(player_id):
         relevant_game_hint_3 = " "
     else:
         relevant_game_hint_3 = game_hint_3
-    data_to_return = title_of_story , game_text, relevant_game_hint_1, relevant_game_hint_2, relevant_game_hint_3
+    cur.execute("select Actual_Step_Number from Step_Data where Step_ID =:current_step", {"current_step":current_step})
+    actual_step = cur.fetchone()[0]
+    cur.execute("select max(Actual_Step_Number) from Step_Data where Story_ID=:current_story", {"current_story":current_story})
+    total_steps = cur.fetchone()[0]
+    progress= str(actual_step) + "/" + str(total_steps)
+    data_to_return = title_of_story , game_text, relevant_game_hint_1, relevant_game_hint_2, relevant_game_hint_3, progress
     print data_to_return
     return data_to_return
 

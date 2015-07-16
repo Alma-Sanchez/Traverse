@@ -12,6 +12,10 @@ body {
     background-color: #000000; 
 }
 
+a {
+    color:white;
+    font-size:40px;
+}
 .title{
     width: 100%;
     top: 32%;
@@ -94,19 +98,19 @@ body {
 }
 
 .textimg{
-    visibility:hidden;
+    visibility: hidden;
     background-color: transparent;
-    width: 65%;
-    top: 45%;
-    left: 17%;
+    width: 67%;
+    top: 43%;
+    left: 16%;
     position: fixed;
-    z-index: 19;
+    z-index: 20;
 }
 
 .hinttext{
-    visibility:hidden;
+    visibility: hidden;
     color: white;
-    font-size: 22.5px;
+    font-size: 25px;
     height: 24%;
     width: 50%;
     top: 47%;
@@ -119,6 +123,29 @@ body {
     overflow: auto;
 }
 
+.hint1{
+    visibility:hidden;
+    display:none;
+    z-index:25;
+}
+
+.hint2{
+    visibility:hidden;
+    display:none;
+    z-index:25;
+}
+
+.hint3{
+    visibility:hidden;
+    display:none;
+    z-index:25;
+}
+
+.spoiler{
+    visibility:hidden;
+    display:none;
+    z-index:25;
+}
 .scrollBox{
     background-color: black;
     background-opacity:.4;
@@ -132,6 +159,6 @@ body {
     padding-right:3%;
     padding-bottom: 3%;
     position: fixed;
-    z-index: 7;
+    z-index: -1;
     overflow: auto;
 }

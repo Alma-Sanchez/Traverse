@@ -1,4 +1,4 @@
-$def with(title, text, hint1, hint2, hint3)
+$def with(title, text, hint1, hint2, hint3, progress)
 
 <!DOCTYPE html>
 <html>
@@ -10,6 +10,21 @@ $def with(title, text, hint1, hint2, hint3)
         else
             e.style.visibility = 'visible'
     }
+
+    function toggle_block(id) {
+        var e = document.getElementById(id);
+        if (e.style.display == 'block')
+            e.style.display = 'none'
+        else
+            e.style.display = 'block'
+    }
+
+    function hide(id) {
+      var e = document.getElementById(id);
+      e.style.visibility='hidden'
+      e.style.display='none'
+    }
+ 
   </script>
 
 <head>
@@ -18,18 +33,22 @@ $def with(title, text, hint1, hint2, hint3)
 </head>
 
 <body>
-  <div class="title" type="text">$title</div>
+  <div class="title" type="text">$title $progress</div>
     <form name="home" method="POST">
       <input name="home" method="POST" type="submit" value="home" class ="logo">
       <input  name="home" method = "POST" type="submit" value="home" class="homeButton"/><br>
-      <a  href="#" name="home" method="POST" type="submit" onclick="toggle_visibility('foo');toggle_visibility('text');" class="navButton"/><br>
-        <div>
+      <a  href="#" name="home" method="POST" type="submit" onclick="toggle_visibility('foo');toggle_visibility('text');hide('hint1');hide('hint2');hide('hint3');" class="navButton"/><br>
           <img id="foo" src="./static/dialogue.png" class="textimg">
-          <p id="text" class="hinttext">
-            $hint1 <br>
-            $hint2 <br>
-            $hint3 <br>
-          </p>
+            <div id="text" class="hinttext">
+              <a  href="#" onclick="toggle_block('hint1');toggle_visibility('hint1');">Hint 1:</a> <br>
+                <h id="hint1" class="hint1"> $hint1 </h> <br>
+              <a  href="#" onclick="toggle_block('hint2');toggle_visibility('hint2');">Hint 2:</a> <br>
+                <h id="hint2" class="hint2"> $hint2 </h> <br>
+              <a  href="#" onclick="toggle_block('hint3');toggle_visibility('hint3');">Hint 3:</a> <br>
+                <h id="hint3" class="hint3"> $hint3 </h> <br>
+              <a  href="#" onclick="toggle_block('spoiler');toggle_visibility('spoiler');">Spoiler:</a> <br>
+                <h id="spoiler" class="spoiler"> answer goes here </h> <br>
+            </div>
         </div>
     </form>
 

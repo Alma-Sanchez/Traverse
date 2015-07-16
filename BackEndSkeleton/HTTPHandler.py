@@ -78,10 +78,10 @@ class gameScreen:
 		self.render = web.template.render('templates/')
 	def GET(self):
 		playerStateObject = PlayerState()
-		title, text, hint1, hint2, hint3 = DBManager.getDataFromDBForGameScreen(playerStateObject.player_id)
+		title, text, hint1, hint2, hint3, progress = DBManager.getDataFromDBForGameScreen(playerStateObject.player_id)
 		if DBManager.needLastScreen(playerStateObject.player_id):
 			raise web.seeother('/last')
-		return self.render.gameScreen(title, text, hint1, hint2, hint3)
+		return self.render.gameScreen(title, text, hint1, hint2, hint3, progress)
 	def POST(self):
 		playerStateObject = PlayerState()
 		if web.input()['home']=='home':
