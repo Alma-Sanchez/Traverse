@@ -1,4 +1,4 @@
-$def with(steptext,stephint,storytitle)
+$def with(title, text, hint1, hint2, hint3)
 
 <!DOCTYPE html>
 <html>
@@ -18,7 +18,7 @@ $def with(steptext,stephint,storytitle)
 </head>
 
 <body>
-  <div class="title" type="text">$storytitle</div>
+  <div class="title" type="text">$title</div>
     <form name="home" method="POST">
       <input name="home" method="POST" type="submit" value="home" class ="logo">
       <input  name="home" method = "POST" type="submit" value="home" class="homeButton"/><br>
@@ -26,7 +26,9 @@ $def with(steptext,stephint,storytitle)
         <div>
           <img id="foo" src="./static/dialogue.png" class="textimg">
           <p id="text" class="hinttext">
-            $stephint <br>
+            $hint1 <br>
+            $hint2 <br>
+            $hint3 <br>
           </p>
         </div>
     </form>
@@ -36,7 +38,7 @@ $def with(steptext,stephint,storytitle)
       <input name = "home" type="image" class = "submitButton" />
         <div class="scrollBox"/>
           <p> 
-            $steptext <br>
+            $text <br>
           </p> 
         </div>
     </form>
