@@ -13,6 +13,8 @@ class homeScreen:
 		"""
 		self.urls = (
 
+			#self.urls is a tuple that contains all of the various urls for the webpage. Those urls are listed below with the name of the corresponding html pages that will generate.
+
 			'/', "homeScreen",
 			'/char',"charScreen",
 			'/story',"storyScreen",
