@@ -8,8 +8,7 @@ $def with (story_ids, story_title)
 </head>
 
 <body>
-  <div class="charMenu">
-  <div class="storyInput">
+  <div class="storyScrollBox">
     <p>
       <form method="POST">
         $for story_id in story_ids:
@@ -18,7 +17,6 @@ $def with (story_ids, story_title)
           <input name="story" method="POST" type="Submit" value= $story_title[tupindex] class="stories"/>  <br> 
       </form>
     </p>
-
   </div>
 </body>
 </html>
