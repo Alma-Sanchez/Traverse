@@ -10,12 +10,10 @@ body {
     background-size: contain;
     background-color: #000000; 
 }
-
 .menuInput{
     /*text-align: center;*/
     margin-top: 52%;
 }
-
 .newstory{
     background-image: url("../new.png");
     background-size: 72%;
@@ -27,7 +25,6 @@ body {
     border:none;
     font-size: 0;
 }
-
 .loadstory{
     background-image: url("../load.png");
     background-size: 72%;
@@ -39,7 +36,6 @@ body {
     border: none;
     font-size: 0;
 }
-
 .about{
     background-image: url("../about.png");
     background-size: 87%;
@@ -51,7 +47,6 @@ body {
     border: none;
     font-size: 0;
 }
-
 .help{
     background-image: url("../help.png");
     background-size: 66%;

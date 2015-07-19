@@ -1,7 +1,6 @@
 html { 
     height: 100%; 
 }
-
 body{
     background: url("../character.png") no-repeat center center fixed;   
     -webkit-background-size: contain;
@@ -10,7 +9,6 @@ body{
     background-size: contain;
     background-color: #000000;
 }
-
 .charInput{
     top: 40%;
     left: 27%;
@@ -19,7 +17,6 @@ body{
     position:fixed;
     overflow:auto;
 }
-
 .Character1{
     background: url("../choice1.png");
     background-repeat: no-repeat;
@@ -27,8 +24,12 @@ body{
     background-color: transparent;
     height: 55%;
     width:95%;
-    padding-bottom: 30%;
-    margin-bottom: 10%;
+    padding-top: 5%;
+    padding-bottom: 5%;
+    margin-bottom: 7%;
     border: none;
-    font-size: 0;
+    color: black;
+    font-size: 1.0em;
+    font-weight: bold;
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 }

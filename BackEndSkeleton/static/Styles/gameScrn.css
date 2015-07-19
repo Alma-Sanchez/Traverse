@@ -2,7 +2,6 @@
 html { 
     height: 100%; 
 }
-
 body {
     background: url("../main.png") no-repeat center center fixed; 
     -webkit-background-size: contain;
@@ -11,7 +10,6 @@ body {
     background-size: contain;
     background-color: #000000; 
 }
-
 a {
     color:white;
     font-size:40px;
@@ -26,7 +24,6 @@ a {
     font-size: 35px;
     z-index: -1;
 }
-
 .logo{
     background-image: url("../logo.png");
     background-color:transparent;
@@ -39,8 +36,8 @@ a {
     background-size:100%;
     border:0px;
     z-index:10;
+    font-size: 0;
 }
-
 .homeButton{
     background-image: url("../home.png");
     background-repeat: no-repeat;
@@ -54,7 +51,6 @@ a {
     border: none;
     font-size: 0;
 }
-
 .navButton{
     background-image: url("../navigation.png");
     background-size: 100%;
@@ -69,7 +65,6 @@ a {
     border: none;
     font-size: 0;
 }
-
 .inputBar{
     background-color: black;
     border: none;
@@ -82,7 +77,6 @@ a {
     position: fixed;
     z-index: 5;
 }
-
 .submitButton{
     background-image: url("../submit.png");
     background-size: 100%;
@@ -94,9 +88,8 @@ a {
     top: 91.20%;
     position: fixed;
     z-index: 10;
-
+    font-size: 0;
 }
-
 .textimg{
     visibility: hidden;
     background-color: transparent;
@@ -106,7 +99,6 @@ a {
     position: fixed;
     z-index: 20;
 }
-
 .hinttext{
     visibility: hidden;
     color: white;
@@ -122,25 +114,21 @@ a {
     z-index: 20;
     overflow: auto;
 }
-
 .hint1{
     visibility:hidden;
     display:none;
     z-index:25;
 }
-
 .hint2{
     visibility:hidden;
     display:none;
     z-index:25;
 }
-
 .hint3{
     visibility:hidden;
     display:none;
     z-index:25;
 }
-
 .spoiler{
     visibility:hidden;
     display:none;

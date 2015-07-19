@@ -1,25 +1,19 @@
-html { 
-    height: 100%; 
-}
-
 body{
     background: url("../story.png") no-repeat center center fixed;
     -webkit-background-size: contain;
     -moz-background-size: contain;
     -o-background-size: contain;
     background-size: contain;
-    background-color: #000000;
+    background-color: #000000; 
 }
-
-.storyInput{
+.storyScrollBox{
     top: 40%;
     left: 27%;
     height:38%;
-    width:47%;
+    width:49%;
     position:fixed;
     overflow:auto;
 }
-
 .stories{
     background: url("../choice1.png");
     background-repeat: no-repeat;
@@ -27,9 +21,12 @@ body{
     background-color: transparent;
     height: 55%;
     width:95%;
-    padding-bottom: 30%;
-    margin-bottom: 10%;
+    padding-top: 5%;
+    padding-bottom: 5%;
+    margin-bottom: 7%;
     border: none;
-    color:white;
-    font-size: 20px;
+    color:black;
+    font-size: 1.0em;
+    font-weight: bold;
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 }
