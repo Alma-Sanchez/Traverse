@@ -51,12 +51,16 @@ class charScreen:
 	def GET(self):
 		playerStateObject = PlayerState()
 		character_ids = DBManager.getCharacterData()
-		return self.render.charScreen(character_ids)
+		character_names = DBManager.getCharacterNames()
+		return self.render.charScreen(character_ids, character_names)
 	def POST(self):
 		playerStateObject = PlayerState()
 		action = web.input()
-		if DBManager.checkPlayerCharacterInput(action['Character']):
-			DBManager.insertPlayerCharacterAction(playerStateObject.player_id,action['Character'])
+		print action['Character']
+		character_id=DBManager.getCharacterIDFromName(action['Character'])
+		print character_id
+		if DBManager.checkPlayerCharacterInput(character_id):
+			DBManager.insertPlayerCharacterAction(playerStateObject.player_id,character_id)
 			raise web.seeother('/story')
 
 class storyScreen:

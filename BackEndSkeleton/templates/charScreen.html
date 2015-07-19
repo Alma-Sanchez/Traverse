@@ -1,4 +1,4 @@
-$def with (character_ids)
+$def with (character_ids, character_name)
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,7 +12,9 @@ $def with (character_ids)
     <p>
       <form name = "charMenuButtons" method = "POST"> 
         $for character_id in character_ids:
-          <input name = "Character" method = "POST" type= "Submit" value = $character_id class = "Character1"/> <br> 
+          $code:
+            tupindex=character_ids.index(character_id)
+          <input name = "Character" method = "POST" type= "Submit" value = $character_name[tupindex] class = "Character1"/> <br> 
       </form>
     </p>
   </div>

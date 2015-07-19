@@ -231,6 +231,12 @@ def getStoryIDFromTitle(title_of_story):
     story_id= cur.fetchone()[0]
     return story_id
 
+def getCharacterIDFromName(character_name):
+    conn,cur=connectToDB()
+    cur.execute("select Character_ID from Character_Data where Character_Name=:character_name", {"character_name":character_name})
+    character_id=cur.fetchone()[0]
+    return str(character_id)
+
 def getStoriesFromDB(player_ip):
     """
     This funciton returns a list of all stories associated with a particular Character
@@ -316,6 +322,15 @@ def getCharacterData():
         character_id_tuple += character
     return character_id_tuple
 
+def getCharacterNames():
+    conn,cur=connectToDB()
+    cur.execute("select Character_name from Character_Data")
+    character_names=cur.fetchall()
+    character_names_tuple=()
+    for character_name in character_names:
+        character_names_tuple +=character_name
+    return character_names_tuple
+
 def getStoryIDFromDB(player_id):
     """
     This function will query the database and return the correct story data
@@ -328,7 +343,7 @@ def getStoryIDFromDB(player_id):
         tuple: story fields
 
     Example:
-        getStoryData(3) => (3,2,Mixed Dimensions,6)
+        Data(3) => (3,2,Mixed Dimensions,6)
     """
     conn,cur = connectToDB()
     cur.execute("select Current_Character_Action_ID from Player_Data where Player_ID =:player_id", {"player_id":player_id})
