@@ -9,6 +9,20 @@ body{
     background-size: contain;
     background-color: #000000;
 }
+.backButton{
+    background-image: url("../back.png");
+    background-size: 100%;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    width: 13.5%;
+    height: 5.5%;
+    left: 20%;
+    top: 87%;
+    position: fixed;
+    z-index: 7;
+    border: none;
+    font-size: 0;
+}
 .charInput{
     top: 40%;
     left: 27%;
@@ -29,7 +43,7 @@ body{
     margin-bottom: 7%;
     border: none;
     color: black;
-    font-size: 1.0em;
+    font-size: 1.5em;
     font-weight: bold;
     font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 }

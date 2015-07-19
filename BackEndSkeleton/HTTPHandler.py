@@ -56,12 +56,13 @@ class charScreen:
 	def POST(self):
 		playerStateObject = PlayerState()
 		action = web.input()
-		print action['Character']
-		character_id=DBManager.getCharacterIDFromName(action['Character'])
-		print character_id
-		if DBManager.checkPlayerCharacterInput(character_id):
-			DBManager.insertPlayerCharacterAction(playerStateObject.player_id,character_id)
-			raise web.seeother('/story')
+		if action['Character']== "back":
+			raise web.seeother('/home')
+		else: 
+			character_id=DBManager.getCharacterIDFromName(action['Character'])
+			if DBManager.checkPlayerCharacterInput(character_id):
+				DBManager.insertPlayerCharacterAction(playerStateObject.player_id,character_id)
+				raise web.seeother('/story')
 
 class storyScreen:
 	def __init__(self):
@@ -74,10 +75,13 @@ class storyScreen:
 	def POST(self):
 		playerStateObject = PlayerState()
 		action = web.input()
-		story_id= DBManager.getStoryIDFromTitle(action['story'])
-		if DBManager.checkPlayerStoryInput(story_id):
-			DBManager.insertPlayerStoryAction(playerStateObject.player_id,story_id)
-			raise web.seeother('/game')
+		if action['story']== "back":
+			raise web.seeother('/char')
+		else:
+			story_id= DBManager.getStoryIDFromTitle(action['story'])
+			if DBManager.checkPlayerStoryInput(story_id):
+				DBManager.insertPlayerStoryAction(playerStateObject.player_id,story_id)
+				raise web.seeother('/game')
 
 class gameScreen:
 	def __init__(self):
