@@ -110,7 +110,7 @@ def getPlayerStoryActionFromDB(player_id):
     This funciton will return the player's most recently selected story
 
     Parameters:
-        ip (int): the IP addess of the player connecting to the web.py server
+        ip (int): the IP address of the player connecting to the web.py server
 
     Returns:
         tuple: a Row from the Player_Story_Action table associated with the player's ip address
@@ -127,6 +127,16 @@ def getPlayerStoryActionFromDB(player_id):
 
 def getHighestStepAction(player_id):
     """
+    This function will return the highest step the player got to using their id.
+
+    Parameters:
+        ip (int): the IP address of the player connection to the web.py server
+
+    Returns:
+        highest step action id (int): the max step Step_Action_ID from the Player_Step_Action table associated with the player's ip address
+
+    Example:
+        getHighestStepAction(1.1.1.1.1) => 4
     """
     conn,cur = connectToDB()
     cur.execute("select MAX(Step_Action_ID) from Player_Step_Action where Player_ID =:player_id", {"player_id": player_id})
@@ -139,7 +149,7 @@ def getPlayerStepActionFromDB(player_id, highest_step):
     This funciton will return the player's most recent step and all associated data
 
     Parameters:
-        ip (int): the IP addess of the player connecting to the web.py server
+        ip: the IP addess of the player connecting to the web.py server
 
     Returns:
         tuple: a Row from the Player_Step_Action table associated with the player's ip address
@@ -148,9 +158,6 @@ def getPlayerStepActionFromDB(player_id, highest_step):
         getPlayerStepActionFromDB(1.1.1.1.1) => (1,3,2,3,4,5,1)
     """
     conn,cur = connectToDB()
-    #cur.execute("select * from Player_Step_Action where Player_ID =:player_id", {"player_id": player_id})
-    #something=cur.fetchall()
-    #cur.execute("select * from something where Current_Step_ID=:highest_step", {"highest_step":highest_step})
     cur.execute("select * from Player_Step_Action where Player_ID =:player_id and Current_Step_ID =:highest_step", {"player_id": player_id, "highest_step": highest_step})
     player_step_action = cur.fetchone()
     closeDB(conn)
@@ -158,8 +165,20 @@ def getPlayerStepActionFromDB(player_id, highest_step):
 
 def getDataFromDBForGameScreen(player_id):
     """
-    This function returns all the informaiton neccessary to populate the game screen 
-    incuding the title of the story, the cuttent step text and the current hint
+    This function returns all the informaiton neccessary to populate the game screen. This
+    incudes the title of the story the player selected, the game text for the relevant step, all three hints for the
+    relevant step, as well as the progress (step the player is on out of the total number of steps).
+    
+    Parameter:
+        ip: the IP address of the player connection to the web.py server
+
+    Returns:
+        tuple: tuple contains the title, game text, 1st hint, 2nd hint, 3rd hint, and progress respectively
+
+    Example:
+        getDataFromDBForGameScreen(1.1.1.1.1) => (Enigma, Please go find a box!, You need to find a box., Look in the Luce Foundation Center,
+            The title of the piece you're looking for is "The Box", 1/6)
+
     """
     conn,cur = connectToDB()
     cur.execute("select Max(Character_Action_ID) from Player_Character_Action where Player_ID =:player_id", {"player_id":player_id})
@@ -213,6 +232,19 @@ def getDataFromDBForGameScreen(player_id):
     return data_to_return
 
 def getStoryTitles(player_ip):
+    """
+    This function gets the titles for a particular character based off of what character the player has selected.
+
+    Parameter:
+        ip: the IP address of the player connection to the web.py server
+
+    Returns:
+        tuple: a tuple containing all story titles for a specific character
+
+    Example:
+        getStoryTitles(1.1.1.1.1)=> (Washington(1),Washington(2),Washington(3),Washington(4))
+
+    """
     conn,cur = connectToDB()
     cur.execute("select max(Player_ID) from Player_Data where IP=:ip", {"ip":player_ip})
     player_id = cur.fetchone()[0]
@@ -226,12 +258,36 @@ def getStoryTitles(player_ip):
     return story_title_tuple
 
 def getStoryIDFromTitle(title_of_story):
+    """
+    This function find the id of a story from its title.
+
+    Paramter: 
+        title_of_story (str): title of story that is passed in 
+
+    Returns:
+        int: the story id of the title
+
+    Example: 
+        getStoryIDFromTitle(Washington(1))=> 1
+    """
     conn,cur=connectToDB()
     cur.execute("select Story_ID from Story_Data where Title_Of_Story=:title_of_story", {"title_of_story":title_of_story})
     story_id= cur.fetchone()[0]
     return story_id
 
 def getCharacterIDFromName(character_name):
+    """
+    This function finds the character id from a character name.
+
+    Parameter:
+        character_name (str): name of character that is passed in 
+
+    Returns:
+        int: the character id of the character 
+
+    Example:
+        getCharacterIDFromName("George Washington")=> 1
+    """
     conn,cur=connectToDB()
     cur.execute("select Character_ID from Character_Data where Character_Name=:character_name", {"character_name":character_name})
     character_id=cur.fetchone()[0]
@@ -323,6 +379,18 @@ def getCharacterData():
     return character_id_tuple
 
 def getCharacterNames():
+    """
+    This function gets all character names that are in the database. 
+
+    Parameters: 
+        None
+
+    Returns: 
+        tuple: a tuple that contains all character names
+
+    Example:
+        getCharacterNames()=> (George Washington, Salome, Diana, Turing)
+    """
     conn,cur=connectToDB()
     cur.execute("select Character_name from Character_Data")
     character_names=cur.fetchall()
@@ -378,57 +446,19 @@ def getStepTextFromDB(step_id):
     cur.execute("select Step_Text from Step_Data where Step_ID =:step_id", {"step_id":step_id})
     return cur.fetchone()
 
-def getStepArtFromDB(player_id):
-    """
-    This function will query the database and return the correct step art for the step the player is currently on.
-
-    Parameters:
-        int: Current_Step_ID
-
-    Returns:
-
-    Example:
-
-    """
-    conn,cur = connectToDB()
-    cur.execute("select Current_Step_Action_ID from Player_Data where Player_ID =:player_id", {"player_id":player_id})
-    current_step_action = cur.fetchone()[0]
-    cur.execute("select Current_Step_ID from Player_Step_Action where Step_Action_ID =:current_step_action", {"current_step_action":current_step_action})
-    step_id = cur.fetchone()[0]
-    cur.execute("select Step_Art from Step_Data where Step_ID =:step_id", {"step_id":step_id})
-    return cur.fetchone()[0]
-    
-def getNumberofStepsFromDB(story_id):
-    """
-    This function will query the database and return the correct number of steps data for the story the player is currently on.
-
-    Parameters:
-
-    Returns:
-
-    Example:
-
-    """
-    conn,cur = connectToDB()
-    cur.execute("select Number_Of_Steps from Story_Data where Story_ID =:story_id", {"story_id":story_id})
-    return cur.fetchone()[0]
-
-def shouldGameEnd(player_id):
-    """
-    """
-    conn,cur = connectToDB()
-    
-    cur.execute("select Current_Step_Action_ID from Player_Data where Player_ID =:player_id", {"player_id":player_id})
-    step_action_id = cur.fetchone()[0]
-    cur.execute("select Next_Step_ID from Player_Step_Action where Step_Action_ID =:step_action_id", {"step_action_id":step_action_id})
-    next_step_id = cur.fetchone()[0]
-    if "null" == next_step_id:
-        return True
-    else:
-        return False
 
 def needLastScreen(player_id):
     """
+    This function uses the player's id to determine if they need the last game screen or not.
+
+    Parameters:
+        ip: the IP address of the player connection to the web.py server
+
+    Returns:
+        boolean: reutrns True if there is no next step, returns False if there is 
+
+    Example:
+        needLastScreen(1.1.1.1.1)=>False
     """
     conn,cur=connectToDB()
 
