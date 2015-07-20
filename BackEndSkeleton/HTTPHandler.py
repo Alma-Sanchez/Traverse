@@ -78,7 +78,7 @@ class storyScreen:
 	def GET(self):
 		playerStateObject = PlayerState()
 		story_ids = DBManager.getStoriesFromDB(playerStateObject.player_id)
-		story_titles=DBManager.getStoryTitles(web.ctx.ip)
+		story_titles=DBManager.getStoryTitles(playerStateObject.player_id)
 		return self.render.storyScreen(story_ids, story_titles)
 	def POST(self):
 		playerStateObject = PlayerState()

@@ -231,7 +231,7 @@ def getDataFromDBForGameScreen(player_id):
     print data_to_return
     return data_to_return
 
-def getStoryTitles(player_ip):
+def getStoryTitles(player_id):
     """
     This function gets the titles for a particular character based off of what character the player has selected.
 
@@ -246,9 +246,9 @@ def getStoryTitles(player_ip):
 
     """
     conn,cur = connectToDB()
-    cur.execute("select max(Player_ID) from Player_Data where IP=:ip", {"ip":player_ip})
-    player_id = cur.fetchone()[0]
-    cur.execute("select Current_Character_ID from Player_Character_Action where Player_ID =:player_id", {"player_id":player_id})
+    cur.execute("select max(Current_Character_Action_ID) from Player_Data where Player_ID=:player_id", {"player_id":player_id})
+    current_character_action_id = cur.fetchone()[0]
+    cur.execute("select Current_Character_ID from Player_Character_Action where Character_Action_ID=:current_character_action_id", {"current_character_action_id":current_character_action_id})
     character_id = cur.fetchone()[0]
     cur.execute("select Title_Of_Story from Story_Data where Character_ID =:character_id", {"character_id":character_id})
     story_titles = cur.fetchall()
