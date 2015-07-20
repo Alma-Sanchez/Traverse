@@ -100,10 +100,10 @@ def getPlayerCharacterActionFromDB(player_id):
         getPlayerCharacterActionFromDB(1.1.1.1.1) => (2,1,3,3)
     """
     conn,cur = connectToDB()
-    cur.execute("select * from Player_Character_Action where Player_ID =:player_id", {"player_id": player_id})
-    player_character_action = cur.fetchone()
+    cur.execute("select Max(Character_Action_ID) from Player_Character_Action where Player_ID =:player_id", {"player_id":player_id})
+    player_character_action_id = cur.fetchone()[0]
     closeDB(conn)
-    return player_character_action
+    return player_character_action_id
 
 def getPlayerStoryActionFromDB(player_id):
     """
@@ -293,7 +293,7 @@ def getCharacterIDFromName(character_name):
     character_id=cur.fetchone()[0]
     return str(character_id)
 
-def getStoriesFromDB(player_ip):
+def getStoriesFromDB(player_id):
     """
     This funciton returns a list of all stories associated with a particular Character
 
@@ -307,10 +307,11 @@ def getStoriesFromDB(player_ip):
         getStoriesFromDB(2) => 2,3,4
     """
     conn,cur = connectToDB()
-    cur.execute("select max(Player_ID) from Player_Data where IP=:ip", {"ip":player_ip})
-    player_id = cur.fetchone()[0]
-    cur.execute("select Current_Character_ID from Player_Character_Action where Player_ID =:player_id", {"player_id":player_id})
+    cur.execute("select max(Current_Character_Action_ID) from Player_Data where Player_ID =:player_id", {"player_id":player_id})
+    character_action_id = cur.fetchone()[0]
+    cur.execute("select Current_Character_ID from Player_Character_Action where Character_Action_Id =:character_action_id", {"character_action_id":character_action_id})
     character_id = cur.fetchone()[0]
+    print character_id
     cur.execute("select Story_ID from Story_Data where Character_ID =:character_id", {"character_id":character_id})
     story_ids = cur.fetchall()
     story_id_tuple = ()
@@ -472,6 +473,26 @@ def needLastScreen(player_id):
     else:
         return False
 
+def checkforExistingPlayer(player_ip):
+    """
+    This funciton will check to see if there is player associated with the IP.
+
+    Parameter:
+        IP: The current client's IP
+
+    Returns:
+        Boolean: True if client has data already saved in the DB. False if there is no data.
+
+    Example:
+        checkforExistingPlayer(1.1.1.1) => True
+    """
+    coon,cur = connectToDB()
+    cur.execute("select Player_ID from Player_Data where IP =:player_ip", {"player_ip":player_ip})
+    if None != cur.fetchone()[0]:
+        return True
+    else:
+        return False
+    closeDB(conn)
 
 def checkPlayerCharacterInput(player_character_input):
     """
@@ -544,6 +565,13 @@ def checkPlayerStepInput(player_input):
     else:
         return False
     closeDB(conn)
+
+def loadPlayerAction(player_id):
+    """
+    This function will retreive the current client's last player action.
+    """
+    conn,cur = connectToDB()
+
 
 def shouldPlayerAdvance(cursor,player_input,current_step_id):
     """

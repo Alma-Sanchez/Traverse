@@ -32,7 +32,8 @@ class homeScreen:
 		self.app = web.application(self.urls, globals()) #The application object that needs to be created for the app to run.
 
 	def GET(self):
-		DBManager.insertPlayerData(web.ctx.ip)
+		if not DBManager.checkforExistingPlayer(web.ctx.ip):
+			DBManager.insertPlayerData(web.ctx.ip)
 		playerStateObject = PlayerState()
 		return self.render.homeScreen()
 	def POST(self):
@@ -40,6 +41,14 @@ class homeScreen:
 		action = web.input()
 		if action['new'] == 'charScreen':
 			raise web.seeother('/char')
+		elif action['new'] == 'loadScreen':
+			if None != DBManager.getPlayerCharacterActionFromDB(playerStateObject.player_id):
+				if None != DBManager.getPlayerStoryActionFromDB(playerStateObject.player_id):
+					raise web.seeother('/game')
+				else:
+					raise web.seeother('/story')
+			else:
+				raise web.seeother('/char')
 		elif action['new'] == 'aboutScreen':
 			raise web.seeother('/about')
 		elif action['new'] == 'helpScreen':
@@ -68,7 +77,7 @@ class storyScreen:
 		self.render = web.template.render('templates/')
 	def GET(self):
 		playerStateObject = PlayerState()
-		story_ids = DBManager.getStoriesFromDB(web.ctx.ip)
+		story_ids = DBManager.getStoriesFromDB(playerStateObject.player_id)
 		story_titles=DBManager.getStoryTitles(web.ctx.ip)
 		return self.render.storyScreen(story_ids, story_titles)
 	def POST(self):
