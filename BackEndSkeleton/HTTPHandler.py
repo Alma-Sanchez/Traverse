@@ -114,9 +114,11 @@ class charScreen:
 		if action['Character']== "back": #Checks to see if the player pressed the back button
 			raise web.seeother('/home') #Renders homeScreen.html
 		else: 
-			if DBManager.checkPlayerCharacterInput(action['Character']): #Checks to see if the player has chosen a character
-				DBManager.insertPlayerCharacterAction(playerStateObject.player_id,action['Character']) #If the above is true then the chosen player choice is inserted into the database
-				raise web.seeother('/story') #Renders storyScreen.html
+			character=DBManager.getCharacterIDFromName(action['Character'])
+			if DBManager.checkPlayerCharacterInput(character):
+				DBManager.insertPlayerCharacterAction(playerStateObject.player_id,character)
+				raise web.seeother('/story')
+
 
 class storyScreen:
 	def __init__(self):
