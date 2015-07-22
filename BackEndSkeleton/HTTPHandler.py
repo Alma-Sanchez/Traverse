@@ -68,8 +68,9 @@ class charScreen:
 		if action['Character']== "back":
 			raise web.seeother('/home')
 		else: 
-			if DBManager.checkPlayerCharacterInput(action['Character']):
-				DBManager.insertPlayerCharacterAction(playerStateObject.player_id,action['Character'])
+			character=DBManager.getCharacterIDFromName(action['Character'])
+			if DBManager.checkPlayerCharacterInput(character):
+				DBManager.insertPlayerCharacterAction(playerStateObject.player_id,character)
 				raise web.seeother('/story')
 
 class storyScreen:
