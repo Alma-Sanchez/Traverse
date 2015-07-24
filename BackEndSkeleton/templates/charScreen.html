@@ -17,7 +17,7 @@ $def with (character_ids, character_name)
         $for character_id in character_ids:
           $code:
             tupindex=character_ids.index(character_id)
-          <input name = "Character" method = "POST" type= "Submit" value = $character_id class = "Character1"/> <br> 
+          <input name = "Character" method = "POST" type= "Submit" value = "$character_name[tupindex]" class = "Character1"/> <br> 
       </form>
     </p>
   </div>
