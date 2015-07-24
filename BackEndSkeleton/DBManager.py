@@ -396,6 +396,7 @@ def getCharacterNames():
     cur.execute("select Character_name from Character_Data")
     character_names=cur.fetchall()
     character_names_tuple=()
+    print character_names_tuple
     for character_name in character_names:
         character_names_tuple +=character_name
     return character_names_tuple
