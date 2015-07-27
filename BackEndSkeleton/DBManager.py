@@ -257,6 +257,20 @@ def getStoryTitles(player_id):
         story_title_tuple += story_title
     return story_title_tuple
 
+def getStoryData():
+    conn,cur=connectToDB()
+    cur.execute("select Walk_Level from Story_Data")
+    walk_levels=cur.fetchall()
+    walk_tuple=()
+    for walk_level in walk_levels:
+        walk_tuple += walk_level
+    cur.execute("select Kid_Friendly from Story_Data")
+    kids=cur.fetchall()
+    kid_tuple=()
+    for kid in kids:
+        kid_tuple += kid
+    return walk_tuple, kid_tuple
+
 def getStoryIDFromTitle(title_of_story):
     """
     This function find the id of a story from its title.
