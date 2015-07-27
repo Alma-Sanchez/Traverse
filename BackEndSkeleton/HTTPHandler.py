@@ -142,7 +142,9 @@ class storyScreen:
 		playerStateObject = PlayerState() #Updating the player state
 		story_ids = DBManager.getStoriesFromDB(playerStateObject.player_id) #Getting story data from the database and saving it to a variable
 		story_titles=DBManager.getStoryTitles(playerStateObject.player_id) #Getting story titles from the database and saving it to a variable
-		return self.render.storyScreen(story_ids, story_titles) #Using the above two variables to dynamically generate storyScreen.html
+		walk_level=DBManager.getStoryData()[0]
+		kid_friendly=DBManager.getStoryData()[1]
+		return self.render.storyScreen(story_ids, story_titles, walk_level, kid_friendly) #Using the above two variables to dynamically generate storyScreen.html
 	def POST(self):
 		"""
 		This function checks to see if the player has chosen a story and if they have the story choice is saved.
@@ -158,10 +160,20 @@ class storyScreen:
 		if action['story']== "back": #Checks to see if the player pressed the back button
 			raise web.seeother('/char') #If the above is true then the charScreen.html is rendered
 		else:
-			story_id= DBManager.getStoryIDFromTitle(action['story']) #Pulling the story id numbers from the database and saving them to a variable
-			if DBManager.checkPlayerStoryInput(story_id): #Checks to see if the player has chosen a story
-				DBManager.insertPlayerStoryAction(playerStateObject.player_id,story_id) #If the above is true the story selection is inserted into the database
-				raise web.seeother('/game') #Rendering gameScreen.html
+			title= action['story']
+			prefix= title[0:1]
+			print prefix
+			if prefix=="*":
+				story_id=DBManager.getStoryIDFromTitle(title[1:])
+				if DBManager.checkPlayerStoryInput(story_id): #Checks to see if the player has chosen a story
+					DBManager.insertPlayerStoryAction(playerStateObject.player_id,story_id) #If the above is true the story selection is inserted into the database
+					raise web.seeother('/game') #Rendering gameScreen.html
+			else:
+				story_id=DBManager.getStoryIDFromTitle(action['story'])
+				if DBManager.checkPlayerStoryInput(story_id):
+					DBManager.insertPlayerStoryAction(playerStateObject.player_id,story_id)
+					raise web.seeother('/game')
+			
 
 class gameScreen:
 	def __init__(self):

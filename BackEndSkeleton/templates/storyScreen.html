@@ -1,4 +1,4 @@
-$def with (story_ids, story_title)
+$def with (story_ids, story_title, walk_level, kid_friendly)
 
 <!DOCTYPE html>
 <html>
@@ -17,7 +17,26 @@ $def with (story_ids, story_title)
         $for story_id in story_ids:
           $code:
             tupindex=story_ids.index(story_id)
-          <input name="story" method="POST" type="Submit" value= $story_title[tupindex] class="stories"/>  <br> 
+          $if walk_level[tupindex]==1:
+            $if kid_friendly[tupindex]=="K":
+              <input name="story" method="POST" type="Submit" value= "*$story_title[tupindex]" class="stories1"/>  <br>
+            $else:
+              <input name="story" method="POST" type="Submit" value= "$story_title[tupindex]" class="stories1"/>  <br>
+          $elif walk_level[tupindex]==2:
+            $if kid_friendly[tupindex]=="K":
+              <input name="story" method="POST" type="Submit" value= "*$story_title[tupindex]" class="stories2"/>  <br>
+            $else:
+              <input name="story" method="POST" type="Submit" value= "$story_title[tupindex]" class="stories2"/>  <br>
+          $elif walk_level[tupindex]==3: 
+            $if kid_friendly[tupindex]=="K":
+              <input name="story" method="POST" type="Submit" value= "*$story_title[tupindex]" class="stories3"/>  <br>
+            $else:
+              <input name="story" method="POST" type="Submit" value= "$story_title[tupindex]" class="stories3"/>  <br>
+          $else: 
+            $if kid_friendly[tupindex]=="K":
+              <input name="story" method="POST" type="Submit" value= "*$story_title[tupindex]" class="stories4"/>  <br>
+            $else:
+              <input name="story" method="POST" type="Submit" value= "$story_title[tupindex] wx nk" class="stories4"/>  <br>
       </form>
     </p>
   </div>

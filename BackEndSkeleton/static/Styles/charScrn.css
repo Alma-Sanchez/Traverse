@@ -32,7 +32,7 @@ body{
     overflow:auto;
 }
 .Character1{
-    background: url("../choice1.png");
+    background: url("../choice.png");
     background-repeat: no-repeat;
     background-size:100%;
     background-color: transparent;
