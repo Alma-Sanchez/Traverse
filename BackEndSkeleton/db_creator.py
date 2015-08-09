@@ -28,7 +28,7 @@ def dropTables(connection):
 	c.execute("DROP TABLE IF EXISTS Step_Data") #Drops (deletes) table named Step_Data if it exists.
 	c.execute("DROP TABLE IF EXISTS Accession_Answers") #Drops (deletes) table named Accession_Association if it exists.
 	c.execute("DROP TABLE IF EXISTS Answer_Key") #Drops (deletes) table named Answer_Key if it exists.
-	c.execute("DROP TABLE IF EXISTS Number_Answers") #Drops (deletes) table named Number_Answers if it exists.
+	c.execute("DROP TABLE IF EXISTS Num_Answers") #Drops (deletes) table named Number_Answers if it exists.
 	c.execute("DROP TABLE IF EXISTS Text_Answers") #Drops (deletes) table named Text_Answers if it exists.
 	c.execute("DROP TABLE IF EXISTS Multiple_Choice_Answers") #Drops (deletes) table named Multiple_Choice_answers if it exists.
 	c.execute("DROP TABLE IF EXISTS Boolean_Answers") #Drops (deletes) table named Boolean_Answers if it exists.
@@ -136,10 +136,8 @@ def populateTables(connection):
 	conn.commit()
 	step_transition_data_file.close()
 
-	with open('CSV_file\Number_Answers.csv', 'rb') as number_answers_file:
+	with open('CSV_file\Num_Answers.csv', 'rb') as number_answers_file:
 		spamreader = csv.reader(number_answers_file)
 		for row in spamreader:
-			c.execute("INSERT INTO Number_Answers VALUES (?,?,?)", (unicode(row[0], "utf-8"),unicode(row[1], "utf-8",unicode(row[2], "utf-8")))
-	conn.commit()
+			c.execute("INSERT INTO Num_Answers VALUES (?,?,?)", (unicode(row[0], "utf-8"), unicode(row[1], "utf-8"), unicode(row[2], "utf-8")))
 	number_answers_file.close()
-	#^^^^^^^^^^^^^STUPID AND WRONG
