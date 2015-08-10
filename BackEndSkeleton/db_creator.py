@@ -61,7 +61,7 @@ def createTables(connection):
 	c.execute("CREATE TABLE Step_Data(Story_ID INT, Step_ID INT, Step_Text TEXT, Step_Hint_1 TEXT, Step_Hint_2 TEXT, Step_Hint_3 TEXT)") #Creates new table named Step_Data with hardcoded parameters.
 	c.execute("CREATE TABLE Accession_Answers(Accession_ID INT, Accession_Association TEXT, Accession_Number TEXT)") #Creates new table named Accession_Association with hardcoded parameters.
 	c.execute("CREATE TABLE Answer_Key(Answer_ID INT, Answer_Type TEXT)")
-	c.execute("CREATE TABLE Number_Answers(Answer_ID INT, Low_End INT, High_End INT)")
+	c.execute("CREATE TABLE Num_Answers(Answer_ID INT, Low_End INT, High_End INT)")
 	c.execute("CREATE TABLE Text_Answers(Answer_ID INT, String_Answer TEXT)")
 	c.execute("CREATE TABLE Multiple_Choice_Answers(Answer_ID INT, Answer_Text TEXT, Right_Wrong INT)")
 	c.execute("CREATE TABLE Boolean_Answers(Answer_ID INT, Yes_No INT)")
@@ -118,7 +118,7 @@ def populateTables(connection):
 	with open('CSV_file\Text_Answers.csv', 'rb') as text_answers_file:
 		spamreader = csv.reader(text_answers_file)
 		for row in spamreader:
-			c.excute("INSERT INTO Text_Answers VALUES (?,?)", (unicode(row[0], "utf-8"),unicode(row[1], "utf-8")))
+			c.execute("INSERT INTO Text_Answers VALUES (?,?)", (unicode(row[0], "utf-8"),unicode(row[1], "utf-8")))
 	conn.commit()
 	text_answers_file.close()
 

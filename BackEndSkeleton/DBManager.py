@@ -333,43 +333,44 @@ def getStoriesFromDB(player_id):
         story_id_tuple += story_id
     return story_id_tuple
 
-def getAccessionNumbersFromDB(accession_association):
-    """
-    This function will query the database and return the list of possible 
-    accesion numbers associated with a particular accession association keyword
+# def getAccessionNumbersFromDB(accession_association):
+#     """
+#     This function will query the database and return the list of possible 
+#     accesion numbers associated with a particular accession association keyword
 
-    Parameters:
-        string: accession_association
+#     Parameters:
+#         string: accession_association
 
-    Returns:
-        tuple: accession numbers
+#     Returns:
+#         tuple: accession numbers
 
-    Example:
-        getAccessionNumbersFromDB(Predator) => 2002.31, 1985.4, 1913.1.3
-    """
-    cur = cursorForDB(connectToDB())
-    cur.execute("select Accession_Number from Accession_Data where Accession_Association =: accessionAssociation", {"accessionAssociation": accession_association})
-    return cur.fetchall()
+#     Example:
+#         getAccessionNumbersFromDB(Predator) => 2002.31, 1985.4, 1913.1.3
+#     """
+#     cur = cursorForDB(connectToDB())
+#     cur.execute("select Accession_Number from Accession_Data where Accession_Association =: accessionAssociation", {"accessionAssociation": accession_association})
+#     return cur.fetchall()
 
-def getAccessionAssociationFromDB(accession_number):
-    """
-    This function will query the database and return the assession association
-    associated wiht a particular assession number
+# def getAccessionAssociationFromDB(accession_number):
+#     """
+#     This function will query the database and return the assession association
+#     associated wiht a particular assession number
 
-    Parameters:
-        string: accession_number 
+#     Parameters:
+#         string: accession_number 
 
-    Returns:
-        string: accession_association
+#     Returns:
+#         string: accession_association
 
-    Example:
-        getAccessionAssociationFromDB(1965.16.32a-b) => Diana
-    """
-    conn,cur = connectToDB()
-    cur.execute("select Accession_Association from Accession_Association where Accession_Number =:accession_number", {"accession_number":accession_number})
-    accession_association = cur.fetchone()[0]
-    closeDB(conn)
-    return accession_association
+#     Example:
+#         getAccessionAssociationFromDB(1965.16.32a-b) => Diana
+#     """
+#     conn,cur = connectToDB()
+#     cur.execute("select Accession_Association from Accession_Association where Accession_Number =:accession_number", {"accession_number":accession_number})
+#     accession_association = cur.fetchone()[0]
+#     closeDB(conn)
+#     return accession_association
+
 
 def getCharacterData():
     """
@@ -444,26 +445,9 @@ def getStoryIDFromDB(player_id):
     
     return story1,story2,story3
 
-def getStepTextFromDB(step_id):
-    """
-    This function will query the database and return the correct step data for the step the player is currently on.
 
-    Parameters:
-        int: Current_Step_ID
-
-    Returns:
-        tuple: Step fields
-
-    Example:
-        getStepDataFromDB(3) => (1,3,2,4)
-
-    """
-    conn,cur = connectToDB()
-    cur.execute("select Step_Text from Step_Data where Step_ID =:step_id", {"step_id":step_id})
-    return cur.fetchone()
-
-
-def needLastScreen(player_id):
+#___________VVVVVVVVVVVVVVVVVVV____________
+def needLastScreen(player_id, input):
     """
     This function uses the player's id to determine if they need the last game screen or not.
 
@@ -478,15 +462,29 @@ def needLastScreen(player_id):
     """
     conn,cur=connectToDB()
 
-    cur.execute("select Current_Step_Action_ID from Player_Data where Player_ID =:player_id", {"player_id":player_id})
-    step_action_id = cur.fetchone()[0]
-    cur.execute("select Next_Step_ID from Player_Step_Action where Step_Action_ID =:step_action_id", {"step_action_id":step_action_id})
-    next_step_id = cur.fetchone()[0]
+    cur.execute("select Max(Step_Action_ID) from Player_Step_Action where Player_ID =:player_id", {"player_id":player_id})
+    current_step_row = cur.fetchone()[0]
+    cur.execute("select Current_Step_ID from Player_Step_Action where Current_Step_ID =:current_step_row", {"current_step_row":current_step_row})
+    current_step_id = cur.fetchone()[0]
+    cur.execute("select Answer_ID from Step_Transition_Data where Step_ID =:current_step_id", {"current_step_id":current_step_id})
+    answer_id =cur.fetchall()[0]
+    print answer_id
 
-    if "null" == next_step_id:
-        return True
-    else:
-        return False
+#needLastScreen(1, 5)
+
+
+#accession    1
+#text    2
+#number    3
+#mc        4
+#boolean     5
+
+    #if "null" == next_step_id:
+     #   return True
+    #else:
+     #   return False
+#_____AAAAAAAAAAAAAAAAAAAA__________
+
 
 def checkforExistingPlayer(player_ip):
     """
@@ -574,7 +572,14 @@ def checkPlayerStepInput(player_input):
     """
     conn,cur = connectToDB()
 
-    cur.execute("select * from Accession_Association where Accession_Number =:player_input", {"player_input":player_input})
+    cur.execute("select Max(Step_Action_ID) from Player_Step_Action where Player_ID =:player_id", {"player_id":player_id})
+    current_step_row = cur.fetchone()[0]
+    cur.execute("select Current_Step_ID from Player_Step_Action where Current_Step_ID =:current_step_row", {"current_step_row":current_step_row})
+    current_step_id = cur.fetchone()[0]
+    cur.execute("select Answer_ID from Step_Transition_Data where Step_ID =:current_step_id", {"current_step_id":current_step_id})
+    answer_id =cur.fetchall()[0]
+
+    cur.execute("select * from Accession_Answers where Accession_Number =:player_input", {"player_input":player_input})
     if None != cur.fetchone():
         return True
     else:
@@ -588,6 +593,7 @@ def loadPlayerAction(player_id):
     conn,cur = connectToDB()
 
 
+___VVVVVVVVVVVVVVVVVVVVVVVVVVVVVV______
 def shouldPlayerAdvance(cursor,player_input,current_step_id):
     """
     This function determines if the player has entered a correct accession number 
@@ -618,6 +624,7 @@ def shouldPlayerAdvance(cursor,player_input,current_step_id):
             return False
     else:
         return False
+_____AAAAAAAAAAAAAAAAAAAA__________
 
 
 def updatePlayerData(cursor, player_id, action_type):
@@ -679,6 +686,8 @@ def insertPlayerCharacterAction(player_id, player_character_input):
         commitToDB(conn)
     closeDB(conn)
 
+
+___VVVVVVVVVVVVVVVVVVVVVVVVVVVVVV______
 def insertPlayerStoryAction(player_id, player_story_input):
     """
     Thus function inserts the player's new story choice into the SQLite database
@@ -750,5 +759,4 @@ def insertPlayerStepAction(player_id, player_step_input=None):
     updatePlayerData(cur,player_id,action_type)
     commitToDB(conn)
     closeDB(conn)
-
-
+_____AAAAAAAAAAAAAAAAAAAA__________
