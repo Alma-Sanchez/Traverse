@@ -39,8 +39,8 @@ class homeScreen:
 		Returns:
 		None
 		"""
-		if not DBManager.checkforExistingPlayer(web.ctx.ip): #Checking to see if current player has played before
-			DBManager.insertPlayerData(web.ctx.ip) #If the above is true save the players ip address in the database
+		#if not DBManager.checkforExistingPlayer(web.ctx.ip): #Checking to see if current player has played before
+		DBManager.insertPlayerData(web.ctx.ip) #If the above is true save the players ip address in the database
 		playerStateObject = PlayerState() #Updating the player state
 		return self.render.homeScreen() #Render homeScreen.html
 	def POST(self):
@@ -200,10 +200,9 @@ class gameScreen:
 		None
 		"""
 		playerStateObject = PlayerState() #Updating the player state
-		title, text, hint1, hint2, hint3, progress = DBManager.getDataFromDBForGameScreen(playerStateObject.player_id) #Assigning several variables by pulling data from the database in order to dynamically generate different bodies of text for the user
-		if DBManager.needLastScreen(playerStateObject.player_id): #Checks to see if the player has reached the end of the game and the final screen need to be displayed
-			raise web.seeother('/last') #If the above is true then lastScreen.html is rendered
-		return self.render.gameScreen(title, text, hint1, hint2, hint3, progress) #Rendering the gameScreen.html
+		title, text, hint1, hint2, hint3 = DBManager.getDataFromDBForGameScreen(playerStateObject.player_id) #Assigning several variables by pulling data from the database in order to dynamically generate different bodies of text for the user
+		
+		return self.render.gameScreen(title, text, hint1, hint2, hint3) #Rendering the gameScreen.html
 	def POST(self):
 		"""
 		This function responds to user input and generates the proper game screens. This function ultimately controls game flow.
@@ -215,12 +214,17 @@ class gameScreen:
 		None
 		"""
 		playerStateObject = PlayerState() #Updating player state
+		
 		if web.input()['home']=='home': #Checking to see if the player pressed the home button
 			raise web.seeother('/home') #If the above is true then homeScreen.html is rendered
 		else:
 			accession= web.input()['home'] #Creating web.input() to hold user input information
+			if DBManager.needLastScreen(playerStateObject.player_id, accession): #Checks to see if the player has reached the end of the game and the final screen need to be displayed
+				raise web.seeother('/last') #If the above is true then lastScreen.html is rendered
 			DBManager.insertPlayerStepAction(playerStateObject.player_id,accession) #Inserting the action that the player took and inserting that information into the database
 			raise web.seeother('/game') #Rendering gameScreen.html
+
+
 
 class lastScreen:
 	def __init__(self):
