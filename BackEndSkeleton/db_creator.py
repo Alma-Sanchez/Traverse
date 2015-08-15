@@ -60,7 +60,7 @@ def createTables(connection):
 	c.execute("CREATE TABLE Character_Data(Character_ID INT, Character_Name TEXT)") #Creates new table named Character_Data with hardcoded parameters.
 	c.execute("CREATE TABLE Step_Data(Story_ID INT, Step_ID INT, Step_Text TEXT, Step_Hint_1 TEXT, Step_Hint_2 TEXT, Step_Hint_3 TEXT)") #Creates new table named Step_Data with hardcoded parameters.
 	c.execute("CREATE TABLE Accession_Answers(Accession_ID INT, Accession_Association TEXT, Accession_Number TEXT)") #Creates new table named Accession_Association with hardcoded parameters.
-	c.execute("CREATE TABLE Answer_Key(Answer_ID INT, Answer_Type TEXT)")
+	c.execute("CREATE TABLE Answer_Key(Answer_ID INT, Answer_Type INT)")
 	c.execute("CREATE TABLE Num_Answers(Answer_ID INT, Low_End INT, High_End INT)")
 	c.execute("CREATE TABLE Text_Answers(Answer_ID INT, String_Answer TEXT)")
 	c.execute("CREATE TABLE Multiple_Choice_Answers(Answer_ID INT, Answer_Text TEXT, Right_Wrong INT)")
