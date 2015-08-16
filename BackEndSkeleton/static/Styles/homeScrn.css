@@ -1,61 +1,85 @@
-html { 
-    height: 100%; 
-}
-
-body {
+body{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
     background: url("../background.png") no-repeat center center fixed;
     -webkit-background-size: contain;
     -moz-background-size: contain;
     -o-background-size: contain;
     background-size: contain;
-    background-color: #000000; 
+    /*background-color: #000000;*/
 }
 .menuInput{
-    /*text-align: center;*/
-    margin-top: 52%;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    flex-wrap: nowrap;
+    align-content: center; 
+    padding-top: 17rem;
 }
-.newstory{
+.newStory{
     background-image: url("../new.png");
-    background-size: 72%;
+    background-size: 100%;
     background-repeat: no-repeat;
     background-color:transparent;
-    padding-bottom: 17%;
-    padding-left:30%;
-    margin-left:40%;
-    border:none;
-    font-size: 0;
-}
-.loadstory{
-    background-image: url("../load.png");
-    background-size: 72%;
-    background-repeat: no-repeat;
-    background-color:transparent;
-    padding-bottom: 14%;
-    padding-left: 30%;
-    margin-left: 40%;
+    height: 50%;
+    width: 150%;
     border: none;
     font-size: 0;
+    padding-bottom: 80%;
+}
+.loadStory{
+    background-image: url("../load.png");
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-color:transparent;
+    height: 50%;
+    width: 150%;
+    border: none;
+    font-size: 0;
+    padding-bottom: 30%;
 }
 .about{
     background-image: url("../about.png");
-    background-size: 87%;
+    background-size: 105%;
     background-repeat: no-repeat;
     background-color: transparent;
-    padding-bottom: 14%;
-    padding-left: 30%;
-    margin-left: 37%;
+    height: 50%;
+    width: 170%;
     border: none;
     font-size: 0;
+    padding-bottom: 30%;
 }
 .help{
     background-image: url("../help.png");
-    background-size: 66%;
+    background-size: 100%;
     background-repeat: no-repeat;
     background-color: transparent;
-    padding-bottom: 10%;
-    padding-left: 30%;
-    margin-left: 40%;
-    margin-bottom: 10%;
+    height: 50%;
+    width: 150%;
     border: none;
     font-size: 0;
+    padding: 15%;
+}
+@media screen and (max-width: 380px){
+    body{
+        margin: 0px;
+        padding-top: 1.2rem;
+    }
+    .newStory{
+        width: 145%;
+        padding-bottom: 27%;
+    }
+    .loadStory{
+        padding-bottom: 30%;
+        width: 145%;
+    }
+    .about{
+        padding-bottom: 16%;
+        width: 170%;
+    }
+    .help{
+        padding-bottom: 40%;
+        width: 140%;
+    }
 }
