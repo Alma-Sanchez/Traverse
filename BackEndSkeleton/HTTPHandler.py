@@ -162,19 +162,9 @@ class storyScreen:
 			raise web.seeother('/char') #If the above is true then the charScreen.html is rendered
 		else:
 			title= action['story']
-			prefix= title[0:1]
-			print prefix
-			if prefix=="*":
-				story_id=DBManager.getStoryIDFromTitle(title[1:])
-				if DBManager.checkPlayerStoryInput(story_id): #Checks to see if the player has chosen a story
-					DBManager.insertPlayerStoryAction(playerStateObject.player_id,story_id) #If the above is true the story selection is inserted into the database
-					raise web.seeother('/game') #Rendering gameScreen.html
-			else:
-				story_id=DBManager.getStoryIDFromTitle(action['story'])
-				if DBManager.checkPlayerStoryInput(story_id):
-					DBManager.insertPlayerStoryAction(playerStateObject.player_id,story_id)
-					raise web.seeother('/game')
-			
+			story_id=DBManager.getStoryIDFromTitle(title)
+			DBManager.insertPlayerStoryAction(playerStateObject.player_id,story_id) #If the above is true the story selection is inserted into the database
+			raise web.seeother('/game') #Rendering gameScreen.html
 
 class gameScreen:
 	def __init__(self):
