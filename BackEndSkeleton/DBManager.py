@@ -124,74 +124,6 @@ def getPlayerStoryActionFromDB(player_id):
     closeDB(conn)
     return player_story_action
 
-# def getDataFromDBForGameScreen(player_id):
-#     """
-#     This function returns all the informaiton neccessary to populate the game screen. This
-#     incudes the title of the story the player selected, the game text for the relevant step, all three hints for the
-#     relevant step, as well as the progress (step the player is on out of the total number of steps).
-    
-#     Parameter:
-#         ip: the IP address of the player connection to the web.py server
-
-#     Returns:
-#         tuple: tuple contains the title, game text, 1st hint, 2nd hint, 3rd hint, and progress respectively
-
-#     Example:
-#         getDataFromDBForGameScreen(1.1.1.1.1) => (Enigma, Please go find a box!, You need to find a box., Look in the Luce Foundation Center,
-#             The title of the piece you're looking for is "The Box", 1/6)
-
-#     """
-#     conn,cur = connectToDB()
-#     cur.execute("select Max(Character_Action_ID) from Player_Character_Action where Player_ID =:player_id", {"player_id":player_id})
-#     char_action_id = cur.fetchone()[0]
-#     print char_action_id
-#     cur.execute("select Current_Character_ID from Player_Character_Action where Character_Action_ID =:char_action_id", {"char_action_id":char_action_id})
-#     current_character = cur.fetchone()[0]
-#     print current_character
-#     cur.execute("select Max(Story_Action_ID) from Player_Story_Action where Player_ID =:player_id", {"player_id":player_id})
-#     story_action_id = cur.fetchone()[0]
-#     print story_action_id
-#     cur.execute("select Current_Story_ID from Player_Story_Action where Story_Action_ID =:story_action_id", {"story_action_id":story_action_id})
-#     current_story = cur.fetchone()[0]
-#     print current_story
-#     cur.execute("select Title_Of_Story from Story_Data where Story_ID =:current_story", {"current_story":current_story})
-#     title_of_story = cur.fetchone()[0]
-#     print title_of_story
-#     cur.execute("select Max(Step_Action_ID) from Player_Step_Action where Player_ID =:player_id", {"player_id":player_id})
-#     step_action_id = cur.fetchone()[0]
-#     print step_action_id
-#     cur.execute("select Current_Step_ID from player_Step_Action where Step_Action_ID =:step_action_id", {"step_action_id":step_action_id})
-#     current_step = cur.fetchone()[0]
-#     print current_step
-#     cur.execute("select Step_Text from Step_Data where Step_ID =:current_step", {"current_step":current_step})
-#     game_text = cur.fetchone()[0]
-#     cur.execute("select Step_Hint_1 from Step_Data where Step_ID =:current_step", {"current_step":current_step})
-#     game_hint_1 = cur.fetchone()[0]
-#     cur.execute("select Step_Hint_2 from Step_Data where Step_ID =:current_step", {"current_step":current_step})
-#     game_hint_2 = cur.fetchone()[0]
-#     cur.execute("select Step_Hint_3 from Step_Data where Step_ID =:current_step", {"current_step":current_step})
-#     game_hint_3 = cur.fetchone()[0]
-#     if game_hint_1 == None:
-#         relevant_game_hint_1 = " "
-#     else:
-#         relevant_game_hint_1 = game_hint_1
-#     if game_hint_2 == None:
-#         relevant_game_hint_2 = " "
-#     else:
-#         relevant_game_hint_2 = game_hint_2
-#     if game_hint_3 == None:
-#         relevant_game_hint_3 = " "
-#     else:
-#         relevant_game_hint_3 = game_hint_3
-#     # cur.execute("select Actual_Step_Number from Step_Data where Step_ID =:current_step", {"current_step":current_step})
-#     # actual_step = cur.fetchone()[0]
-#     # cur.execute("select max(Actual_Step_Number) from Step_Data where Story_ID=:current_story", {"current_story":current_story})
-#     # total_steps = cur.fetchone()[0]
-#     # progress= str(actual_step) + "/" + str(total_steps)
-#     data_to_return = title_of_story , game_text, relevant_game_hint_1, relevant_game_hint_2, relevant_game_hint_3
-#     print data_to_return
-#     return data_to_return
-
 def getStoryTitles(player_id):
     """
     This function gets the titles for a particular character based off of what character the player has selected.
@@ -286,7 +218,7 @@ def getStoriesFromDB(player_id):
     character_action_id = cur.fetchone()[0]
     cur.execute("select Current_Character_ID from Player_Character_Action where Character_Action_Id =:character_action_id", {"character_action_id":character_action_id})
     character_id = cur.fetchone()[0]
-    print character_id
+    #print character_id
     cur.execute("select Story_ID from Story_Data where Character_ID =:character_id", {"character_id":character_id})
     story_ids = cur.fetchall()
     story_id_tuple = ()
@@ -332,7 +264,6 @@ def getStoriesFromDB(player_id):
 #     closeDB(conn)
 #     return accession_association
 
-
 def getCharacterData():
     """
     This function will query the database and return the correct character 
@@ -372,7 +303,6 @@ def getCharacterNames():
     cur.execute("select Character_Name from Character_Data")
     character_names=cur.fetchall()
     character_names_tuple=()
-    print character_names_tuple
     for character_name in character_names:
         character_names_tuple +=character_name
     return character_names_tuple
@@ -617,8 +547,11 @@ def insertPlayerStoryAction(player_id, player_story_input):
         None
 
     """
+    print "WHY?"
     conn,cur = connectToDB()
     action_type = "Story_Action"
+    print player_story_input
+    print "HJFDLKFSLKJ"
 
     if checkPlayerStoryInput(player_story_input):
         cur.execute("select Story_ID from Story_Data where Story_ID =:player_story_input", {"player_story_input": player_story_input})
@@ -632,6 +565,7 @@ def insertPlayerStoryAction(player_id, player_story_input):
         cur.execute("select * from Step_Data where Story_ID =:current_story_id", {"current_story_id":current_story_id})
         step_data = cur.fetchone() #Returns a tuple of all the step data that will be used to update player step action.
         print step_data
+        print "HIOSHIOSDHA"
         cur.execute("insert into Player_Step_Action values (?,?,?,?,?,?,?)", (None, player_id, step_data[2], step_data[1], step_data[3], None, None))
 
         updatePlayerData(cur,player_id,action_type)
@@ -711,6 +645,7 @@ def getStoryDataForGameScreen(player_id):
     title_of_story = cur.fetchone()[0]
     closeDB(conn)
     return current_story,title_of_story
+
 def getGameScreenDataFromDB(player_id):
     """
     This function returns all the informaiton neccessary to populate the game screen. This
@@ -732,24 +667,6 @@ def getGameScreenDataFromDB(player_id):
     current_story,title_of_story = getStoryDataForGameScreen(player_id)
 
     cur.execute("select Step_ID from Step_Transition_Data where Story_ID =:current_story", {"current_story":current_story})
-    step_ids=cur.fetchall()
-    step_tuple=()
-    for step_id in step_ids:
-        step_tuple +=step_id
-    for step_id in step_tuple:
-        cur.execute("select Previous_Step_ID from Step_Transition_Data where Step_ID=:step_id",{"step_id":step_id})
-        previous_steps=cur.fetchall()
-        previous_tuple=()
-        for previous_step in previous_steps:
-            previous_tuple +=previous_step
-        for previous_step in previous_tuple:
-            if previous_step==-1: 
-                cur.execute("select Min(Step_ID) from Step_Transition_Data where Story_ID=:current_story", {"current_story":current_story})
-                first_current_step=cur.fetchone()[0]
-                cur.execute("insert into Player_Step_Action values (?,?,?,?,?,?,?)", (None, player_id, None, first_current_step, None, None, None))
-                commitToDB(conn)
-                break
-        break
 
 
     cur.execute("select Max(Step_Action_ID) from Player_Step_Action where Player_ID =:player_id", {"player_id":player_id})

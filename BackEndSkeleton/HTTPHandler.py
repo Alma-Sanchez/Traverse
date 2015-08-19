@@ -112,7 +112,7 @@ class charScreen:
 			raise web.seeother('/home') #Renders homeScreen.html
 		else: 
 			character=DBManager.getCharacterIDFromName(action['Character'])
-			print "this is character" + str(character)
+			#print "this is character" + str(character)
 			if DBManager.hasPlayerChosenCharacter(character):
 				DBManager.insertPlayerCharacterAction(playerStateObject.player_id, character)
 				raise web.seeother('/story')
@@ -163,6 +163,7 @@ class storyScreen:
 		else:
 			title= action['story']
 			story_id=DBManager.getStoryIDFromTitle(title)
+			print story_id
 			DBManager.insertPlayerStoryAction(playerStateObject.player_id,story_id) #If the above is true the story selection is inserted into the database
 			raise web.seeother('/game') #Rendering gameScreen.html
 
