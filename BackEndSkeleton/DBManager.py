@@ -226,44 +226,6 @@ def getStoriesFromDB(player_id):
         story_id_tuple += story_id
     return story_id_tuple
 
-# def getAccessionNumbersFromDB(accession_association):
-#     """
-#     This function will query the database and return the list of possible 
-#     accesion numbers associated with a particular accession association keyword
-
-#     Parameters:
-#         string: accession_association
-
-#     Returns:
-#         tuple: accession numbers
-
-#     Example:
-#         getAccessionNumbersFromDB(Predator) => 2002.31, 1985.4, 1913.1.3
-#     """
-#     cur = cursorForDB(connectToDB())
-#     cur.execute("select Accession_Number from Accession_Data where Accession_Association =: accessionAssociation", {"accessionAssociation": accession_association})
-#     return cur.fetchall()
-
-# def getAccessionAssociationFromDB(accession_number):
-#     """
-#     This function will query the database and return the assession association
-#     associated wiht a particular assession number
-
-#     Parameters:
-#         string: accession_number 
-
-#     Returns:
-#         string: accession_association
-
-#     Example:
-#         getAccessionAssociationFromDB(1965.16.32a-b) => Diana
-#     """
-#     conn,cur = connectToDB()
-#     cur.execute("select Accession_Association from Accession_Association where Accession_Number =:accession_number", {"accession_number":accession_number})
-#     accession_association = cur.fetchone()[0]
-#     closeDB(conn)
-#     return accession_association
-
 def getCharacterData():
     """
     This function will query the database and return the correct character 
@@ -330,8 +292,6 @@ def needLastScreen(player_id, input):
     cur.execute("select Answer_ID from Step_Transition_Data where Step_ID =:current_step_id", {"current_step_id":current_step_id})
     answer_id =cur.fetchall()[0]
     
-
-
 
 
 #accession    1
@@ -448,8 +408,6 @@ def checkPlayerStepInput(player_id, player_input):
         return False
     closeDB(conn)
 
-#checkPlayerStepInput("4.5.6", 2)
-
 def loadPlayerAction(player_id):
     """
     This function will retreive the current client's last player action.
@@ -508,8 +466,6 @@ def updatePlayerData(cursor, player_id, action_type):
     id_to_update = cur.fetchone()[0]
     cur.execute("update Player_data set Current_%s_ID =:id_to_update" % (action_type), {"id_to_update":id_to_update})
     
-    #cur.execute("update player_data set Current_Action_ID=:current_action_ID where player_ID =:player_ID", {"current_action_ID":current_action_ID, "player_ID":player_ID})
-
 def insertPlayerCharacterAction(player_id, player_character_input):
     """
     This function will insert a player's new character choice into the SQLite database
@@ -547,26 +503,19 @@ def insertPlayerStoryAction(player_id, player_story_input):
         None
 
     """
-    print "WHY?"
     conn,cur = connectToDB()
     action_type = "Story_Action"
-    print player_story_input
-    print "HJFDLKFSLKJ"
 
     if checkPlayerStoryInput(player_story_input):
         cur.execute("select Story_ID from Story_Data where Story_ID =:player_story_input", {"player_story_input": player_story_input})
         current_story_id = cur.fetchone()[0]
-        print current_story_id
         cur.execute("insert into Player_Story_Action values (?,?,?,?)", (None,player_id,current_story_id,player_story_input))
 
         updatePlayerData(cur,player_id,action_type)
-
         action_type = "Step_Action"
         cur.execute("select * from Step_Data where Story_ID =:current_story_id", {"current_story_id":current_story_id})
-        step_data = cur.fetchone() #Returns a tuple of all the step data that will be used to update player step action.
-        print step_data
-        print "HIOSHIOSDHA"
-        cur.execute("insert into Player_Step_Action values (?,?,?,?,?,?,?)", (None, player_id, step_data[2], step_data[1], step_data[3], None, None))
+        step_id = cur.fetchone()[1] #Returns a tuple of all the step data that will be used to update player step action.
+        cur.execute("insert into Player_Step_Action values (?,?,?,?,?,?,?)", (None, player_id, None, step_id, None, None, None))
 
         updatePlayerData(cur,player_id,action_type)
 
@@ -668,20 +617,10 @@ def getGameScreenDataFromDB(player_id):
 
     cur.execute("select Step_ID from Step_Transition_Data where Story_ID =:current_story", {"current_story":current_story})
 
-
     cur.execute("select Max(Step_Action_ID) from Player_Step_Action where Player_ID =:player_id", {"player_id":player_id})
     step_action_id = cur.fetchone()[0]
 
     cur.execute("select Current_Step_ID from Player_Step_Action where Step_Action_ID =:step_action_id", {"step_action_id":step_action_id})
-    if None == cur.fetchone():
-        cur.execute("select MAX(Current_Story_Action_ID) from Player_Data where Player_ID =:player_id", {"player_id":player_id})
-        story_action_id = cur.fetchone()[0]
-        cur.execute("select Current_Story_ID from Player_Story_Action where Story_Action_ID =:story_action_id", {"story_action_id":story_action_id})
-        current_story_id = cur.fetchone()[0]
-        cur.execute("select Step_ID from Step_Data where Story_ID =:current_story_id", {"current_story_id":current_story_id})
-        step_id = cur.fetchone()[0]
-        cur.execute("insert into Player_Step_Action values (?,?,?,?,?,?,?)", (None, player_id, None, step_id, None, None, None))
-        commitToDB(conn)
 
     cur.execute("select Max(Step_Action_ID) from Player_Step_Action where Player_ID =:player_id", {"player_id":player_id})
     step_action_id = cur.fetchone()[0]        
@@ -741,76 +680,6 @@ def insertPlayerCharacterAction(player_id, player_character_input):
         commitToDB(conn)
     closeDB(conn)
 
-def insertPlayerStoryAction(player_id, player_story_input):
-    """
-    Thus function inserts the player's new story choice into the SQLite database
-
-    Parameters
-        player_id - the unique number associated with the player
-        player_story_input - the story the player has chosen
-
-    Returns
-        None
-
-    """
-    conn,cur = connectToDB()
-
-    if checkPlayerStoryInput(player_story_input):
-        cur.execute("select Story_ID from Story_Data where Story_ID =:player_story_input", {"player_story_input": player_story_input})
-        current_story_id = cur.fetchone()[0]
-        cur.execute("insert into Player_Story_Action values (?,?,?,?)", (None,player_id,current_story_id,player_story_input))
-        cur.execute("select max(Story_Action_ID) from Player_Story_Action where player_id=:player_id" ,{"player_id":player_id})
-        id_to_update = cur.fetchone()[0]
-        cur.execute("update Player_data set Current_Story_Action_ID =:id_to_update", {"id_to_update":id_to_update})
-        commitToDB(conn)
-    closeDB(conn)
-
-# def insertCharacterActionintoPlayerData(player_id):
-#     conn,cur = connectToDB()
-#     cur.execute("select Max(Character_Action_ID) from Player_Character_Action where Player_ID=:player_id", {"player_id":player_id})
-#     max_character_action_id = cur.fetchone()[0]
-#     print max_character_action_id
-#     cur.execute("select Current_Character_ID from Player_Character_Action where Character_Action_ID=:max_character_action_id", {"max_character_action_id":max_character_action_id})
-#     character_id = cur.fetchone()[0]
-#     cur.execute("insert into Player_Data values (?,?,?,?,?)", (None,None,character_id,None,None))
-#     commitToDB(conn)
-#     closeDB(conn)
-
-# def insertPlayerStoryAction(player_id):
-#     conn,cur = connectToDB()
-#     cur.execute("select Max(Story_Action_ID) from Player_Story_Action where Player_ID=:player_id", {"player_id":player_id})
-#     max_story_action_id = cur.fetchone()[0]
-#     cur.execute("select Current_Story_ID from Player_Story_Action where Story_Action_ID=:max_story_action_id", {"max_story_action_id":max_story_action_id})
-#     story_id = cur.fetchone()[0]
-#     cur.execute("insert into Player_Data values (?,?,?,?,?)", (None,None,None,story_id,None))
-#     commitToDB(conn)
-#     closeDB(conn)
-
-# def insertPlayerStepAction(player_id):
-#     conn,cur = connectToDB()
-#     cur.execute("select Max(Step_Action_ID) from Player_Step_Action where Player_ID=:player_id", {"player_id":player_id})
-#     max_step_action_id = cur.fetchone()[0]
-#     cur.execute("select Current_Step_ID from Player_Step_Action where Step_Action_ID=:max_step_action_id", {"max_step_action_id":max_step_action_id})
-#     step_id = cur.fetchone()[0]
-#     cur.execute("insert into Player_Data values (?,?,?,?,?)", (None,None,None,None,step_id))
-#     commitToDB(conn)
-#     closeDB(conn)
-
-
-# def updatePlayer(player_id,ip):
-#     conn,cur = connectToDB()
-#     character_id = getPlayerCharacterActionFromDB(player_id)
-#     cur.execute("insert into Player_Data values (?,?,?,?,?)", (None,None,character_id,None,None))
-#     story_id = getPlayerStoryActionFromDB(player_id)
-#     cur.execute("insert into Player_Data values (?,?,?,?,?)", (None,None,None,story_id,None))
-#     step_id = getPlayerStepActionFromDB(player_id)
-#     cur.execute("insert into Player_Data values (?,?,?,?,?)", (None,None,None,None,step_id))
-#     getPlayerIP(ip)
-#     commitToDB(conn)
-#     closeDB(conn)
-
-
-
 def compareInputToAnswers(player_id,player_input):
     conn,cur = connectToDB()
     cur.execute("select Max(Step_Action_ID) from Player_Step_Action where Player_ID=:player_id",{"player_id":player_id})
@@ -830,7 +699,6 @@ def compareInputToAnswers(player_id,player_input):
         cur.execute("select Answer_Type from Answer_Key where Answer_ID=:answer",{"answer":answer})
         answer_type=cur.fetchone()[0]
         if answer_type=="1":
-            print "hi"
             cur.execute("select Accession_Number from Accession_Answers where Accession_ID=:answer",{"answer":answer})
             accession_numbers=cur.fetchall()
             print "accession numbers:" + str(accession_numbers)
@@ -845,6 +713,3 @@ def compareInputToAnswers(player_id,player_input):
                     cur.execute("insert into Player_Step_Action values (?,?,?,?,?,?,?)", (None,player_id,None,new_current_step,None,None,None))
                     commitToDB(conn)
     closeDB(conn)
-
-
-    
