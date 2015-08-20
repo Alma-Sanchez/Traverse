@@ -7,7 +7,7 @@ body{
     -moz-background-size: contain;
     -o-background-size: contain;
     background-size: contain;
-    /*background-color: #000000;*/
+    background-color: #000000;
 }
 .menuInput{
     display: flex;
