@@ -478,7 +478,6 @@ def insertPlayerCharacterAction(player_id, player_character_input):
     """
     conn,cur = connectToDB()
     action_type = "Character_Action"
-
     if hasPlayerChosenCharacter(player_character_input):
         cur.execute("select Character_ID from Character_Data where Character_ID =:player_character_input", {"player_character_input": player_character_input})
         current_character_id = cur.fetchone()[0]
@@ -535,6 +534,7 @@ def insertPlayerStepAction(player_id, player_step_input=None):
     """
     conn,cur = connectToDB()
     action_type = "Step_Action"
+
     cur.execute("select Current_Step_Action_ID from Player_Data where Player_ID =:player_id", {"player_id":player_id})
     step_action_id = cur.fetchone()[0]
     cur.execute("select Current_Step_ID from Player_Step_Action where Step_Action_ID =:step_action_id", {"step_action_id":step_action_id})
@@ -614,6 +614,7 @@ def getGameScreenDataFromDB(player_id):
     current_story,title_of_story = getStoryDataForGameScreen(player_id)
 
     cur.execute("select Step_ID from Step_Transition_Data where Story_ID =:current_story", {"current_story":current_story})
+
     cur.execute("select Max(Step_Action_ID) from Player_Step_Action where Player_ID =:player_id", {"player_id":player_id})
     step_action_id = cur.fetchone()[0]
  
@@ -630,6 +631,7 @@ def getGameScreenDataFromDB(player_id):
  
     cur.execute("select Max(Step_Action_ID) from Player_Step_Action where Player_ID =:player_id", {"player_id":player_id})
     step_action_id = cur.fetchone()[0]        
+
     cur.execute("select Current_Step_ID from Player_Step_Action where Step_Action_ID =:step_action_id", {"step_action_id":step_action_id})
 
     cur.execute("select Max(Step_Action_ID) from Player_Step_Action where Player_ID =:player_id", {"player_id":player_id})
@@ -709,6 +711,7 @@ def compareInputToAnswers(player_id,player_input):
         cur.execute("select Answer_Type from Answer_Key where Answer_ID=:answer",{"answer":answer})
         answer_type=cur.fetchone()[0]
         if answer_type=="1":
+
             cur.execute("select Accession_Number from Accession_Answers where Accession_ID=:answer",{"answer":answer})
             accession_numbers=cur.fetchall()
             print "accession numbers:" + str(accession_numbers)
