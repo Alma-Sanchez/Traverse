@@ -708,6 +708,7 @@ def compareInputToAnswers(player_id,player_input):
         answer_tuple += answer
         print answer_tuple
     for answer in answer_tuple:
+        print "hello!"
         cur.execute("select Answer_Type from Answer_Key where Answer_ID=:answer",{"answer":answer})
         answer_type=cur.fetchone()[0]
         if answer_type=="1":
@@ -720,9 +721,31 @@ def compareInputToAnswers(player_id,player_input):
                 accession_tuple +=accession
             for accession in accession_tuple:
                 if player_input == accession:
-                    cur.execute("select Next_Step_ID from Step_Transition_Data where Answer_ID=:answer",{"answer":answer})
-                    new_current_step=cur.fetchone()[0]
-                    print "the new step is: " + str(new_current_step)
-                    cur.execute("insert into Player_Step_Action values (?,?,?,?,?,?,?)", (None,player_id,None,new_current_step,None,None,None))
-                    commitToDB(conn)
+                    cur.execute("select Accession_ID from Accession_Answers where Accession_ID=:answer",{"answer":answer})
+                    answer_id= cur.fetchone()[0]
+                    insertNewCurrentStep(player_id, answer_id)
+        if answer_type=="2":
+            cur.execute("select String_Answer from Text_Answers where Answer_ID=:answer",{"answer":answer})
+            text_answers=cur.fetchall()
+            print "text answers:" + str(text_answers)
+            text_tuple=()
+            for text_answer in text_answers:
+                text_tuple += text_answer
+            for text_answer in text_tuple:
+                if player_input == text_answer:
+                    cur.execute("select Answer_ID from Text_Answers where String_Answer=:text_answer",{"text_answer":text_answer})
+                    answer_id= cur.fetchone()[0]
+                    print answer_id
+                    insertNewCurrentStep(player_id, answer_id)
+        if answer_type=="3":
+            cur.execute("select ")
+    closeDB(conn)
+
+def insertNewCurrentStep(player_id, answer_id):
+    conn,cur = connectToDB()
+    cur.execute("select Next_Step_ID from Step_Transition_Data where Answer_ID=:answer_id",{"answer_id":answer_id})
+    new_current_step=cur.fetchone()[0]
+    print new_current_step
+    cur.execute("insert into Player_Step_Action values (?,?,?,?,?,?,?)", (None, player_id, None, new_current_step, None, None, None))
+    commitToDB(conn)
     closeDB(conn)
