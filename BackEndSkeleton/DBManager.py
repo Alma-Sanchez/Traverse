@@ -148,6 +148,7 @@ def getStoryTitles(player_id):
     story_title_tuple = ()
     for story_title in story_titles:
         story_title_tuple += story_title
+    closeDB(conn)
     return story_title_tuple
  
 def getStoryData():
@@ -162,6 +163,7 @@ def getStoryData():
     kid_tuple=()
     for kid in kids:
         kid_tuple += kid
+    closeDB(conn)
     return walk_tuple, kid_tuple
  
 def getStoryIDFromTitle(title_of_story):
@@ -180,6 +182,7 @@ def getStoryIDFromTitle(title_of_story):
     conn,cur=connectToDB()
     cur.execute("select Story_ID from Story_Data where Title_Of_Story=:title_of_story", {"title_of_story":title_of_story})
     story_id= cur.fetchone()[0]
+    closeDB(conn)
     return story_id
  
 def getCharacterIDFromName(character_name):
@@ -198,6 +201,7 @@ def getCharacterIDFromName(character_name):
     conn,cur=connectToDB()
     cur.execute("select Character_ID from Character_Data where Character_Name=:character_name", {"character_name":character_name})
     character_id=cur.fetchone()[0]
+    closeDB(conn)
     return str(character_id)
  
 def getStoriesFromDB(player_id):
@@ -224,6 +228,7 @@ def getStoriesFromDB(player_id):
     story_id_tuple = ()
     for story_id in story_ids:
         story_id_tuple += story_id
+    closeDB(conn)
     return story_id_tuple
 
 def getCharacterData():
@@ -246,6 +251,7 @@ def getCharacterData():
     character_id_tuple = ()
     for character in character_id:
         character_id_tuple += character
+    closeDB(conn)
     return character_id_tuple
  
 def getCharacterNames():
@@ -267,6 +273,7 @@ def getCharacterNames():
     character_names_tuple=()
     for character_name in character_names:
         character_names_tuple +=character_name
+    closeDB(conn)
     return character_names_tuple
 
 #___________VVVVVVVVVVVVVVVVVVV____________
@@ -321,11 +328,14 @@ def checkforExistingPlayer(player_ip):
    """
     coon,cur = connectToDB()
     cur.execute("select Player_ID from Player_Data where IP =:player_ip", {"player_ip":player_ip})
-    if None != cur.fetchone()[0]:
+    player_id = cur.fetchone()[0]
+    closeDB(conn)
+    if None != player_id:
+
         return True
     else:
         return False
-    closeDB(conn)
+
  
 def hasPlayerChosenCharacter(player_character_input):  
     """
@@ -344,12 +354,12 @@ def hasPlayerChosenCharacter(player_character_input):
    """
     conn,cur = connectToDB()
     cur.execute("select Character_ID from Character_Data where Character_ID =:player_character_input", {"player_character_input": player_character_input})
-   
-    if None != cur.fetchone():
+    character_id = cur.fetchone()[0]
+    closeDB(conn)
+    if None != character_id:
         return True
     else:
         return False
-    closeDB(conn)
  
 def checkPlayerStoryInput(player_story_input):
     """
@@ -368,12 +378,12 @@ def checkPlayerStoryInput(player_story_input):
     conn,cur = connectToDB()
  
     cur.execute("select Story_ID from Story_Data where Story_ID =:player_story_input", {"player_story_input": player_story_input})
-   
-    if None != cur.fetchone():
+    story_id = cur.fetchone()[0]
+    closeDB(conn)
+    if None != story_id:
         return True
     else:
         return False
-    closeDB(conn)
  
 def checkPlayerStepInput(player_id, player_input):
     """
@@ -398,9 +408,10 @@ def checkPlayerStepInput(player_id, player_input):
     current_step_id = cur.fetchone()[0]
     cur.execute("select Answer_ID from Step_Transition_Data where Step_ID =: current_step_id", {"current_step_id":current_step_id})
     answer_id =cur.fetchall()[0]
-    print answer_id
+    #print answer_id
  
     cur.execute("select * from Accession_Answers where Accession_Number =:player_input", {"player_input":player_input})
+    
     if None != cur.fetchone():
         return True
     else:
@@ -640,25 +651,16 @@ def getGameScreenDataFromDB(player_id):
     current_step = cur.fetchone()[0]
     cur.execute("select Step_Text from Step_Data where Step_ID =:current_step", {"current_step":current_step})
     game_text = cur.fetchone()[0]
-    cur.execute("select Step_Hint_1 from Step_Data where Step_ID =:current_step", {"current_step":current_step})
-    game_hint_1 = cur.fetchone()[0]
-    cur.execute("select Step_Hint_2 from Step_Data where Step_ID =:current_step", {"current_step":current_step})
-    game_hint_2 = cur.fetchone()[0]
-    cur.execute("select Step_Hint_3 from Step_Data where Step_ID =:current_step", {"current_step":current_step})
-    game_hint_3 = cur.fetchone()[0]
-    if game_hint_1 == None:
-        relevant_game_hint_1 = " "
-    else:
-        relevant_game_hint_1 = game_hint_1
-    if game_hint_2 == None:
-        relevant_game_hint_2 = " "
-    else:
-        relevant_game_hint_2 = game_hint_2
-    if game_hint_3 == None:
-        relevant_game_hint_3 = " "
-    else:
-        relevant_game_hint_3 = game_hint_3
-    data_to_return = title_of_story , game_text, relevant_game_hint_1, relevant_game_hint_2, relevant_game_hint_3
+    cur.execute("select Step_Hint_1, Step_Hint_2, Step_Hint_3 from Step_Data where Step_ID =:current_step", {"current_step":current_step})
+    relevant_game_hint_list = list(cur.fetchone())
+    for hint in relevant_game_hint_list:
+        if None == hint:
+            hint_index = relevant_game_hint_list.index(hint)
+            relevant_game_hint_list.remove(hint)
+            hint_to_insert = " "
+            relevant_game_hint_list.insert(hint_index,hint_to_insert)
+
+    data_to_return = title_of_story , game_text, relevant_game_hint_list[0], relevant_game_hint_list[1], relevant_game_hint_list[2]
     return data_to_return
     closeDB(conn)
  
