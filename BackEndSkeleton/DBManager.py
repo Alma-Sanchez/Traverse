@@ -713,7 +713,8 @@ def compareInputToAnswers(player_id,player_input):
         print "hello!"
         cur.execute("select Answer_Type from Answer_Key where Answer_ID=:answer",{"answer":answer})
         answer_type=cur.fetchone()[0]
-        if answer_type=="1":
+        print type(answer_type)
+        if answer_type==1:
 
             cur.execute("select Accession_Number from Accession_Answers where Accession_ID=:answer",{"answer":answer})
             accession_numbers=cur.fetchall()
@@ -726,7 +727,7 @@ def compareInputToAnswers(player_id,player_input):
                     cur.execute("select Accession_ID from Accession_Answers where Accession_ID=:answer",{"answer":answer})
                     answer_id= cur.fetchone()[0]
                     insertNewCurrentStep(player_id, answer_id)
-        if answer_type=="2":
+        if answer_type==2:
             cur.execute("select String_Answer from Text_Answers where Answer_ID=:answer",{"answer":answer})
             text_answers=cur.fetchall()
             print "text answers:" + str(text_answers)
@@ -739,8 +740,25 @@ def compareInputToAnswers(player_id,player_input):
                     answer_id= cur.fetchone()[0]
                     print answer_id
                     insertNewCurrentStep(player_id, answer_id)
-        if answer_type=="3":
-            cur.execute("select ")
+        if answer_type==3:
+          player_input = int(player_input)
+          print type(player_input)
+          cur.execute("select Low_End from Num_Answers where Answer_ID=:answer",{"answer":answer})
+          low_end_answer=cur.fetchone()[0]
+          cur.execute("select High_End from Num_Answers where Answer_ID=:answer", {"answer":answer})
+          high_end_answer=cur.fetchone()[0]
+          if low_end_answer == high_end_answer:
+            if player_input == low_end_answer:
+              cur.execute("select Answer_ID from Num_Answers where Low_End=:player_input", {"player_input":player_input})
+              answer_id=cur.fetchone()[0]
+              print answer_id
+              insertNewCurrentStep(player_id, answer_id)
+          else:
+            if low_end_answer<=player_input<=high_end_answer:
+              cur.execute("select Answer_ID from Num_Answers where Low_End=:low_end_answer", {"low_end_answer":low_end_answer})
+              answer_id=cur.fetchone()[0]
+              print answer_id
+              insertNewCurrentStep(player_id, answer_id)
     closeDB(conn)
 
 def insertNewCurrentStep(player_id, answer_id):

@@ -140,4 +140,5 @@ def populateTables(connection):
 		spamreader = csv.reader(number_answers_file)
 		for row in spamreader:
 			c.execute("INSERT INTO Num_Answers VALUES (?,?,?)", (unicode(row[0], "utf-8"), unicode(row[1], "utf-8"), unicode(row[2], "utf-8")))
+	conn.commit()
 	number_answers_file.close()
