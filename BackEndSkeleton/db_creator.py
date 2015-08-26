@@ -63,9 +63,9 @@ def createTables(connection):
 	c.execute("CREATE TABLE Answer_Key(Answer_ID INT, Answer_Type INT)")
 	c.execute("CREATE TABLE Num_Answers(Answer_ID INT, Low_End INT, High_End INT)")
 	c.execute("CREATE TABLE Text_Answers(Answer_ID INT, String_Answer TEXT)")
-	c.execute("CREATE TABLE Multiple_Choice_Answers(Answer_ID INT, Answer_Text TEXT, Right_Wrong INT)")
+	c.execute("CREATE TABLE Multiple_Choice_Answers(Answer_ID INT, Answer_Text TEXT, Right_Wrong INT, MC_Flag INT)")
 	c.execute("CREATE TABLE Boolean_Answers(Answer_ID INT, Yes_No INT)")
-	c.execute("CREATE TABLE Step_Transition_Data(Story_ID INT, Step_ID INT, Previous_Step_ID INT, Next_Step_ID INT, Answer_ID INT)")
+	c.execute("CREATE TABLE Step_Transition_Data(Story_ID INT, Step_ID INT, Previous_Step_ID INT, Next_Step_ID INT, Answer_ID INT, MC_Flag INT)")
 
 def populateTables(connection):
 	"""
@@ -125,14 +125,14 @@ def populateTables(connection):
 	with open('CSV_file\Multiple_Choice_Answers.csv', 'rb') as multiple_choice_answers_file:
 		spamreader = csv.reader(multiple_choice_answers_file)
 		for row in spamreader:
-			c.execute("INSERT INTO Multiple_Choice_Answers VALUES (?,?,?)", (unicode(row[0], "utf-8"),unicode(row[1], "utf-8"),unicode(row[2], "utf-8")))
+			c.execute("INSERT INTO Multiple_Choice_Answers VALUES (?,?,?,?)", (unicode(row[0], "utf-8"),unicode(row[1], "utf-8"),unicode(row[2], "utf-8"),unicode(row[3], "utf-8")))
 	conn.commit()
 	text_answers_file.close()
 
 	with open('CSV_file\Step_Transition_Data.csv', 'rb') as step_transition_data_file:
 		spamreader = csv.reader(step_transition_data_file)
 		for row in spamreader:
-			c.execute("INSERT INTO Step_Transition_Data VALUES (?,?,?,?,?)", (unicode(row[0], "utf-8"),unicode(row[1], "utf-8"),unicode(row[2], "utf-8"),unicode(row[3], "utf-8"),unicode(row[4], "utf-8")))
+			c.execute("INSERT INTO Step_Transition_Data VALUES (?,?,?,?,?,?)", (unicode(row[0], "utf-8"),unicode(row[1], "utf-8"),unicode(row[2], "utf-8"),unicode(row[3], "utf-8"),unicode(row[4], "utf-8"),unicode(row[5], "utf-8")))
 	conn.commit()
 	step_transition_data_file.close()
 

@@ -192,9 +192,9 @@ class gameScreen:
 		None
 		"""
 		playerStateObject = PlayerState() #Updating the player state
-		title, text, hint1, hint2, hint3 = DBManager.getGameScreenDataFromDB(playerStateObject.player_id) #Assigning several variables by pulling data from the database in order to dynamically generate different bodies of text for the user
+		title, text, hint1, hint2, hint3, answertext = DBManager.getGameScreenDataFromDB(playerStateObject.player_id) #Assigning several variables by pulling data from the database in order to dynamically generate different bodies of text for the user
 		
-		return self.render.gameScreen(title, text, hint1, hint2, hint3) #Rendering the gameScreen.html
+		return self.render.gameScreen(title, text, hint1, hint2, hint3, answertext) #Rendering the gameScreen.html
 	def POST(self):
 		"""
 		This function responds to user input and generates the proper game screens. This function ultimately controls game flow.

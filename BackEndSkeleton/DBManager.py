@@ -277,41 +277,40 @@ def getCharacterNames():
     return character_names_tuple
 
 #___________VVVVVVVVVVVVVVVVVVV____________
-def needLastScreen(player_id, input):
-    """
-   This function uses the player's id to determine if they need the last game screen or not.
+# def needLastScreen(player_id):
+#     """
+#    This function uses the player's id to determine if they need the last game screen or not.
  
-   Parameters:
-       ip: the IP address of the player connection to the web.py server
+#    Parameters:
+#        ip: the IP address of the player connection to the web.py server
  
-   Returns:
-       boolean: reutrns True if there is no next step, returns False if there is
+#    Returns:
+#        boolean: reutrns True if there is no next step, returns False if there is
  
-   Example:
-       needLastScreen(1.1.1.1.1)=>False
-   """
-    conn,cur=connectToDB()
+#    Example:
+#        needLastScreen(1.1.1.1.1)=>False
+#    """
+#     conn,cur=connectToDB()
  
-    cur.execute("select Max(Step_Action_ID) from Player_Step_Action where Player_ID =:player_id", {"player_id":player_id})
-    current_step_row = cur.fetchone()[0]
-    cur.execute("select Current_Step_ID from Player_Step_Action where Current_Step_ID =:current_step_row", {"current_step_row":current_step_row})
-    current_step_id = cur.fetchone()[0]
-    cur.execute("select Answer_ID from Step_Transition_Data where Step_ID =:current_step_id", {"current_step_id":current_step_id})
-    answer_id =cur.fetchall()[0]
-
-
-#accession    1
-#text    2
-#number    3
-#mc        4
-#boolean     5
- 
-    #if "null" == next_step_id:
-     #   return True
-    #else:
-     #   return False
-#_____AAAAAAAAAAAAAAAAAAAA__________
- 
+#     cur.execute("select Max(Step_Action_ID) from Player_Step_Action where Player_ID =:player_id", {"player_id":player_id})
+#     current_step_row = cur.fetchone()[0]
+#     cur.execute("select Current_Step_ID from Player_Step_Action where Current_Step_ID =:current_step_row", {"current_step_row":current_step_row})
+#     current_step_id=0
+#     if None == cur.fetchone():
+#       cur.execute("select MAX(Current_Story_Action_ID) from Player_Data where Player_ID =:player_id", {"player_id":player_id})
+#       story_action_id = cur.fetchone()[0]
+#       cur.execute("select Current_Story_ID from Player_Story_Action where Story_Action_ID =:story_action_id", {"story_action_id":story_action_id})
+#       current_story_id = cur.fetchone()[0]
+#       cur.execute("select Step_ID from Step_Data where Story_ID =:current_story_id", {"current_story_id":current_story_id})
+#       step_id = cur.fetchone()[0]
+#       cur.execute("insert into Player_Step_Action values (?,?,?,?,?,?,?)", (None, player_id, None, step_id, None, None, None))
+#       commitToDB(conn)
+#     else:
+#       current_step_id = cur.fetchone()[0]
+#     if current_step_id=="End":
+#       return True
+#     else:
+#       return False
  
 def checkforExistingPlayer(player_ip):
     """
@@ -660,7 +659,16 @@ def getGameScreenDataFromDB(player_id):
             hint_to_insert = " "
             relevant_game_hint_list.insert(hint_index,hint_to_insert)
 
-    data_to_return = title_of_story , game_text, relevant_game_hint_list[0], relevant_game_hint_list[1], relevant_game_hint_list[2]
+    cur.execute("select MC_Flag from Step_Transition_Data where Step_ID=:current_step", {"current_step":current_step})
+    flag=cur.fetchone()[0]
+    answer_text_tuple=()
+    if flag != None:
+        cur.execute("select Answer_Text from Multiple_Choice_Answers where MC_Flag=:flag", {"flag":flag})
+        answer_text=cur.fetchall()
+        for text in answer_text:
+            answer_text_tuple += text
+
+    data_to_return = title_of_story , game_text, relevant_game_hint_list[0], relevant_game_hint_list[1], relevant_game_hint_list[2], answer_text_tuple
     return data_to_return
     closeDB(conn)
  
@@ -759,7 +767,26 @@ def compareInputToAnswers(player_id,player_input):
               answer_id=cur.fetchone()[0]
               print answer_id
               insertNewCurrentStep(player_id, answer_id)
+        if answer_type==5:
+            cur.execute("select MC_Flag from Step_Transition_Data where Step_ID=:current_step_id", {"current_step_id":current_step_id})
+            flag=cur.fetchone()[0]
+            cur.execute("select Answer_Text from Multiple_Choice_Answers where MC_Flag=:flag", {"flag":flag})
+            answer_text=cur.fetchall()[0]
+            answer_text_tuple=()
+            for text in answer_text:
+              answer_text_tuple+=text
+            for text in answer_text_tuple:
+              if player_input == text:
+                cur.execute("select Answer_ID from Multiple_Choice_Answers where Answer_Text=:player_input", {"player_input":player_input})
+                answer_id=cur.fetchone()[0]
+                print answer_id
+                insertNewCurrentStep(player_id, answer_id)
+
+          #0 true 1 false
     closeDB(conn)
+
+#4 boolean
+#5 mc
 
 def insertNewCurrentStep(player_id, answer_id):
     conn,cur = connectToDB()
