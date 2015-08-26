@@ -1,85 +1,96 @@
 body{
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
     background: url("../background.png") no-repeat center center fixed;
     -webkit-background-size: contain;
     -moz-background-size: contain;
     -o-background-size: contain;
     background-size: contain;
     background-color: #000000;
+    margin: 0;
 }
-.menuInput{
-    display: flex;
+.menuContainer{
+    display:flex;
+    flex-direction: column;
+    /*flex-wrap: nowrap;*/
+    align-items: center;
     justify-content: center;
+    padding-top: 17.5rem;
+
+}
+.menuItems{
     text-align: center;
-    flex-wrap: nowrap;
-    align-content: center; 
-    padding-top: 17rem;
 }
 .newStory{
     background-image: url("../new.png");
     background-size: 100%;
     background-repeat: no-repeat;
     background-color:transparent;
-    height: 50%;
-    width: 150%;
+    height: 5.5rem;
+    width: 6.5rem;
     border: none;
     font-size: 0;
-    padding-bottom: 80%;
 }
 .loadStory{
     background-image: url("../load.png");
     background-size: 100%;
     background-repeat: no-repeat;
     background-color:transparent;
-    height: 50%;
-    width: 150%;
+    height: 5.5rem;
+    width: 6.5rem;
     border: none;
     font-size: 0;
-    padding-bottom: 30%;
 }
 .about{
     background-image: url("../about.png");
+    text-align: left;
     background-size: 105%;
     background-repeat: no-repeat;
     background-color: transparent;
-    height: 50%;
-    width: 170%;
+    height: 5.2rem;
+    width: 8rem;
     border: none;
     font-size: 0;
-    padding-bottom: 30%;
 }
 .help{
     background-image: url("../help.png");
     background-size: 100%;
     background-repeat: no-repeat;
     background-color: transparent;
-    height: 50%;
-    width: 150%;
+    height: 5.5rem;
+    width: 6rem;
     border: none;
     font-size: 0;
-    padding: 15%;
+}
+ul{
+     list-style: none;
 }
 @media screen and (max-width: 380px){
     body{
-        margin: 0px;
-        padding-top: 1.2rem;
+        display:flex;
+        align-items: center;
+        align-content: center;
+        justify-content: center;
+        padding-top: .8rem;
+        padding-left: 40%;
+        width: 3.5rem;
     }
     .newStory{
-        width: 145%;
-        padding-bottom: 27%;
+        width: 85%;
+        height: 4.9rem;
+        flex-shrink: 2;
     }
-    .loadStory{
-        padding-bottom: 30%;
-        width: 145%;
+    .loadStory{ 
+        width: 85%;
+        height: 4.3rem;
+        flex-shrink: 2;
     }
-    .about{
-        padding-bottom: 16%;
-        width: 170%;
+    .about{ 
+        height:4.5rem;
+        width: 7.7rem;
+        flex-shrink: 2;
     }
-    .help{
-        padding-bottom: 40%;
-        width: 140%;
+    .help{ 
+        width: 82%;
+        height:4.2rem;
+        flex-shrink: 2;
     }
 }

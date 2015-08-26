@@ -7,13 +7,17 @@
 
   <body>
   <!-- Check if I can change variable names and not brake anything also change the first button from charScreen to newGame-->
-    <div class = "menuInput">
+    <div class = "menuContainer">
         <form name = "homeMenu" method = "POST"> 
-          <input name = "new" method = "POST" type = "Submit" value = "charScreen" class = "newStory"/>
-          <input name = "new" method = "POST" type = "Submit" value = "loadScreen" class = "loadStory"/>
-          <input name = "new" method = "POST" type = "Submit" value = "aboutScreen" class = "about"/>
-          <input name = "new" method = "POST" type = "Submit" value = "helpScreen" class = "help"/>
-        </form>
+		    <ul>
+		    <div class = "menuItems">
+	          <li> <input name = "new" method = "POST" type = "Submit" value = "charScreen" class = "newStory"/></li>
+	          <li> <input name = "new" method = "POST" type = "Submit" value = "loadScreen" class = "loadStory"/> </li>
+	          <li> <input name = "new" method = "POST" type = "Submit" value = "aboutScreen" class = "about"/> </li>
+	          <li> <input name = "new" method = "POST" type = "Submit" value = "helpScreen" class = "help"/> </li>
+	        </div>
+	        </ul>
+	    </form>
     </div>
   </body>
 </html>
