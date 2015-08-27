@@ -770,20 +770,14 @@ def compareInputToAnswers(player_id,player_input):
             cur.execute("select MC_Flag from Step_Transition_Data where Step_ID=:current_step_id", {"current_step_id":current_step_id})
             flag=cur.fetchone()[0]
             cur.execute("select Answer_Text from Multiple_Choice_Answers where MC_Flag=:flag", {"flag":flag})
-            answer_text=cur.fetchall()[0]
-            print answer_text
-            answer_text_tuple=()
-            for text in answer_text:
-              '''
-              answer_text_tuple+=text
-            for text in answer_text_tuple:
-              This wasn't needed. Works fine without it.
-              '''
-              if player_input == text:
-                cur.execute("select Answer_ID from Multiple_Choice_Answers where Answer_Text=:player_input", {"player_input":player_input})
-                answer_id=cur.fetchone()[0]
-                print answer_id
-                insertNewCurrentStep(player_id, answer_id)
+            answer_text=cur.fetchall()
+            for text_tuple in answer_text:
+              for text in text_tuple:
+                if player_input == text:
+                    cur.execute("select Answer_ID from Multiple_Choice_Answers where Answer_Text=:player_input", {"player_input":player_input})
+                    answer_id=cur.fetchone()[0]
+                    print answer_id
+                    insertNewCurrentStep(player_id, answer_id)
 
           #0 true 1 false
     closeDB(conn)
