@@ -718,7 +718,6 @@ def compareInputToAnswers(player_id,player_input):
         answer_tuple += answer
         print answer_tuple
     for answer in answer_tuple:
-        print "hello!"
         cur.execute("select Answer_Type from Answer_Key where Answer_ID=:answer",{"answer":answer})
         answer_type=cur.fetchone()[0]
         print type(answer_type)
@@ -772,10 +771,14 @@ def compareInputToAnswers(player_id,player_input):
             flag=cur.fetchone()[0]
             cur.execute("select Answer_Text from Multiple_Choice_Answers where MC_Flag=:flag", {"flag":flag})
             answer_text=cur.fetchall()[0]
+            print answer_text
             answer_text_tuple=()
             for text in answer_text:
+              '''
               answer_text_tuple+=text
             for text in answer_text_tuple:
+              This wasn't needed. Works fine without it.
+              '''
               if player_input == text:
                 cur.execute("select Answer_ID from Multiple_Choice_Answers where Answer_Text=:player_input", {"player_input":player_input})
                 answer_id=cur.fetchone()[0]
