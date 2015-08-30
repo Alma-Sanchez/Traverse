@@ -3,7 +3,7 @@ html{
     width:100%;
 }
 body{
-    background: url("../story.png") no-repeat center center fixed;
+    background: url("../loadpage.png") no-repeat center center fixed;
     -webkit-background-size: contain;
     -moz-background-size: contain;
     -o-background-size: contain;

@@ -21,7 +21,8 @@ class homeScreen:
 			'/hint', "hintScreen",
 			'/about','aboutScreen',
 			'/help','helpScreen',
-			'/last', "lastScreen"
+			'/last', "lastScreen",
+			'/load', "loadScreen"
 
 		) #The structure of the url and the name of the class to send the request to.
 		self.render = web.template.render('templates/') #The file path for HTML templates.
@@ -60,11 +61,11 @@ class homeScreen:
 		elif action['new'] == 'loadScreen': #Checks to see if the user pressed the button to load a previous game 
 			if None != DBManager.getPlayerCharacterActionFromDB(playerStateObject.player_id): #If the above is true this line checks to see if the player has chosen a character in their previous game
 				if None != DBManager.getPlayerStoryActionFromDB(playerStateObject.player_id): #If the above is true this line checks to see if the player has chosen a story in their previous game
-					raise web.seeother('/game') #If the above is true this line renders gameScreen.html 
+					raise web.seeother('/load') #If the above is true this line renders gameScreen.html 
 				else: 
-					raise web.seeother('/story') #If the conditional on line 65 is false then the story selection screen for the players chosen character is rendered
+					raise web.seeother('/load') #If the conditional on line 65 is false then the story selection screen for the players chosen character is rendered
 			else:
-				raise web.seeother('/char') #If the conditional on line 64 is false then the character selection screen is rendered
+				raise web.seeother('/load') #If the conditional on line 64 is false then the character selection screen is rendered
 		elif action['new'] == 'aboutScreen': #This conditional checks to see if the user pressed the button to go to the about screen
 			raise web.seeother('/about') #If the above conditional is true this line renders aboutScreen.html
 		elif action['new'] == 'helpScreen': #This conditional checks to see if the user pressed the button to go to the help screen
@@ -166,6 +167,54 @@ class storyScreen:
 			print story_id
 			DBManager.insertPlayerStoryAction(playerStateObject.player_id,story_id) #If the above is true the story selection is inserted into the database
 			raise web.seeother('/game') #Rendering gameScreen.html
+
+class loadScreen:
+	def __init__(self):
+		"""
+		This class contains the logic for dynamically generating the load selection screen based and saving the players story selection.
+
+		Parameters:
+		None
+
+		Returns:
+		None
+		"""
+	def GET(self):
+		"""
+		This function dynamically renders loadScreen.html when the user choses to load past progress by navigating from the home screen.
+
+		Parameters:
+		None
+
+		Returns:
+		None
+		"""
+		story_ids= (1,2,3)
+		story_titles=("title1", "title2", "title3")
+		walk_level= (1,1,3)
+		kid_friendly= ("K","","")
+		self.render = web.template.render('templates/') #Defining the file path for the renderer to find all of the .html files
+		return self.render.loadScreen(story_ids, story_titles, walk_level, kid_friendly)
+	def POST(self):
+		"""
+		This function checks to see if the player has chosen a story and if they have the story choice is saved.
+
+		Parameters:
+		None
+
+		Returns:
+		None
+		"""
+		playerStateObject = PlayerState()
+		action = web.input()
+		if action['story']=="back":
+			raise web.seeother('/')
+		else:
+			title=action['story']
+			story_id=DBManager.getStoryIDFromTitle(title)
+			DBManager.insertPlayerStoryAction(playerStateObject.player_id,story_id)
+			raise web.seeother('/game')
+			
 
 class gameScreen:
 	def __init__(self):
