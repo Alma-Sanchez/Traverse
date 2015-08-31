@@ -14,6 +14,7 @@ body{
     justify-content: center;
     padding-top: 17rem;
     margin: 0;
+    width: 100%;
 }
 .scrollBox{
     order: 0;
@@ -29,9 +30,8 @@ body{
     display: flex;
     flex-direction: row;
     padding-top: .5rem;
-    justify-content: flex-start;
-    align-items: flex-start;
-    align-content: flex-start;
+    width: 21.6rem;
+    /*border: 1px solid wheat;*/
 }
 .backButton{
     order:1;
@@ -43,5 +43,35 @@ body{
     background-repeat: no-repeat;
     border: none;
     font-size: 0;
-
+}
+.helpContainer p{
+    text-indent: 35px;
+    padding-left: 2%;
+}
+@media screen and (max-width: 415px) {
+    .helpContainer{
+        height: 30%;
+        padding-top: 18rem;
+    }
+    .scrollBox{
+        width: 75%;
+        height: 20rem;
+    }
+    .backContainer{
+        width: 75%;
+    }
+    .backButton{
+        height: 2.5rem;
+        width: 3.5rem;
+    }
+}
+@media screen and (max-width: 357px) {
+    .helpContainer{
+        height: 30%;
+        padding-top: 18.3rem;
+    }
+    .scrollBox{
+        width: 80%;
+        height: 18.2rem;
+    }
 }

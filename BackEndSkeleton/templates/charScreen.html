@@ -7,20 +7,20 @@ $def with (character_ids, character_name)
 </head>
 
 <body>
-  <form name="Character" method="POST">
-    <input  name="Character" method = "POST" type="submit" value="back" class = "backButton"/><br>
-  </form>
-  <div class = "charMenu">
-  <div class = "charInput">
-    <p>
-      <form name = "charMenuButtons" method = "POST"> 
-        $for character_id in character_ids:
-          $code:
-            tupindex=character_ids.index(character_id)
-          <input name = "Character" method = "POST" type= "Submit" value = "$character_name[tupindex]" class = "Character1"/> <br> 
+  <div class = "charContainer">
+    <div class = "inputConttainer">
+        <form name = "charMenuButtons" method = "POST"> 
+          $for character_id in character_ids:
+            $code:
+              tupindex=character_ids.index(character_id)
+            <input name = "Character" method = "POST" type= "Submit" value = "$character_name[tupindex]" class = "Character1"/>
+        </form>
+    </div>
+    <div class = "backContainer">
+      <form name="Character" method="POST">
+        <input  name="Character" method = "POST" type="submit" value="back" class = "backButton"/>
       </form>
-    </p>
-  </div>
+    </div>
   </div>
 </body>
 </html>

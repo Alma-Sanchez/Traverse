@@ -14,6 +14,8 @@ body{
     justify-content: center;
     padding-top: 17rem;
     margin: 0;
+    width: 100%;
+    /*border: 1px solid wheat;*/
 }
 .scrollBox{
     order: 0;
@@ -23,7 +25,6 @@ body{
     border: 5px solid #B1A272;
     width: 21rem;
     height: 22rem;
-    /*flex-basis: 50em;*/
 }
 .scrollBox h1{
     text-align: center;
@@ -41,9 +42,8 @@ body{
     display: flex;
     flex-direction: row;
     padding-top: .5rem;
-    justify-content: flex-start;
-    align-items: flex-start;
-    align-content: flex-start;
+    width: 21.6rem;
+    /*border: 1px solid wheat;*/
 }
 .backButton{
     order:1;
@@ -56,32 +56,30 @@ body{
     border: none;
     font-size: 0;
 }
-aside nav{
-    flex: 0 0 8rem;
-}
-aside{
-    color: whitesmoke;
-    order: 0;
-    border: 2px solid white;
-}
-nav{
-    color: white;
-    order: 2;
-    border: 2px solid white;
-}
-/*@media screen and (max-width: 425px) {
-    body {
-        background-color: lightblue;
+@media screen and (max-width: 415px) {
+    .aboutContainer{
+        height: 30%;
+        padding-top: 18rem;
+    }
+    .scrollBox{
+        width: 75%;
+        height: 20rem;
     }
     .backContainer{
-        padding-left: 15%;
+        width: 75%;
+    }
+    .backButton{
+        height: 2.5rem;
+        width: 3.5rem;
     }
 }
-@media screen and (max-width: 425px) {
-    body {
-        background-color: lightblue;
+@media screen and (max-width: 357px) {
+    .aboutContainer{
+        height: 30%;
+        padding-top: 18.3rem;
     }
-    .backContainer{
-        padding-left: 15%;
+    .scrollBox{
+        width: 80%;
+        height: 18.2rem;
     }
-}*/
+}

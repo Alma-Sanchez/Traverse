@@ -1,7 +1,3 @@
-html{
-    height:100%;
-    width:100%;
-}
 body{
     background: url("../story.png") no-repeat center center fixed;
     -webkit-background-size: contain;
@@ -10,89 +6,152 @@ body{
     background-size: contain;
     background-color: #000000; 
 }
-.backButton{
-    background-image: url("../back.png");
-    background-size: 100%;
-    background-color: transparent;
-    background-repeat: no-repeat;
-    width: 13.5%;
-    height: 5.5%;
-    left: 20%;
-    top: 87%;
-    position: fixed;
-    z-index: 7;
-    border: none;
-    font-size: 0;
+.storyContainer{ /*Contains all of the elements in the page*/
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    flex-flow: column nowrap;
+    margin: 0;
+    width: 100%;
 }
-.storyScrollBox{
-    top: 40%;
-    left: 27%;
-    height:38%;
-    width:49%;
-    position:fixed;
-    overflow:auto;
+.storyButtons{
+    order: 0;
+    padding-top: 19.5rem;
+    width: 16rem;
 }
-.stories1{
+.story1{
     background: url("../choice1.png");
     background-repeat: no-repeat;
     background-size:100%;
     background-color: transparent;
-    height: 30%;
-    width:95%;
-    padding-top: 5%;
-    padding-bottom: 5%;
-    margin-bottom: 7%;
     border: none;
+    padding-bottom: 25%;
     color:black;
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
     font-size: 1.5em;
     font-weight: bold;
-    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+    width: 16rem;
+    text-align: left;
 }
-.stories2{
+.story2{
     background: url("../choice2.png");
     background-repeat: no-repeat;
     background-size:100%;
     background-color: transparent;
-    height: 30%;
-    width:95%;
-    padding-top: 5%;
-    padding-bottom: 5%;
-    margin-bottom: 7%;
     border: none;
+    padding-bottom: 25%;
     color:black;
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
     font-size: 1.5em;
     font-weight: bold;
-    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+    width: 16rem;
+    text-align: left;
 }
-.stories3{
+.story3{
     background: url("../choice3.png");
     background-repeat: no-repeat;
     background-size:100%;
     background-color: transparent;
-    height: 30%;
-    width:95%;
-    padding-top: 5%;
-    padding-bottom: 5%;
-    margin-bottom: 7%;
     border: none;
+    padding-bottom: 25%;
     color:black;
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
     font-size: 1.5em;
     font-weight: bold;
-    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+    width: 16rem;
+    text-align: left;
 }
-.stories3{
+.story4{
     background: url("../choice3.png");
     background-repeat: no-repeat;
     background-size:100%;
     background-color: transparent;
-    height: 30%;
-    width:95%;
-    padding-top: 5%;
-    padding-bottom: 5%;
-    margin-bottom: 7%;
     border: none;
+    padding-bottom: 25%;
     color:black;
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
     font-size: 1.5em;
     font-weight: bold;
-    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+    width: 16rem;
+    text-align: left;
+}
+
+.backContainer{
+    display: flex;
+    flex-direction: row;
+    padding-top: .5rem;
+    width: 16rem;
+    /*border: 1px solid wheat;*/
+}
+.backButton{
+    order: 1;
+    background-image: url("../back.png");
+    background-size: 100%;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    border: none;
+    font-size: 0;
+    height: 4.5rem;
+    width: 6.5rem;
+}
+@media screen and (max-width: 400px) {
+   .storyButtons{
+        width: 63%;
+        font-size: 90%;
+        padding-top: 21rem;
+   }
+    .story1{
+        width: 100%;
+        padding-bottom: 15%;
+    }
+    .story2{
+        width: 100%;
+        padding-bottom: 15%;
+    }
+    .story3{
+        width: 100%;
+        padding-bottom: 15%;
+    }
+    .story4{
+        width: 100%;
+        padding-bottom: 15%;
+    }
+    .backContainer{
+        width: 65%;
+    }
+    .backButton{
+        height: 2.7rem;
+        width: 4.2rem;
+    }
+}
+@media screen and (max-width: 345px) {
+   .storyButtons{
+        width: 63%;
+        font-size: 78%;
+        padding-top: 21rem;
+    }
+    .story1{
+        width: 100%;
+        padding-bottom: 13%;
+    }
+    .story2{
+        width: 100%;
+        padding-bottom: 13%;
+    }
+    .story3{
+        width: 100%;
+        padding-bottom: 13%;
+    }
+    .story4{
+        width: 100%;
+        padding-bottom: 13%;
+    }
+    .backContainer{
+        width: 65%;
+    }
+    .backButton{
+        height: 2.7rem;
+        width: 4.2rem;
+    }
 }
