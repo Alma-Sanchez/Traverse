@@ -240,10 +240,15 @@ class gameScreen:
 		Returns:
 		None
 		"""
-		playerStateObject = PlayerState() #Updating the player state
+		playerStateObject = PlayerState()
+		if DBManager.needLastScreen(playerStateObject.player_id)=="True":
+			print "need last"
+			raise web.seeother('/last')
+		else:
+			print "not last"
 		title, text, hint1, hint2, hint3, answertext = DBManager.getGameScreenDataFromDB(playerStateObject.player_id) #Assigning several variables by pulling data from the database in order to dynamically generate different bodies of text for the user
-		
 		return self.render.gameScreen(title, text, hint1, hint2, hint3, answertext) #Rendering the gameScreen.html
+
 	def POST(self):
 		"""
 		This function responds to user input and generates the proper game screens. This function ultimately controls game flow.
@@ -263,6 +268,7 @@ class gameScreen:
 			#if DBManager.needLastScreen(playerStateObject.player_id, player_input): #Checks to see if the player has reached the end of the game and the final screen need to be displayed
 			#	raise web.seeother('/last') #If the above is true then lastScreen.html is rendered
 			DBManager.compareInputToAnswers(playerStateObject.player_id, player_input) #Inserting the action that the player took and inserting that information into the database
+			print "compare input run"
 			raise web.seeother('/game') #Rendering gameScreen.html
 
 

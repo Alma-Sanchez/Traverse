@@ -276,41 +276,47 @@ def getCharacterNames():
     closeDB(conn)
     return character_names_tuple
 
-#___________VVVVVVVVVVVVVVVVVVV____________
-# def needLastScreen(player_id):
-#     """
-#    This function uses the player's id to determine if they need the last game screen or not.
+def needLastScreen(player_id):
+    """
+   This function uses the player's id to determine if they need the last game screen or not.
  
-#    Parameters:
-#        ip: the IP address of the player connection to the web.py server
+   Parameters:
+       ip: the IP address of the player connection to the web.py server
  
-#    Returns:
-#        boolean: reutrns True if there is no next step, returns False if there is
+   Returns:
+       boolean: reutrns True if there is no next step, returns False if there is
  
-#    Example:
-#        needLastScreen(1.1.1.1.1)=>False
-#    """
-#     conn,cur=connectToDB()
- 
-#     cur.execute("select Max(Step_Action_ID) from Player_Step_Action where Player_ID =:player_id", {"player_id":player_id})
-#     current_step_row = cur.fetchone()[0]
-#     cur.execute("select Current_Step_ID from Player_Step_Action where Current_Step_ID =:current_step_row", {"current_step_row":current_step_row})
-#     current_step_id=0
-#     if None == cur.fetchone():
-#       cur.execute("select MAX(Current_Story_Action_ID) from Player_Data where Player_ID =:player_id", {"player_id":player_id})
-#       story_action_id = cur.fetchone()[0]
-#       cur.execute("select Current_Story_ID from Player_Story_Action where Story_Action_ID =:story_action_id", {"story_action_id":story_action_id})
-#       current_story_id = cur.fetchone()[0]
-#       cur.execute("select Step_ID from Step_Data where Story_ID =:current_story_id", {"current_story_id":current_story_id})
-#       step_id = cur.fetchone()[0]
-#       cur.execute("insert into Player_Step_Action values (?,?,?,?,?,?,?)", (None, player_id, None, step_id, None, None, None))
-#       commitToDB(conn)
-#     else:
-#       current_step_id = cur.fetchone()[0]
-#     if current_step_id=="End":
-#       return True
-#     else:
-#       return False
+   Example:
+       needLastScreen(1.1.1.1.1)=>False
+   """
+    conn,cur=connectToDB()
+    cur.execute("select Max(Step_Action_ID) from Player_Step_Action where Player_ID =:player_id", {"player_id":player_id})
+    current_step_row = cur.fetchone()[0]
+    print "current_step_row" + str(current_step_row)
+    cur.execute("select Current_Step_ID from Player_Step_Action where Step_Action_ID =:current_step_row", {"current_step_row":current_step_row})
+    if None == cur.fetchone()[0]:
+      cur.execute("select MAX(Current_Story_Action_ID) from Player_Data where Player_ID =:player_id", {"player_id":player_id})
+      story_action_id = cur.fetchone()[0]
+      print "story_action_id " + str(story_action_id)
+      cur.execute("select Current_Story_ID from Player_Story_Action where Story_Action_ID =:story_action_id", {"story_action_id":story_action_id})
+      current_story_id = cur.fetchone()[0]
+      print "current_story_id " + str(current_story_id)
+      cur.execute("select Step_ID from Step_Data where Story_ID =:current_story_id", {"current_story_id":current_story_id})
+      step_id = cur.fetchone()[0]
+      print "step_id " + str(step_id)
+      cur.execute("insert into Player_Step_Action values (?,?,?,?,?,?,?)", (None, player_id, None, step_id, None, None, None))
+      commitToDB(conn)
+      return False
+    else:
+      cur.execute("select Current_Step_ID from Player_Step_Action where Step_Action_ID =:current_step_row", {"current_step_row":current_step_row})
+      current_id= cur.fetchone()[0]
+      print "current_id " + str(current_id)
+      cur.execute("select Next_Step_ID from Step_Transition_Data where Step_ID=:current_id", {"current_id": current_id})
+      print "next step?" + str(cur.fetchone)
+      if "End"==cur.fetchone():
+        return True
+      else:
+        return False
  
 def checkforExistingPlayer(player_ip):
     """
@@ -637,6 +643,7 @@ def getGameScreenDataFromDB(player_id):
         cur.execute("select Step_ID from Step_Data where Story_ID =:current_story_id", {"current_story_id":current_story_id})
         step_id = cur.fetchone()[0]
         cur.execute("insert into Player_Step_Action values (?,?,?,?,?,?,?)", (None, player_id, None, step_id, None, None, None))
+        print "current_step_id was none, player step inserted"
         commitToDB(conn)
  
     cur.execute("select Max(Step_Action_ID) from Player_Step_Action where Player_ID =:player_id", {"player_id":player_id})
@@ -708,8 +715,7 @@ def compareInputToAnswers(player_id,player_input):
     max_step_action_id = cur.fetchone()[0]
     cur.execute("select Current_Step_ID from Player_Step_Action where Step_Action_ID=:max_step_action_id",{"max_step_action_id":max_step_action_id})
     current_step_id = cur.fetchone()[0]
-    cur.execute("insert into Player_Step_Action values (?,?,?,?,?,?,?)", (None,player_id,None,current_step_id,None,player_input,None))
-    commitToDB(conn)
+    #cur.execute("insert into Player_Step_Action values (?,?,?,?,?,?,?)", (None,player_id,None,current_step_id,None,player_input,None))
     cur.execute("select Answer_ID from Step_Transition_Data where Step_ID=:current_step_id",{"current_step_id":current_step_id})
     answer_ids=cur.fetchall()
     print answer_ids
@@ -722,7 +728,6 @@ def compareInputToAnswers(player_id,player_input):
         answer_type=cur.fetchone()[0]
         print type(answer_type)
         if answer_type==1:
-
             cur.execute("select Accession_Number from Accession_Answers where Accession_ID=:answer",{"answer":answer})
             accession_numbers=cur.fetchall()
             print "accession numbers:" + str(accession_numbers)
@@ -733,7 +738,8 @@ def compareInputToAnswers(player_id,player_input):
                 if player_input == accession:
                     cur.execute("select Accession_ID from Accession_Answers where Accession_ID=:answer",{"answer":answer})
                     answer_id= cur.fetchone()[0]
-                    insertNewCurrentStep(player_id, answer_id)
+                    insertNewCurrentStep(player_id, answer_id, player_input)
+                    return True
         if answer_type==2:
             cur.execute("select String_Answer from Text_Answers where Answer_ID=:answer",{"answer":answer})
             text_answers=cur.fetchall()
@@ -746,7 +752,8 @@ def compareInputToAnswers(player_id,player_input):
                     cur.execute("select Answer_ID from Text_Answers where String_Answer=:text_answer",{"text_answer":text_answer})
                     answer_id= cur.fetchone()[0]
                     print answer_id
-                    insertNewCurrentStep(player_id, answer_id)
+                    insertNewCurrentStep(player_id, answer_id, player_input)
+                    return True
         if answer_type==3:
           player_input = int(player_input)
           print type(player_input)
@@ -759,13 +766,15 @@ def compareInputToAnswers(player_id,player_input):
               cur.execute("select Answer_ID from Num_Answers where Low_End=:player_input", {"player_input":player_input})
               answer_id=cur.fetchone()[0]
               print answer_id
-              insertNewCurrentStep(player_id, answer_id)
+              insertNewCurrentStep(player_id, answer_id, player_input)
+              return True
           else:
             if low_end_answer<=player_input<=high_end_answer:
               cur.execute("select Answer_ID from Num_Answers where Low_End=:low_end_answer", {"low_end_answer":low_end_answer})
               answer_id=cur.fetchone()[0]
               print answer_id
-              insertNewCurrentStep(player_id, answer_id)
+              insertNewCurrentStep(player_id, answer_id, player_input)
+              return True
         if answer_type==5:
             cur.execute("select MC_Flag from Step_Transition_Data where Step_ID=:current_step_id", {"current_step_id":current_step_id})
             flag=cur.fetchone()[0]
@@ -777,7 +786,8 @@ def compareInputToAnswers(player_id,player_input):
                     cur.execute("select Answer_ID from Multiple_Choice_Answers where Answer_Text=:player_input", {"player_input":player_input})
                     answer_id=cur.fetchone()[0]
                     print answer_id
-                    insertNewCurrentStep(player_id, answer_id)
+                    insertNewCurrentStep(player_id, answer_id, player_input)
+                    return True
 
           #0 true 1 false
     closeDB(conn)
@@ -785,11 +795,11 @@ def compareInputToAnswers(player_id,player_input):
 #4 boolean
 #5 mc
 
-def insertNewCurrentStep(player_id, answer_id):
+def insertNewCurrentStep(player_id, answer_id, player_input):
     conn,cur = connectToDB()
     cur.execute("select Next_Step_ID from Step_Transition_Data where Answer_ID=:answer_id",{"answer_id":answer_id})
     new_current_step=cur.fetchone()[0]
     print new_current_step
-    cur.execute("insert into Player_Step_Action values (?,?,?,?,?,?,?)", (None, player_id, None, new_current_step, None, None, None))
+    cur.execute("insert into Player_Step_Action values (?,?,?,?,?,?,?)", (None, player_id, None, new_current_step, None, player_input, None))
     commitToDB(conn)
     closeDB(conn)
