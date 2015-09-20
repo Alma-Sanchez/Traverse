@@ -1,96 +1,51 @@
 body{
     background: url("../background.png") no-repeat center center fixed;
-    -webkit-background-size: contain;
-    -moz-background-size: contain;
-    -o-background-size: contain;
-    background-size: contain;
     background-color: #000000;
-    margin: 0;
+    background-size: contain;
+    max-width: 430px;
+    /*border: 1x solid white;*/
+    margin: 0 auto 0 auto;
+    /*display: flex;*/
+}
+.menuContainer, .menyItems{
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
 }
 .menuContainer{
-    display:flex;
-    flex-direction: column;
-    /*flex-wrap: nowrap;*/
-    align-items: center;
-    justify-content: center;
-    padding-top: 17.5rem;
-
+    /*border: 1px solid rebeccapurple;*/
+    max-width: 380px;
+    margin: 0 auto 0 auto;
+    padding-top: 65%;
 }
 .menuItems{
+    max-width: 180px;
     text-align: center;
+    /*border: 1px solid skyblue;*/
+    margin: 4% auto 0 16%;
+}
+.newStory, .loadStory, .about, .help{
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-color:transparent;
+    font-size: 0;
+    border: none;
+    height: 5.5rem;
+    width: 6.7rem;
 }
 .newStory{
     background-image: url("../new.png");
-    background-size: 100%;
-    background-repeat: no-repeat;
-    background-color:transparent;
-    height: 5.5rem;
-    width: 6.5rem;
-    border: none;
-    font-size: 0;
+    margin-bottom: 2%;
 }
 .loadStory{
     background-image: url("../load.png");
-    background-size: 100%;
-    background-repeat: no-repeat;
-    background-color:transparent;
-    height: 5.5rem;
-    width: 6.5rem;
-    border: none;
-    font-size: 0;
+    margin-bottom: 1%;
 }
 .about{
     background-image: url("../about.png");
-    text-align: left;
-    background-size: 105%;
-    background-repeat: no-repeat;
-    background-color: transparent;
-    height: 5.2rem;
-    width: 8rem;
-    border: none;
-    font-size: 0;
+    width: 8.2rem;
 }
 .help{
     background-image: url("../help.png");
-    background-size: 100%;
-    background-repeat: no-repeat;
-    background-color: transparent;
-    height: 5.5rem;
-    width: 6rem;
-    border: none;
-    font-size: 0;
-}
-ul{
-     list-style: none;
-}
-@media screen and (max-width: 380px){
-    body{
-        display:flex;
-        align-items: center;
-        align-content: center;
-        justify-content: center;
-        padding-top: .8rem;
-        padding-left: 40%;
-        width: 3.5rem;
-    }
-    .newStory{
-        width: 85%;
-        height: 4.9rem;
-        flex-shrink: 2;
-    }
-    .loadStory{ 
-        width: 85%;
-        height: 4.3rem;
-        flex-shrink: 2;
-    }
-    .about{ 
-        height:4.5rem;
-        width: 7.7rem;
-        flex-shrink: 2;
-    }
-    .help{ 
-        width: 82%;
-        height:4.2rem;
-        flex-shrink: 2;
-    }
+    width: 6.4rem;
 }
