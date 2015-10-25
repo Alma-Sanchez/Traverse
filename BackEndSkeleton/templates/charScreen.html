@@ -2,7 +2,7 @@ $def with (character_ids, character_name)
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Title of Game</title>        
+  <title>Title of Game</title>
   <link rel = "stylesheet" type = "text/css" href = "./static/Styles/charScrn.css">
 </head>
 
@@ -13,11 +13,11 @@ $def with (character_ids, character_name)
   <div class = "charMenu">
   <div class = "charInput">
     <p>
-      <form name = "charMenuButtons" method = "POST"> 
+      <form name = "charMenuButtons" method = "POST">
         $for character_id in character_ids:
           $code:
             tupindex=character_ids.index(character_id)
-          <input name = "Character" method = "POST" type= "Submit" value = "$character_name[tupindex]" class = "Character1"/> <br> 
+          <input name = "Character" method = "POST" type= "Submit" value = "$character_name[tupindex]" class = "Character1"/> <br>
       </form>
     </p>
   </div>

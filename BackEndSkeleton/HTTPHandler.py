@@ -55,14 +55,14 @@ class homeScreen:
 		None
 		"""
 		playerStateObject = PlayerState() #Update the player state
-		action = web.input() #Create web.input() to save any information the user 
+		action = web.input() #Create web.input() to save any information the user
 		if action['new'] == 'charScreen': #Checks to see if the user pressed the button to send them to the character selection screen
 			raise web.seeother('/char') #If the above is true this line renders charScreen.html
-		elif action['new'] == 'loadScreen': #Checks to see if the user pressed the button to load a previous game 
+		elif action['new'] == 'loadScreen': #Checks to see if the user pressed the button to load a previous game
 			if None != DBManager.getPlayerCharacterActionFromDB(playerStateObject.player_id): #If the above is true this line checks to see if the player has chosen a character in their previous game
 				if None != DBManager.getPlayerStoryActionFromDB(playerStateObject.player_id): #If the above is true this line checks to see if the player has chosen a story in their previous game
-					raise web.seeother('/load') #If the above is true this line renders gameScreen.html 
-				else: 
+					raise web.seeother('/load') #If the above is true this line renders gameScreen.html
+				else:
 					raise web.seeother('/load') #If the conditional on line 65 is false then the story selection screen for the players chosen character is rendered
 			else:
 				raise web.seeother('/load') #If the conditional on line 64 is false then the character selection screen is rendered
@@ -111,7 +111,7 @@ class charScreen:
 		action = web.input() #Creating a web.input() object to hold any information that the user enters
 		if action['Character']== "back": #Checks to see if the player pressed the back button
 			raise web.seeother('/home') #Renders homeScreen.html
-		else: 
+		else:
 			character=DBManager.getCharacterIDFromName(action['Character'])
 			#print "this is character" + str(character)
 			if DBManager.hasPlayerChosenCharacter(character):
@@ -214,13 +214,13 @@ class loadScreen:
 			story_id=DBManager.getStoryIDFromTitle(title)
 			DBManager.insertPlayerStoryAction(playerStateObject.player_id,story_id)
 			raise web.seeother('/game')
-			
+
 
 class gameScreen:
 	def __init__(self):
 		"""
-		This class handles dynamically rendering each step of the game. There is the same basic template, but the text displayed to the user and the answer needed to advance to the 
-		next step are dynamically generated based on player character/story choice as well as player progress. 
+		This class handles dynamically rendering each step of the game. There is the same basic template, but the text displayed to the user and the answer needed to advance to the
+		next step are dynamically generated based on player character/story choice as well as player progress.
 
 		Parameters:
 		None
@@ -260,7 +260,7 @@ class gameScreen:
 		None
 		"""
 		playerStateObject = PlayerState() #Updating player state
-		
+
 		if web.input()['home']=='home': #Checking to see if the player pressed the home button
 			raise web.seeother('/home') #If the above is true then homeScreen.html is rendered
 		else:
@@ -279,7 +279,7 @@ class lastScreen:
 		This class renders the second to last screen of the game.
 
 		Parameters:
-		None	
+		None
 
 		Returns:
 		None
@@ -412,7 +412,7 @@ class helpScreen:
 		This function creates a web.input() in order to hold any information the user may input as well as containing the logic for a back button.
 
 		Parameters:
-		None	
+		None
 
 		Returns:
 		None

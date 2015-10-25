@@ -24,12 +24,12 @@ $def with(title, text, hint1, hint2, hint3, answertext)
       e.style.visibility='hidden'
       e.style.display='none'
     }
- 
+
   </script>
 
 <head>
-  <title>Title of Game</title>   
-  <link rel="stylesheet" type="text/css" href="./static/Styles/gameScrn.css"> 
+  <title>Title of Game</title>
+  <link rel="stylesheet" type="text/css" href="./static/Styles/gameScrn.css">
 </head>
 
 <body>
@@ -52,14 +52,20 @@ $def with(title, text, hint1, hint2, hint3, answertext)
         </div>
     </form>
 
-    <form name="inputs" method="POST">
-      <input name="home" type="text" placeholder="  Enter your answer:" class="inputBar"/>
-      <input name = "home" type="image" class = "submitButton" />
-        <div class="scrollBox"/>
-          <p> 
+    $if () == answertext: #This is actually stupid. Think of a better way.
+        <form name="inputs" method="POST">
+        <input name="home" type="text" placeholder="  Enter your answer:" class="inputBar"/>
+        <input name = "home" type="image" class = "submitButton" />
+    <div class="scrollBox"/>
+          <p>
             $text <br>
-            $answertext <br>
-          </p> 
+            $if () != answertext: #Refer to last single line comment.Stupid
+              $for answer in answertext:
+                <form name="inputs" method="POST">
+                <input name="home" type="submit" value = "$answer" class="multipleChoice"/>
+              <br>
+
+          </p>
         </div>
     </form>
 </body>

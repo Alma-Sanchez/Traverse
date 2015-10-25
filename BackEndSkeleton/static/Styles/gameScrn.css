@@ -1,14 +1,14 @@
 /* Game Screen */
-html { 
-    height: 100%; 
+html {
+    height: 100%;
 }
 body {
-    background: url("../main.png") no-repeat center center fixed; 
+    background: url("../main.png") no-repeat center center fixed;
     -webkit-background-size: contain;
     -moz-background-size: contain;
     -o-background-size: contain;
     background-size: contain;
-    background-color: #000000; 
+    background-color: #000000;
 }
 a {
     color:white;
@@ -149,4 +149,20 @@ a {
     position: fixed;
     z-index: -1;
     overflow: auto;
+}
+.multipleChoice{
+    background: url("../choice.png");
+    background-repeat: no-repeat;
+    background-size:100%;
+    background-color: transparent;
+    height: 55%;
+    width:95%;
+    padding-top: 5%;
+    padding-bottom: 5%;
+    margin-bottom: 7%;
+    border: none;
+    color: black;
+    font-size: 1.5em;
+    font-weight: bold;
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 }
