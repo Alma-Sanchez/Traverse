@@ -1,41 +1,77 @@
-html { 
-    height: 100%; 
-}
-
 body{
-    background: url("../aboutpage.png") no-repeat center center fixed;
+    background: url("../helppage.png") no-repeat center center fixed;
     -webkit-background-size: contain;
     -moz-background-size: contain;
     -o-background-size: contain;
     background-size: contain;
     background-color: #000000;
 }
+.helpContainer{
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    padding-top: 17rem;
+    margin: 0;
+    width: 100%;
+}
+.scrollBox{
+    order: 0;
+    background-color:black;
+    color: white;
+    font-size: 16px;
+    border: 5px solid #B1A272;
+    overflow-y: scroll;
+    width: 21rem;
+    height: 21rem;
+}
+.backContainer{
+    display: flex;
+    flex-direction: row;
+    padding-top: .5rem;
+    width: 21.6rem;
+    /*border: 1px solid wheat;*/
+}
 .backButton{
+    order:1;
+    height: 4.5rem;
+    width: 6.5rem;
     background-image: url("../back.png");
     background-size: 100%;
     background-color: transparent;
     background-repeat: no-repeat;
-    width: 13.5%;
-    height: 5.5%;
-    left: 20%;
-    top: 87%;
-    position: fixed;
-    z-index: 7;
     border: none;
     font-size: 0;
 }
-.scrollBox{
-    background-color:black;
-    color: white;
-    font-size:30px;
-    height: 37%;
-    width: 55%;
-    top: 36%;
-    left: 20%;
-    position: fixed;
-    z-index: 7;
-    overflow: auto;
-    padding:3%;
-    border: 5px solid #B1A272;
-    /*#93834D;*/
+.helpContainer p{
+    text-indent: 35px;
+    padding-left: 2%;
+}
+@media screen and (max-width: 415px) {
+    .helpContainer{
+        height: 30%;
+        padding-top: 18rem;
+    }
+    .scrollBox{
+        width: 75%;
+        height: 20rem;
+    }
+    .backContainer{
+        width: 75%;
+    }
+    .backButton{
+        height: 2.5rem;
+        width: 3.5rem;
+    }
+}
+@media screen and (max-width: 357px) {
+    .helpContainer{
+        height: 30%;
+        padding-top: 18.3rem;
+    }
+    .scrollBox{
+        width: 80%;
+        height: 18.2rem;
+    }
 }

@@ -1,14 +1,14 @@
 body{
     background-color: #000000;
-    background-image: url("../story.png");
-    background-size: 80%;
-    background-position: center top;
-    background-repeat: no-repeat; 
-    overflow: auto;
+    background: url("../story.png") no-repeat center center fixed;
+    -webkit-background-size: contain;
+    -moz-background-size: contain;
+    -o-background-size: contain;
+    background-size: contain;
 }
 .storyInput{
     margin-top: 57%;
-    margin-left: 28%
+    margin-left: 28%;
 }
 .story1{
     background-image: url("../choice1.png");

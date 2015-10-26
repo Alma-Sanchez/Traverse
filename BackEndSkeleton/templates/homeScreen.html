@@ -1,17 +1,20 @@
 <!DOCTYPE html>
 <html>
- <head>
-    <title>Title of Game</title>
-    <link rel = "stylesheet" type = "text/css" href = "./static/Styles/homeScrn.css">
-</head>
-<body>
-  <div class = "menuInput">
-      <form name = "homeMenu" method = "POST"> 
-        <input name = "new" method = "POST" type = "Submit" value = "charScreen" class = "newstory"/> <br>
-        <input name = "new" method = "POST" type = "Submit" value = "loadScreen" class = "loadstory"/> <br>
-        <input name = "new" method = "POST" type = "Submit" value = "aboutScreen" class = "about"/> <br>
-        <input name = "new" method = "POST" type = "Submit" value = "helpScreen" class = "help"/> <br>
-      </form>
-  </div>
-</body>
+   <head>
+      <title>Title of Game</title>
+      <link rel = "stylesheet" type = "text/css" href = "./static/Styles/homeScrn.css">
+  </head>
+
+  <body>
+    <div class = "menuContainer">
+        <form name = "homeMenu" method = "POST"> 
+		    <ul class = "menuItems">
+	          <li> <input name = "new" method = "POST" type = "Submit" value = "charScreen" class = "newStory"/> </li>
+	          <li> <input name = "new" method = "POST" type = "Submit" value = "loadScreen" class = "loadStory"/> </li>
+	          <li> <input name = "new" method = "POST" type = "Submit" value = "aboutScreen" class = "about"/> </li>
+	          <li> <input name = "new" method = "POST" type = "Submit" value = "helpScreen" class = "help"/> </li>
+	        </ul>
+	    </form>
+    </div>
+  </body>
 </html>

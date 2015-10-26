@@ -1,6 +1,9 @@
+<<<<<<< HEAD
 html {
     height: 100%;
 }
+=======
+>>>>>>> refs/remotes/origin/master
 body{
     background: url("../character.png") no-repeat center center fixed;
     -webkit-background-size: contain;
@@ -9,41 +12,89 @@ body{
     background-size: contain;
     background-color: #000000;
 }
-.backButton{
-    background-image: url("../back.png");
-    background-size: 100%;
-    background-color: transparent;
-    background-repeat: no-repeat;
-    width: 13.5%;
-    height: 5.5%;
-    left: 20%;
-    top: 87%;
-    position: fixed;
-    z-index: 7;
-    border: none;
-    font-size: 0;
+.charContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    flex-flow: column nowrap;
+    margin: 0;
+    width: 100%;
+    /*border: 1px solid wheat;*/
 }
-.charInput{
-    top: 40%;
-    left: 27%;
-    height:38%;
-    width:47%;
-    position:fixed;
-    overflow:auto;
+.inputConttainer{
+    order: 0;
+    padding-top: 20rem;
+    width: 16rem;
+    /*overflow: auto;*/
+    /*border: 1px solid wheat;*/
 }
 .Character1{
+    padding-bottom: 25%;
     background: url("../choice.png");
     background-repeat: no-repeat;
     background-size:100%;
     background-color: transparent;
-    height: 55%;
-    width:95%;
-    padding-top: 5%;
-    padding-bottom: 5%;
-    margin-bottom: 7%;
+    width:100%;
     border: none;
     color: black;
-    font-size: 1.5em;
+    font-size: 130%;
     font-weight: bold;
     font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 }
+<<<<<<< HEAD
+=======
+.backContainer{
+    display: flex;
+    flex-direction: row;
+    padding-top: .5rem;
+    width: 16rem;
+    /*border: 1px solid wheat;*/
+}
+.backButton{
+    order:1;
+    height: 4.5rem;
+    width: 6.5rem;
+    background-image: url("../back.png");
+    background-size: 100%;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    border: none;
+    font-size: 0;
+}
+@media screen and (max-width: 400px) {
+   .inputConttainer{
+        width: 63%;
+        font-size: 95%;
+   }
+    .Character1{
+        width: 100%;
+        padding-bottom: 15%;
+    }
+    .backContainer{
+        width: 65%;
+    }
+    .backButton{
+        height: 2.7rem;
+        width: 4.2rem;
+    }
+}
+@media screen and (max-width: 345px) {
+   .inputConttainer{
+        width: 63%;
+        font-size: 85%;
+        padding-top: 22 rem;
+   }
+    .Character1{
+        width: 100%;
+        padding-bottom: 10%;
+    }
+    .backContainer{
+        width: 65%;
+    }
+    .backButton{
+        height: 2.7rem;
+        width: 4.2rem;
+    }
+}
+>>>>>>> refs/remotes/origin/master
