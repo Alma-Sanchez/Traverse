@@ -1,5 +1,3 @@
-#Python version 2.7.9
-
 import csv
 import sqlite3
 
@@ -16,11 +14,9 @@ def dropTables(connection):
 	conn,c = connection
 
 	c.execute("DROP TABLE IF EXISTS Player_Data") #Drops (deletes) table named Player_Data if it exists.
-	c.execute("DROP TABLE IF EXISTS Player_Character_Action") #Drops (deletes) table named Player_Action if it exists.
 	c.execute("DROP TABLE IF EXISTS Player_Story_Action")
 	c.execute("DROP TABLE IF EXISTS Player_Step_Action")
 	c.execute("DROP TABLE IF EXISTS Archived_Player_Data") #Drops (deletes) table named Archived_Player_Data if it exists.
-	c.execute("DROP TABLE IF EXISTS Archived_Player_Character_Action") #Drops (deletes) table named Archived_Player_Action if it exists.
 	c.execute("DROP TABLE IF EXISTS Archived_Player_Story_Action")
 	c.execute("DROP TABLE IF EXISTS Archived_Player_Step_Action")
 	c.execute("DROP TABLE IF EXISTS Story_Data") #Drops (deletes) table named Story_Data if it exists.
@@ -42,13 +38,14 @@ def createTables(connection):
 	"""
 	conn,c = connection
 
-	c.execute("CREATE TABLE Player_Data (Player_ID Integer primary key autoincrement, IP Text, Current_Story_Action_ID Int, Current_Step_Action_ID Int)") #Creates new table named Player_Data with hardcoded parameters.
+	c.execute("CREATE TABLE Player_Data (Player_ID Integer primary key autoincrement, IP Text, Current_Character_Action_ID INT, Current_Story_Action_ID Int, Current_Step_Action_ID Int)") #Creates new table named Player_Data with hardcoded parameters.
 	c.execute("CREATE TABLE Player_Story_Action (Story_Action_ID Integer primary key autoincrement, Player_ID INT, Current_Story_ID INT, Player_Input Text)")
 	c.execute("CREATE TABLE Player_Step_Action (Step_Action_ID Integer primary key autoincrement, Player_ID INT, Previous_Step_ID INT, Current_Step_ID INT, Next_Step_ID INT, Player_Input Text, Misses INT)")
-	c.execute("CREATE TABLE Archived_Player_Data (Player_ID INT, IP Text, Current_Story_Action_ID Int, Current_Step_Action_ID Int)") #Creates new table named Archived_Player_Data with hardcoded parameters.
+	c.execute("CREATE TABLE Archived_Player_Data (Player_ID INT, IP Text, Current_Character_Action_ID INT, Current_Story_Action_ID Int, Current_Step_Action_ID Int)") #Creates new table named Archived_Player_Data with hardcoded parameters.
+	c.execute("CREATE TABLE Archived_Player_Character_Action (Character_Action_ID Int, Player_ID INT, Current_Character_ID INT, Player_Input Text)") #Creates new table named Player_Action with hardcoded parameters.
 	c.execute("CREATE TABLE Archived_Player_Story_Action (Story_Action_ID Int, Player_ID INT, Current_Story_ID INT, Player_Input Text)")
 	c.execute("CREATE TABLE Archived_Player_Step_Action (Step_Action_ID Int, Previous_Step_ID INT, Current_Step_ID INT, Next_Step_ID INT, Player_Input Text)")
-	c.execute("CREATE TABLE Story_Data (Story_ID INT, Title_Of_Story TEXT, Walk_Level INT, Kid_Friendly TEXT)") #Creates new table named Story_Data with hardcoded parameters.
+	c.execute("CREATE TABLE Story_Data (Story_ID INT, Character_ID INT, Title_Of_Story TEXT, Walk_Level INT, Kid_Friendly TEXT)") #Creates new table named Story_Data with hardcoded parameters.
 	c.execute("CREATE TABLE Step_Data(Story_ID INT, Step_ID INT, Previous_step_ID INT, Next_Step_ID INT, Actual_Step_Number INT, Accession_Association TEXT, Step_Text TEXT, Step_Hint_1 TEXT, Step_Hint_2 TEXT, Step_Hint_3 TEXT)") #Creates new table named Step_Data with hardcoded parameters.
 	c.execute("CREATE TABLE Accession_Association(Accession_Association TEXT, Accession_Number TEXT)") #Creates new table named Accession_Association with hardcoded parameters.
 
