@@ -40,7 +40,7 @@ class homeScreen:
 		if not DBManager.checkforExistingPlayer(web.ctx.ip): #Checking to see if current player has played before
 			DBManager.insertPlayerData(web.ctx.ip) #If the above is true save the players ip address in the database
 		playerStateObject = PlayerState() #Updating the player state
-		return self.render.endScreen() #Render homeScreen.html
+		return self.render.homeScreen() #Render homeScreen.html
 	def POST(self):
 		"""
 		This function generates different html pages based on the buttons pressed by the user. From this screen, the player can choose to load a previous game or start a new one.
@@ -54,7 +54,7 @@ class homeScreen:
 		playerStateObject = PlayerState() #Update the player state
 		action = web.input() #Create web.input() to save any information the user
 		if action['new'] == 'storyScreen': #Checks to see if the user pressed the button to send them to the character selection screen
-			raise web.seeother('/story') #If the above is true this line renders charScreen.html
+			raise web.seeother('/last') #If the above is true this line renders charScreen.html
 		elif action['new'] == 'aboutScreen': #This conditional checks to see if the user pressed the button to go to the about screen
 			raise web.seeother('/about') #If the above conditional is true this line renders aboutScreen.html
 
@@ -186,8 +186,8 @@ class lastScreen:
 		None
 		"""
 		playerStateObject = PlayerState() #Updating the player state
-		title,text,hint = DBManager.getDataFromDBForGameScreen(playerStateObject.player_id) #Assigning several variables by pulling data from the database
-		return self.render.lastScreen(text,title) #Rendering lastScreen.html using the variables on line 239
+		#title,text = DBManager.getDataFromDBForGameScreen(playerStateObject.player_id) #Assigning several variables by pulling data from the database
+		return self.render.lastScreen("","") #Rendering lastScreen.html using the variables on line 239
 	def POST(self):
 		"""
 		This function checks to see if the home button was pressed and if it was homeScreen.html is rendered. If not, lastScreen.html stays rendered.

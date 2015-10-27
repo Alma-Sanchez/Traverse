@@ -1,15 +1,15 @@
 /* Last Step Screen */
-html { 
-    height: 100%; 
+html {
+    height: 100%;
 }
 
 body {
-    background: url("../main.png") no-repeat center center fixed;
+    background: url("../GAME.png") no-repeat center center fixed;
     -webkit-background-size: contain;
     -moz-background-size: contain;
     -o-background-size: contain;
     background-size: contain;
-    background-color: #000000; 
+    background-color: #000000;
 }
 
 .title{
@@ -23,22 +23,8 @@ body {
     z-index: -1;
 }
 
-.logo{
-    background-image: url("../logo.png");
-    background-color:transparent;
-    background-repeat:no-repeat;
-    position:fixed;
-    box-shadow: 5% 5% 5% 5% black;
-    left:13%;
-    width:74%;
-    height:30%;
-    background-size:100%;
-    border:0pc;
-    z-index:10;
-}
-
 .homeButton{
-    background-image: url("../home.png");
+    background-image: url("../MENU.png");
     background-repeat: no-repeat;
     background-size:100%;
     background-color: transparent;
@@ -52,7 +38,7 @@ body {
 }
 
 .navButton{
-    background-image: url("../navigation.png");
+    background-image: url("../HINT.png");
     background-size: 100%;
     background-color: transparent;
     background-repeat: no-repeat;
