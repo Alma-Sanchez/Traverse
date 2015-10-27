@@ -1,7 +1,6 @@
 $def with (story_ids, story_title, walk_level, kid_friendly)
 <!DOCTYPE html>
 <html>
-<<<<<<< HEAD
 <head>
   <title>Title of Game</title>
   <link rel="stylesheet" type="text/css" href="./static/Styles/storyScrn.css">
@@ -41,46 +40,4 @@ $def with (story_ids, story_title, walk_level, kid_friendly)
     </p>
   </div>
 </body>
-=======
-  <head>
-    <title>Title of Game</title>
-    <link rel="stylesheet" type="text/css" href="./static/Styles/storyScrn.css">
-  </head>
-  <body>
-    <div class = "storyContainer">
-      <div class="storyButtons">
-        <form method="POST">
-          $for story_id in story_ids:
-            $code:
-              tupindex=story_ids.index(story_id)
-            $if walk_level[tupindex]==1:
-              $if kid_friendly[tupindex]=="K":
-                <input name="story" method="POST" type="Submit" value= "*$story_title[tupindex]" class="story1"/>
-              $else:
-                <input name="story" method="POST" type="Submit" value= "$story_title[tupindex]" class="story1"/>
-            $elif walk_level[tupindex]==2:
-              $if kid_friendly[tupindex]=="K":
-                <input name="story" method="POST" type="Submit" value= "*$story_title[tupindex]" class="story2"/>
-              $else:
-                <input name="story" method="POST" type="Submit" value= "$story_title[tupindex]" class="story2"/>
-            $elif walk_level[tupindex]==3: 
-              $if kid_friendly[tupindex]=="K":
-                <input name="story" method="POST" type="Submit" value= "*$story_title[tupindex]" class="story3"/>
-              $else:
-                <input name="story" method="POST" type="Submit" value= "$story_title[tupindex]" class="story3"/>
-            $else: 
-              $if kid_friendly[tupindex]=="K":
-                <input name="story" method="POST" type="Submit" value= "*$story_title[tupindex]" class="story4"/>
-              $else:
-                <input name="story" method="POST" type="Submit" value= "$story_title[tupindex] wx nk" class="story4"/>
-          </form>
-      </div>
-      <div class = "backContainer">
-        <form name="story" method="POST">
-          <input  name="story" method = "POST" type="submit" value="back" class = "backButton"/><br>
-        </form>
-      </div>
-    </div>
-  </body>
->>>>>>> refs/remotes/origin/master
 </html>
