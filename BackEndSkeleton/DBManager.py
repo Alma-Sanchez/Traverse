@@ -597,7 +597,6 @@ def compareInputToAnswers(player_id,player_input):
                     print answer_id
                     insertNewCurrentStep(player_id, answer_id, player_input)
                     return True
-
           #0 true 1 false
     closeDB(conn)
 
