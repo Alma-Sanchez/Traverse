@@ -1,5 +1,5 @@
 body{
-    background: url("../background.png") no-repeat center center fixed;
+    background: url("../HOME.png") no-repeat center center fixed;
     background-color: #000000;
     background-size: contain;
     max-width: 430px;
@@ -34,18 +34,10 @@ body{
     width: 6.7rem;
 }
 .newStory{
-    background-image: url("../new.png");
+    background-image: url("../PLAY.png");
     margin-bottom: 2%;
 }
-.loadStory{
-    background-image: url("../load.png");
-    margin-bottom: 1%;
-}
 .about{
-    background-image: url("../about.png");
+    background-image: url("../ABOUT.png");
     width: 8.2rem;
-}
-.help{
-    background-image: url("../help.png");
-    width: 6.4rem;
 }

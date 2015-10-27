@@ -29,5 +29,5 @@ def setupPlayer():
 	"""
 	player = HTTPHandler.PlayerState() #Creating instance of playerState class and assigning that value to the variable player.
 
-if __name__=="__main__": #Checks to see if server.py is the main file that is being called. 
-	setupServer() #if the above is true, an instance of the webpy server under the variable name server will run 
+if __name__=="__main__": #Checks to see if server.py is the main file that is being called.
+	setupServer() #if the above is true, an instance of the webpy server under the variable name server will run

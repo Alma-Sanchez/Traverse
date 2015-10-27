@@ -1,10 +1,10 @@
 body{
-    background: url("../story.png") no-repeat center center fixed;
+    background: url("../STORY.png") no-repeat center center fixed;
     -webkit-background-size: contain;
     -moz-background-size: contain;
     -o-background-size: contain;
     background-size: contain;
-    background-color: #000000; 
+    background-color: #000000;
 }
 .storyContainer{ /*Contains all of the elements in the page*/
     display: flex;
@@ -86,7 +86,7 @@ body{
 }
 .backButton{
     order: 1;
-    background-image: url("../back.png");
+    background-image: url("../BACK.png");
     background-size: 100%;
     background-color: transparent;
     background-repeat: no-repeat;

@@ -24,18 +24,17 @@ $def with(title, text, hint1, hint2, hint3, progress)
       e.style.visibility='hidden'
       e.style.display='none'
     }
- 
+
   </script>
 
 <head>
-  <title>Title of Game</title>   
-  <link rel="stylesheet" type="text/css" href="./static/Styles/gameScrn.css"> 
+  <title>Title of Game</title>
+  <link rel="stylesheet" type="text/css" href="./static/Styles/newgameScrn.css">
 </head>
 
 <body>
   <div class="title" type="text">$title $progress</div>
     <form name="home" method="POST">
-      <input name="home" method="POST" type="submit" value="home" class ="logo">
       <input  name="home" method = "POST" type="submit" value="home" class="homeButton"/><br>
       <a  href="#" name="home" method="POST" type="submit" onclick="toggle_visibility('foo');toggle_visibility('text');hide('hint1');hide('hint2');hide('hint3');" class="navButton"/><br>
           <img id="foo" src="./static/dialogue.png" class="textimg">
@@ -56,9 +55,9 @@ $def with(title, text, hint1, hint2, hint3, progress)
       <input name="home" type="text" placeholder="  Enter your answer:" class="inputBar"/>
       <input name = "home" type="image" class = "submitButton" />
         <div class="scrollBox"/>
-          <p> 
+          <p>
             $text <br>
-          </p> 
+          </p>
         </div>
     </form>
 </body>
