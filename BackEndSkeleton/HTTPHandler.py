@@ -17,7 +17,6 @@ class homeScreen:
 			'/game',"gameScreen",
 			'/end',"endScreen",
 			'/home', "homeScreen",
-			'/hint', "hintScreen",
 			'/about','aboutScreen',
 			'/last', "lastScreen"
 
@@ -54,7 +53,7 @@ class homeScreen:
 		playerStateObject = PlayerState() #Update the player state
 		action = web.input() #Create web.input() to save any information the user
 		if action['new'] == 'storyScreen': #Checks to see if the user pressed the button to send them to the character selection screen
-			raise web.seeother('/last') #If the above is true this line renders charScreen.html
+			raise web.seeother('/story') #If the above is true this line renders charScreen.html
 		elif action['new'] == 'aboutScreen': #This conditional checks to see if the user pressed the button to go to the about screen
 			raise web.seeother('/about') #If the above conditional is true this line renders aboutScreen.html
 

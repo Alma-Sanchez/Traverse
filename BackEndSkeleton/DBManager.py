@@ -38,13 +38,13 @@ def closeDB(connection):
         connection: A connection to a database.
 
     Return:
-       None 
+       None
     """
     connection.close()
 
 def checkDB():
     """
-    This function checks to see if the connected database has 13 tables. 
+    This function checks to see if the connected database has 13 tables.
     If the table number is not 13, then this function drops pre-existing tables and creates new tables.
 
     Parameter:
@@ -85,25 +85,6 @@ def getPlayerFromDB(ip):
     player_data = cur.fetchone()
     closeDB(conn)
     return player_data
-
-def getPlayerCharacterActionFromDB(player_id):
-    """
-    This funciton will return the player's most recently selected character
-
-    Parameters:
-        id (int): the ID of the player connecting to the web.py server
-
-    Returns:
-        tuple: a Row from the Player_Character_Action table associated with the player's ID.
-
-    Example:
-        getPlayerCharacterActionFromDB(1.1.1.1.1) => (2,1,3,3)
-    """
-    conn,cur = connectToDB()
-    cur.execute("select Max(Character_Action_ID) from Player_Character_Action where Player_ID =:player_id", {"player_id":player_id})
-    player_character_action_id = cur.fetchone()[0]
-    closeDB(conn)
-    return player_character_action_id
 
 def getPlayerStoryActionFromDB(player_id):
     """
@@ -168,7 +149,7 @@ def getDataFromDBForGameScreen(player_id):
     This function returns all the informaiton neccessary to populate the game screen. This
     incudes the title of the story the player selected, the game text for the relevant step, all three hints for the
     relevant step, as well as the progress (step the player is on out of the total number of steps).
-    
+
     Parameter:
         ip: the IP address of the player connection to the web.py server
 
@@ -181,12 +162,6 @@ def getDataFromDBForGameScreen(player_id):
 
     """
     conn,cur = connectToDB()
-    cur.execute("select Max(Character_Action_ID) from Player_Character_Action where Player_ID =:player_id", {"player_id":player_id})
-    char_action_id = cur.fetchone()[0]
-    print char_action_id
-    cur.execute("select Current_Character_ID from Player_Character_Action where Character_Action_ID =:char_action_id", {"char_action_id":char_action_id})
-    current_character = cur.fetchone()[0]
-    print current_character
     cur.execute("select Max(Story_Action_ID) from Player_Story_Action where Player_ID =:player_id", {"player_id":player_id})
     story_action_id = cur.fetchone()[0]
     print story_action_id
@@ -228,7 +203,6 @@ def getDataFromDBForGameScreen(player_id):
     total_steps = cur.fetchone()[0]
     progress= str(actual_step) + "/" + str(total_steps)
     data_to_return = title_of_story , game_text, relevant_game_hint_1, relevant_game_hint_2, relevant_game_hint_3, progress
-    print data_to_return
     return data_to_return
 
 def getStoryTitles(player_id):
@@ -246,15 +220,12 @@ def getStoryTitles(player_id):
 
     """
     conn,cur = connectToDB()
-    cur.execute("select max(Current_Character_Action_ID) from Player_Data where Player_ID=:player_id", {"player_id":player_id})
-    current_character_action_id = cur.fetchone()[0]
-    cur.execute("select Current_Character_ID from Player_Character_Action where Character_Action_ID=:current_character_action_id", {"current_character_action_id":current_character_action_id})
-    character_id = cur.fetchone()[0]
-    cur.execute("select Title_Of_Story from Story_Data where Character_ID =:character_id", {"character_id":character_id})
+    cur.execute("select Title_Of_Story from Story_Data")
     story_titles = cur.fetchall()
     story_title_tuple = ()
     for story_title in story_titles:
         story_title_tuple += story_title
+    print story_title_tuple
     return story_title_tuple
 
 def getStoryData():
@@ -275,13 +246,13 @@ def getStoryIDFromTitle(title_of_story):
     """
     This function find the id of a story from its title.
 
-    Paramter: 
-        title_of_story (str): title of story that is passed in 
+    Paramter:
+        title_of_story (str): title of story that is passed in
 
     Returns:
         int: the story id of the title
 
-    Example: 
+    Example:
         getStoryIDFromTitle(Washington(1))=> 1
     """
     conn,cur=connectToDB()
@@ -289,53 +260,9 @@ def getStoryIDFromTitle(title_of_story):
     story_id= cur.fetchone()[0]
     return story_id
 
-def getCharacterIDFromName(character_name):
-    """
-    This function finds the character id from a character name.
-
-    Parameter:
-        character_name (str): name of character that is passed in 
-
-    Returns:
-        int: the character id of the character 
-
-    Example:
-        getCharacterIDFromName("George Washington")=> 1
-    """
-    conn,cur=connectToDB()
-    cur.execute("select Character_ID from Character_Data where Character_Name=:character_name", {"character_name":character_name})
-    character_id=cur.fetchone()[0]
-    return str(character_id)
-
-def getStoriesFromDB(player_id):
-    """
-    This funciton returns a list of all stories associated with a particular Character
-
-    Parameters:
-        Character_ID (int): the ID associated wiht a particular character
-
-    Returns:
-        tuple: all Story_IDs associated with the Character_ID
-
-    Example: 
-        getStoriesFromDB(2) => 2,3,4
-    """
-    conn,cur = connectToDB()
-    cur.execute("select max(Current_Character_Action_ID) from Player_Data where Player_ID =:player_id", {"player_id":player_id})
-    character_action_id = cur.fetchone()[0]
-    cur.execute("select Current_Character_ID from Player_Character_Action where Character_Action_Id =:character_action_id", {"character_action_id":character_action_id})
-    character_id = cur.fetchone()[0]
-    print character_id
-    cur.execute("select Story_ID from Story_Data where Character_ID =:character_id", {"character_id":character_id})
-    story_ids = cur.fetchall()
-    story_id_tuple = ()
-    for story_id in story_ids:
-        story_id_tuple += story_id
-    return story_id_tuple
-
 def getAccessionNumbersFromDB(accession_association):
     """
-    This function will query the database and return the list of possible 
+    This function will query the database and return the list of possible
     accesion numbers associated with a particular accession association keyword
 
     Parameters:
@@ -357,7 +284,7 @@ def getAccessionAssociationFromDB(accession_number):
     associated wiht a particular assession number
 
     Parameters:
-        string: accession_number 
+        string: accession_number
 
     Returns:
         string: accession_association
@@ -370,79 +297,6 @@ def getAccessionAssociationFromDB(accession_number):
     accession_association = cur.fetchone()[0]
     closeDB(conn)
     return accession_association
-
-def getCharacterData():
-    """
-    This function will query the database and return the correct character 
-    data for the character the player is currently using.
-
-    Parameters:
-        Current_Character_ID
-
-    Returns:
-        tuple: character fields 
-
-    Example:
-        getCharacterData(2) => 2, Diana, 1965.16.32a-b
-    """
-    conn,cur = connectToDB()
-    cur.execute("select Character_ID from Character_Data")
-    character_id = cur.fetchall() # if you get too many choice boxes it could be b/c the header is in the table itself, if so, please add this or append the db [1:]
-    character_id_tuple = ()
-    for character in character_id:
-        character_id_tuple += character
-    return character_id_tuple
-
-def getCharacterNames():
-    """
-    This function gets all character names that are in the database. 
-
-    Parameters: 
-        None
-
-    Returns: 
-        tuple: a tuple that contains all character names
-
-    Example:
-        getCharacterNames()=> (George Washington, Salome, Diana, Turing)
-    """
-    conn,cur=connectToDB()
-    cur.execute("select Character_name from Character_Data")
-    character_names=cur.fetchall()
-    character_names_tuple=()
-    print character_names_tuple
-    for character_name in character_names:
-        character_names_tuple +=character_name
-    return character_names_tuple
-
-def getStoryIDFromDB(player_id):
-    """
-    This function will query the database and return the correct story data
-    for the story the player is currently playing.
-
-    Parameters:
-        Current_Story_ID
-
-    Returns:
-        tuple: story fields
-
-    Example:
-        Data(3) => (3,2,Mixed Dimensions,6)
-    """
-    conn,cur = connectToDB()
-    cur.execute("select Current_Character_Action_ID from Player_Data where Player_ID =:player_id", {"player_id":player_id})
-    current_character_action_id = cur.fetchone()[0]
-    print current_character_action_id
-    cur.execute("select Current_Character_ID from Player_Character_Action where Character_Action_ID =:current_character_action_id", {"current_character_action_id":current_character_action_id})
-    character_id = cur.fetchone()[0]
-    cur.execute("select Story_ID from Story_Data where Character_ID =:character_id", {"character_id":character_id})
-    story1,story2,story3 = cur.fetchall()
-    
-    story1 = str(story1[0])
-    story2 = str(story2[0])
-    story3 = str(story3[0])
-    
-    return story1,story2,story3
 
 def getStepTextFromDB(step_id):
     """
@@ -471,7 +325,7 @@ def needLastScreen(player_id):
         ip: the IP address of the player connection to the web.py server
 
     Returns:
-        boolean: reutrns True if there is no next step, returns False if there is 
+        boolean: reutrns True if there is no next step, returns False if there is
 
     Example:
         needLastScreen(1.1.1.1.1)=>False
@@ -509,30 +363,6 @@ def checkforExistingPlayer(player_ip):
         return False
     closeDB(conn)
 
-def checkPlayerCharacterInput(player_character_input):
-    """
-    This function checks to see if the player has selected a character and returns a boolean
-
-    Parameters:
-        player_character_input - the player's input
-        current_character_ID - the player's selected character
-
-    Returns:
-        Boolean: True is character is selected, False if no character is selected 
-    
-    Example:
-        checkPlayerCharacterInput(2,2) => True
-
-    """
-    conn,cur = connectToDB()
-    cur.execute("select Character_ID from Character_Data where Character_ID =:player_character_input", {"player_character_input": player_character_input})
-    
-    if None != cur.fetchone():
-        return True
-    else:
-        return False
-    closeDB(conn)
-
 def checkPlayerStoryInput(player_story_input):
     """
     This function checks to see if the player has selected a story and return a boolean
@@ -550,7 +380,7 @@ def checkPlayerStoryInput(player_story_input):
     conn,cur = connectToDB()
 
     cur.execute("select Story_ID from Story_Data where Story_ID =:player_story_input", {"player_story_input": player_story_input})
-    
+
     if None != cur.fetchone():
         return True
     else:
@@ -559,7 +389,7 @@ def checkPlayerStoryInput(player_story_input):
 
 def checkPlayerStepInput(player_input):
     """
-    This function checks the player input with the current step 
+    This function checks the player input with the current step
     and returns a boolean if the player's input is correct.
 
     Parameters:
@@ -590,8 +420,8 @@ def loadPlayerAction(player_id):
 
 def shouldPlayerAdvance(cursor,player_input,current_step_id):
     """
-    This function determines if the player has entered a correct accession number 
-    and is thus able to go on to the next step.  It returns a boolean 
+    This function determines if the player has entered a correct accession number
+    and is thus able to go on to the next step.  It returns a boolean
 
     Parameters:
         player_input  -the player's input
@@ -599,7 +429,7 @@ def shouldPlayerAdvance(cursor,player_input,current_step_id):
         accession_association - the accession association associated wiht the current step
 
     Returns:
-        boolean - True if the accession number entered by the player matches one of the assession numbers 
+        boolean - True if the accession number entered by the player matches one of the assession numbers
         associated with the assession association, False if the assession numbers do not matches
 
     Example:
@@ -614,7 +444,7 @@ def shouldPlayerAdvance(cursor,player_input,current_step_id):
         cur.execute("select Accession_Association from Accession_Association where Accession_Number =:player_input", {"player_input":player_input})
         if current_step_association == cur.fetchone()[0]:
             return True
-        else: 
+        else:
             return False
     else:
         return False
@@ -636,7 +466,7 @@ def updatePlayerData(cursor, player_id, action_type):
     cur.execute("select max(%s_ID) from Player_%s where player_id=:player_id" % (action_type, action_type),{"player_id":player_id})
     id_to_update = cur.fetchone()[0]
     cur.execute("update Player_data set Current_%s_ID =:id_to_update" % (action_type), {"id_to_update":id_to_update})
-    
+
     #cur.execute("update player_data set Current_Action_ID=:current_action_ID where player_ID =:player_ID", {"current_action_ID":current_action_ID, "player_ID":player_ID})
 def insertPlayerData(ip):
     """
@@ -651,32 +481,8 @@ def insertPlayerData(ip):
     """
     conn,cur = connectToDB()
     cur.execute("insert into Player_Data values (?,?,?,?,?)", (None,ip,None,None,None))
-    
+
     commitToDB(conn)
-    closeDB(conn)
-
-def insertPlayerCharacterAction(player_id, player_character_input):
-    """
-    This function will insert a player's new character choice into the SQLite database
-    
-    Parameters:
-        player_id - the unique number associated with the player
-        player_character_input - the character selected by the player
-
-    Returns:
-        None
-    """
-    conn,cur = connectToDB()
-    action_type = "Character_Action"
-
-    if checkPlayerCharacterInput(player_character_input):
-        cur.execute("select Character_ID from Character_Data where Character_ID =:player_character_input", {"player_character_input": player_character_input})
-        current_character_id = cur.fetchone()[0]
-        cur.execute("insert into Player_Character_Action values (?,?,?,?)", (None,player_id,current_character_id,player_character_input))
-
-        updatePlayerData(cur,player_id,action_type)
-    
-        commitToDB(conn)
     closeDB(conn)
 
 def insertPlayerStoryAction(player_id, player_story_input):
@@ -751,4 +557,11 @@ def insertPlayerStepAction(player_id, player_step_input=None):
     commitToDB(conn)
     closeDB(conn)
 
-
+def getStoriesFromDB(player_id):
+    conn,cur = connectToDB()
+    cur.execute("select Story_ID from Story_Data ")
+    story_id = cur.fetchall()
+    story_id_tuple = ()
+    for story in story_id:
+        story_id_tuple += story
+    return story_id_tuple
