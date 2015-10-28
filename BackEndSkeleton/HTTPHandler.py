@@ -56,8 +56,8 @@ class homeScreen:
 		"""
 		playerStateObject = PlayerState() #Update the player state
 		action = web.input() #Create web.input() to save any information the user
-		if action['new'] == 'charScreen': #Checks to see if the user pressed the button to send them to the character selection screen
-			raise web.seeother('/char') #If the above is true this line renders charScreen.html
+		if action['new'] == 'storyScreen': #Checks to see if the user pressed the button to send them to the character selection screen
+			raise web.seeother('/story') #If the above is true this line renders charScreen.html
 		elif action['new'] == 'loadScreen': #Checks to see if the user pressed the button to load a previous game
 			if None != DBManager.getPlayerCharacterActionFromDB(playerStateObject.player_id): #If the above is true this line checks to see if the player has chosen a character in their previous game
 				if None != DBManager.getPlayerStoryActionFromDB(playerStateObject.player_id): #If the above is true this line checks to see if the player has chosen a story in their previous game
@@ -70,54 +70,6 @@ class homeScreen:
 			raise web.seeother('/about') #If the above conditional is true this line renders aboutScreen.html
 		elif action['new'] == 'helpScreen': #This conditional checks to see if the user pressed the button to go to the help screen
 			raise web.seeother('/help') #If the above is true then helpScreen.html is rendered
-
-class charScreen:
-	def __init__(self):
-		"""
-		This function contains the logic for dynamically rendering the character selection screen as well as saving the player's character choice in the database.
-
-		Parameters:
-		None
-
-		Returns:
-		None
-		"""
-		self.render = web.template.render('templates/') #This if the file path for all of the .html files so the renderer can find them
-	def GET(self):
-		"""
-		This function renders charScreen.html when the user either types in the appropriate url or navigates to this page by interacting with the website.
-
-		Parameters:
-		None
-
-		Returns:
-		None
-		"""
-		playerStateObject = PlayerState() #Updating the player state
-		character_ids = DBManager.getCharacterData() #Pulls character data from the database and saves it to a variable
-		character_names = DBManager.getCharacterNames() #Pulls character names from the database and saves it to a variable
-		return self.render.charScreen(character_ids, character_names) #Dynamically renders charScreen.html using character_ids and character_names variables above
-	def POST(self):
-		"""
-		This function handles saving the players chosen character and saving that information in the database.
-
-		Parameters:
-		None
-
-		Returns:
-		None
-		"""
-		playerStateObject = PlayerState() #Updating player state
-		action = web.input() #Creating a web.input() object to hold any information that the user enters
-		if action['Character']== "back": #Checks to see if the player pressed the back button
-			raise web.seeother('/home') #Renders homeScreen.html
-		else:
-			character=DBManager.getCharacterIDFromName(action['Character'])
-			#print "this is character" + str(character)
-			if DBManager.hasPlayerChosenCharacter(character):
-				DBManager.insertPlayerCharacterAction(playerStateObject.player_id, character)
-				raise web.seeother('/story')
-
 
 class storyScreen:
 	def __init__(self):

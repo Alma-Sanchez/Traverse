@@ -86,25 +86,6 @@ def getPlayerFromDB(ip):
     closeDB(conn)
     return player_data
 
-def getPlayerCharacterActionFromDB(player_id):
-    """GET
-   This funciton will return the player's most recently selected character
-
-   Parameters:
-       id (int): the ID of the player connecting to the web.py server
-
-   Returns:
-       tuple: a Row from the Player_Character_Action table associated with the player's ID.
-
-   Example:
-       getPlayerCharacterActionFromDB(1.1.1.1.1) => (2,1,3,3)
-   """
-    conn,cur = connectToDB()
-    cur.execute("select Max(Character_Action_ID) from Player_Character_Action where Player_ID =:player_id", {"player_id":player_id})
-    player_character_action_id = cur.fetchone()[0]
-    closeDB(conn)
-    return player_character_action_id
-
 def getPlayerStoryActionFromDB(player_id):
     """
    This funciton will return the player's most recently selected story
@@ -138,12 +119,8 @@ def getStoryTitles(player_id):
        getStoryTitles(1.1.1.1.1)=> (Washington(1),Washington(2),Washington(3),Washington(4))
 
    """
-    conn,cur = connectToDB()
-    cur.execute("select max(Current_Character_Action_ID) from Player_Data where Player_ID=:player_id", {"player_id":player_id})
-    current_character_action_id = cur.fetchone()[0]
-    cur.execute("select Current_Character_ID from Player_Character_Action where Character_Action_ID=:current_character_action_id", {"current_character_action_id":current_character_action_id})
-    character_id = cur.fetchone()[0]
-    cur.execute("select Title_Of_Story from Story_Data where Character_ID =:character_id", {"character_id":character_id})
+    conn,cur=connectToDB()
+    cur.execute("select Title_Of_Story from Story_Data")
     story_titles = cur.fetchall()
     story_title_tuple = ()
     for story_title in story_titles:
@@ -185,25 +162,6 @@ def getStoryIDFromTitle(title_of_story):
     closeDB(conn)
     return story_id
 
-def getCharacterIDFromName(character_name):
-    """
-   This function finds the character id from a character name.
-
-   Parameter:
-       character_name (str): name of character that is passed in
-
-   Returns:
-       int: the character id of the character
-
-   Example:
-       getCharacterIDFromName("George Washington")=> 1
-   """
-    conn,cur=connectToDB()
-    cur.execute("select Character_ID from Character_Data where Character_Name=:character_name", {"character_name":character_name})
-    character_id=cur.fetchone()[0]
-    closeDB(conn)
-    return str(character_id)
-
 def getStoriesFromDB(player_id):
     """
    This funciton returns a list of all stories associated with a particular Character
@@ -218,63 +176,13 @@ def getStoriesFromDB(player_id):
        getStoriesFromDB(2) => 2,3,4
    """
     conn,cur = connectToDB()
-    cur.execute("select max(Current_Character_Action_ID) from Player_Data where Player_ID =:player_id", {"player_id":player_id})
-    character_action_id = cur.fetchone()[0]
-    cur.execute("select Current_Character_ID from Player_Character_Action where Character_Action_Id =:character_action_id", {"character_action_id":character_action_id})
-    character_id = cur.fetchone()[0]
-    #print character_id
-    cur.execute("select Story_ID from Story_Data where Character_ID =:character_id", {"character_id":character_id})
+    cur.execute("select Story_ID from Story_Data")
     story_ids = cur.fetchall()
     story_id_tuple = ()
     for story_id in story_ids:
         story_id_tuple += story_id
     closeDB(conn)
     return story_id_tuple
-
-def getCharacterData():
-    """
-   This function will query the database and return the correct character
-   data for the character the player is currently using.
-
-   Parameters:
-       Current_Character_ID
-
-   Returns:
-       tuple: character fields
-
-   Example:
-       getCharacterData(2) => 2, Diana, 1965.16.32a-b
-   """
-    conn,cur = connectToDB()
-    cur.execute("select Character_ID from Character_Data")
-    character_id = cur.fetchall() # if you get too many choice boxes it could be b/c the header is in the table itself, if so, please add this or append the db [1:]
-    character_id_tuple = ()
-    for character in character_id:
-        character_id_tuple += character
-    closeDB(conn)
-    return character_id_tuple
-
-def getCharacterNames():
-    """
-   This function gets all character names that are in the database.
-
-   Parameters:
-       None
-
-   Returns:
-       tuple: a tuple that contains all character names
-
-   Example:
-       getCharacterNames()=> (George Washington, Salome, Diana, Turing)
-   """
-    conn,cur=connectToDB()
-    cur.execute("select Character_Name from Character_Data")
-    character_names=cur.fetchall()
-    character_names_tuple=()
-    for character_name in character_names:
-        character_names_tuple +=character_name
-    closeDB(conn)
-    return character_names_tuple
 
 def needLastScreen(player_id):
     """
@@ -337,31 +245,6 @@ def checkforExistingPlayer(player_ip):
     closeDB(conn)
     if None != player_id:
 
-        return True
-    else:
-        return False
-
-
-def hasPlayerChosenCharacter(player_character_input):
-    """
-   This function checks to see if the player has selected a character and returns a boolean
-
-   Parameters:
-       player_character_input - the player's input
-       current_character_ID - the player's selected character
-
-   Returns:
-       Boolean: True is character is selected, False if no character is selected
-
-   Example:
-       hasPlayerChosenCharacter(2,2) => True
-
-   """
-    conn,cur = connectToDB()
-    cur.execute("select Character_ID from Character_Data where Character_ID =:player_character_input", {"player_character_input": player_character_input})
-    character_id = cur.fetchone()[0]
-    closeDB(conn)
-    if None != character_id:
         return True
     else:
         return False
@@ -481,30 +364,6 @@ def updatePlayerData(cursor, player_id, action_type):
     id_to_update = cur.fetchone()[0]
     cur.execute("update Player_data set Current_%s_ID =:id_to_update" % (action_type), {"id_to_update":id_to_update})
 
-def insertPlayerCharacterAction(player_id, player_character_input):
-    """
-    This function will insert a player's new character choice into the SQLite database
-
-    Parameters:
-        player_id - the unique number associated with the player
-        player_character_input - the character selected by the player
-
-    Returns:
-        None
-    """
-    conn,cur = connectToDB()
-    action_type = "Character_Action"
-    if hasPlayerChosenCharacter(player_character_input):
-        cur.execute("select Character_ID from Character_Data where Character_ID =:player_character_input", {"player_character_input": player_character_input})
-        current_character_id = cur.fetchone()[0]
-        print "current_character_id is: " + str(current_character_id)
-        cur.execute("insert into Player_Character_Action values (?,?,?,?)", (None,player_id,current_character_id,player_character_input))
-
-        updatePlayerData(cur,player_id,action_type)
-
-        commitToDB(conn)
-    closeDB(conn)
-
 def insertPlayerStoryAction(player_id, player_story_input):
     """
     Thus function inserts the player's new story choice into the SQLite database
@@ -576,15 +435,6 @@ def insertPlayerStepAction(player_id, player_step_input=None):
     commitToDB(conn)
     closeDB(conn)
 
-def getAllCharactersFromDB():
-    conn,cur = connectToDB()
-    cur.execute("select Character_Name from Character_Data")
-    all_characters = cur.fetchall()
-    character_name_tuple = ()
-    for character_name in all_characters:
-        character_name_tuple +=character_name
-    return character_name_tuple
-
 def getAllStoriesDataFromDB():
     conn,cur = connectToDB()
     cur.execute("select Title_Of_Story from Story_Data")
@@ -596,10 +446,6 @@ def getAllStoriesDataFromDB():
 
 def getStoryDataForGameScreen(player_id):
     conn,cur = connectToDB()
-    cur.execute("select Max(Character_Action_ID) from Player_Character_Action where Player_ID =:player_id", {"player_id":player_id})
-    char_action_id = cur.fetchone()[0]
-    cur.execute("select Current_Character_ID from Player_Character_Action where Character_Action_ID =:char_action_id", {"char_action_id":char_action_id})
-    current_character = cur.fetchone()[0]
     cur.execute("select Max(Story_Action_ID) from Player_Story_Action where Player_ID =:player_id", {"player_id":player_id})
     story_action_id = cur.fetchone()[0]
     cur.execute("select Current_Story_ID from Player_Story_Action where Story_Action_ID =:story_action_id", {"story_action_id":story_action_id})
@@ -670,7 +516,7 @@ def getGameScreenDataFromDB(player_id):
     flag=cur.fetchone()[0]
     answer_text_tuple=("1")
     if flag != None:
-        cur.execute("select Answer_Text from Multiple_Choice_Answers where MC_Flag=:flag", {"flag":flag})
+        cur.execute("select Answer_Type_Text from Answer_Type_Multiple_Choice where MC_Flag=:flag", {"flag":flag})
         answer_text=cur.fetchall()
         for text in answer_text:
             answer_text_tuple += text
@@ -696,19 +542,6 @@ def getPlayerIP(ip):
     commitToDB(conn)
     closeDB(conn)
 
-def insertPlayerCharacterAction(player_id, player_character_input):
-    conn,cur = connectToDB()
-
-    if hasPlayerChosenCharacter(player_character_input):
-        cur.execute("select Character_ID from Character_Data where Character_ID =:player_character_input", {"player_character_input": player_character_input})
-        current_character_id = cur.fetchone()[0]
-        cur.execute("insert into Player_Character_Action values (?,?,?,?)", (None,player_id,current_character_id,player_character_input))
-        cur.execute("select max(Character_Action_ID) from Player_Character_Action where player_id=:player_id",{"player_id":player_id})
-        id_to_update = cur.fetchone()[0]
-        cur.execute("update Player_data set Current_Character_Action_ID =:id_to_update", {"id_to_update":id_to_update})
-        commitToDB(conn)
-    closeDB(conn)
-
 def compareInputToAnswers(player_id,player_input):
     conn,cur = connectToDB()
     cur.execute("select Max(Step_Action_ID) from Player_Step_Action where Player_ID=:player_id",{"player_id":player_id})
@@ -727,19 +560,6 @@ def compareInputToAnswers(player_id,player_input):
         cur.execute("select Answer_Type from Answer_Key where Answer_ID=:answer",{"answer":answer})
         answer_type=cur.fetchone()[0]
         print type(answer_type)
-        if answer_type==1:
-            cur.execute("select Accession_Number from Accession_Answers where Accession_ID=:answer",{"answer":answer})
-            accession_numbers=cur.fetchall()
-            print "accession numbers:" + str(accession_numbers)
-            accession_tuple=()
-            for accession in accession_numbers:
-                accession_tuple +=accession
-            for accession in accession_tuple:
-                if player_input == accession:
-                    cur.execute("select Accession_ID from Accession_Answers where Accession_ID=:answer",{"answer":answer})
-                    answer_id= cur.fetchone()[0]
-                    insertNewCurrentStep(player_id, answer_id, player_input)
-                    return True
         if answer_type==2:
             cur.execute("select String_Answer from Text_Answers where Answer_ID=:answer",{"answer":answer})
             text_answers=cur.fetchall()
@@ -757,20 +577,20 @@ def compareInputToAnswers(player_id,player_input):
         if answer_type==3:
           player_input = int(player_input)
           print type(player_input)
-          cur.execute("select Low_End from Num_Answers where Answer_ID=:answer",{"answer":answer})
+          cur.execute("select Low_End from Answer_Type_Numbers where Answer_ID=:answer",{"answer":answer})
           low_end_answer=cur.fetchone()[0]
-          cur.execute("select High_End from Num_Answers where Answer_ID=:answer", {"answer":answer})
+          cur.execute("select High_End from Answer_Type_Numbers where Answer_ID=:answer", {"answer":answer})
           high_end_answer=cur.fetchone()[0]
           if low_end_answer == high_end_answer:
             if player_input == low_end_answer:
-              cur.execute("select Answer_ID from Num_Answers where Low_End=:player_input", {"player_input":player_input})
+              cur.execute("select Answer_ID from Answer_Type_Numbers where Low_End=:player_input", {"player_input":player_input})
               answer_id=cur.fetchone()[0]
               print answer_id
               insertNewCurrentStep(player_id, answer_id, player_input)
               return True
           else:
             if low_end_answer<=player_input<=high_end_answer:
-              cur.execute("select Answer_ID from Num_Answers where Low_End=:low_end_answer", {"low_end_answer":low_end_answer})
+              cur.execute("select Answer_ID from Answer_Type_Numbers where Low_End=:low_end_answer", {"low_end_answer":low_end_answer})
               answer_id=cur.fetchone()[0]
               print answer_id
               insertNewCurrentStep(player_id, answer_id, player_input)
@@ -778,12 +598,12 @@ def compareInputToAnswers(player_id,player_input):
         if answer_type==5:
             cur.execute("select MC_Flag from Step_Transition_Data where Step_ID=:current_step_id", {"current_step_id":current_step_id})
             flag=cur.fetchone()[0]
-            cur.execute("select Answer_Text from Multiple_Choice_Answers where MC_Flag=:flag", {"flag":flag})
+            cur.execute("select Answer_Text from Answer_Type_Multiple_Choice where MC_Flag=:flag", {"flag":flag})
             answer_text=cur.fetchall()
             for text_tuple in answer_text:
               for text in text_tuple:
                 if player_input == text:
-                    cur.execute("select Answer_ID from Multiple_Choice_Answers where Answer_Text=:player_input", {"player_input":player_input})
+                    cur.execute("select Answer_ID from Answer_Type_Multiple_Choice where Answer_Text=:player_input", {"player_input":player_input})
                     answer_id=cur.fetchone()[0]
                     print answer_id
                     insertNewCurrentStep(player_id, answer_id, player_input)
