@@ -3,7 +3,7 @@ html {
     height: 100%;
 }
 body {
-    background: url("../GAME.png") no-repeat center center fixed;
+    background: url("../AUversion/GAME.png") no-repeat center center fixed;
     -webkit-background-size: contain;
     -moz-background-size: contain;
     -o-background-size: contain;
@@ -25,7 +25,7 @@ a {
     z-index: -1;
 }
 .homeButton{
-    background-image: url("../MENUBUTTON.png");
+    background-image: url("../AUversion/MENUBUTTON.png");
     background-repeat: no-repeat;
     background-size:100%;
     background-color: transparent;
@@ -38,7 +38,7 @@ a {
     font-size: 0;
 }
 .navButton{
-    background-image: url("../HINT.png");
+    background-image: url("../AUversion/HINT.png");
     background-size: 100%;
     background-color: transparent;
     background-repeat: no-repeat;
@@ -64,7 +64,7 @@ a {
     z-index: 5;
 }
 .submitButton{
-    background-image: url("../SUBMIT.png");
+    background-image: url("../AUversion/SUBMIT.png");
     background-size: 100%;
     background-color:black;
     background-repeat: no-repeat;

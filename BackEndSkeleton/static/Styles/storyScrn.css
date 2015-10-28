@@ -1,5 +1,5 @@
 body{
-    background: url("../STORY.png") no-repeat center center fixed;
+    background: url("../AUversion/STORY.png") no-repeat center center fixed;
     -webkit-background-size: contain;
     -moz-background-size: contain;
     -o-background-size: contain;
@@ -21,7 +21,7 @@ body{
     width: 16rem;
 }
 .story1{
-    background: url("../choice1.png");
+    background: url("../AUversion/choice1.png");
     background-repeat: no-repeat;
     background-size:100%;
     background-color: transparent;
@@ -35,7 +35,7 @@ body{
     text-align: left;
 }
 .story2{
-    background: url("../choice2.png");
+    background: url("../AUversion/choice2.png");
     background-repeat: no-repeat;
     background-size:100%;
     background-color: transparent;
@@ -49,7 +49,7 @@ body{
     text-align: left;
 }
 .story3{
-    background: url("../choice3.png");
+    background: url("../AUversion/choice3.png");
     background-repeat: no-repeat;
     background-size:100%;
     background-color: transparent;
@@ -63,7 +63,7 @@ body{
     text-align: left;
 }
 .story4{
-    background: url("../choice3.png");
+    background: url("../AUversion/choice3.png");
     background-repeat: no-repeat;
     background-size:100%;
     background-color: transparent;
@@ -86,7 +86,7 @@ body{
 }
 .backButton{
     order: 1;
-    background-image: url("../BACK.png");
+    background-image: url("../AUversion/BACK.png");
     background-size: 100%;
     background-color: transparent;
     background-repeat: no-repeat;
