@@ -56,8 +56,8 @@ class homeScreen:
 		"""
 		playerStateObject = PlayerState() #Update the player state
 		action = web.input() #Create web.input() to save any information the user
-		if action['new'] == 'charScreen': #Checks to see if the user pressed the button to send them to the character selection screen
-			raise web.seeother('/char') #If the above is true this line renders charScreen.html
+		if action['new'] == 'storyScreen': #Checks to see if the user pressed the button to send them to the character selection screen
+			raise web.seeother('/story') #If the above is true this line renders charScreen.html
 		elif action['new'] == 'loadScreen': #Checks to see if the user pressed the button to load a previous game
 			if None != DBManager.getPlayerCharacterActionFromDB(playerStateObject.player_id): #If the above is true this line checks to see if the player has chosen a character in their previous game
 				if None != DBManager.getPlayerStoryActionFromDB(playerStateObject.player_id): #If the above is true this line checks to see if the player has chosen a story in their previous game

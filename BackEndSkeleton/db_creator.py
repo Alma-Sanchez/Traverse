@@ -25,8 +25,7 @@ def dropTables(connection):
 	c.execute("DROP TABLE IF EXISTS Answer_Key") #Drops (deletes) table named Answer_Key if it exists.
 	c.execute("DROP TABLE IF EXISTS Answer_Type_Numbers") #Drops (deletes) table named Number_Answers if it exists.
 	c.execute("DROP TABLE IF EXISTS Answer_Type_Text") #Drops (deletes) table named Text_Answers if it exists.
-	c.execute("DROP TABLE IF EXISTS Answer_Type_Multiple_Choice") #Drops (deletes) table named Multiple_Choice_answers if it exists.
-	c.execute("DROP TABLE IF EXISTS Answer_Type_Boolean") #Drops (deletes) table named Boolean_Answers if it exists.
+	c.execute("DROP TABLE IF EXISTS Answer_Type_Multiple_Choice") #Drops (deletes) table named Answer_Type_Multiple_Choice if it exists.
 	c.execute("DROP TABLE IF EXISTS Step_Transition_Data") #Drops (deletes) table named Step_Transition_Data.
 
 def createTables(connection):
@@ -55,7 +54,6 @@ def createTables(connection):
 	c.execute("CREATE TABLE Answer_Type_Numbers(Answer_ID INT, Low_End INT, High_End INT)")
 	c.execute("CREATE TABLE Answer_Type_Text(Answer_ID INT, String_Answer TEXT)")
 	c.execute("CREATE TABLE Answer_Type_Multiple_Choice(Answer_ID INT, Answer_Text TEXT, Right_Wrong INT, MC_Flag INT)")
-	c.execute("CREATE TABLE Answer_Type_Boolean(Answer_ID INT, Yes_No INT)")
 	c.execute("CREATE TABLE Step_Transition_Data(Story_ID INT, Step_ID INT, Previous_Step_ID INT, Next_Step_ID INT, Answer_ID INT, MC_Flag INT)")
 
 def populateTables(connection):
@@ -99,12 +97,12 @@ def populateTables(connection):
 	conn.commit()
 	text_answers_file.close()
 
-	with open('CSV_file\Answer_Type_Multiple_Choice.csv', 'rb') as multiple_choice_answers_file:
-		spamreader = csv.reader(multiple_choice_answers_file)
+	with open('CSV_file\Answer_Type_Multiple_Choice.csv', 'rb') as Answer_Type_Multiple_Choice_file:
+		spamreader = csv.reader(Answer_Type_Multiple_Choice_file)
 		for row in spamreader:
-			c.execute("INSERT INTO Answer_Type_Multiple_Choice VALUES (?,?,?,?)", (unicode(row[0], "utf-8"),unicode(row[1], "utf-8"),unicode(row[2], "utf-8"),unicode(row[3], "utf-8")))
+			c.execute("INSERT INTO Answer_Type_Multiple_Choice VALUES (?,?,?,?)", (unicode(row[0], "utf-8", errors='ignore'),unicode(row[1], "utf-8"),unicode(row[2], "utf-8"),unicode(row[3], "utf-8")))
 	conn.commit()
-	multiple_choice_answers_file.close()
+	Answer_Type_Multiple_Choice_file.close()
 
 	with open('CSV_file\Step_Transition_Data.csv', 'rb') as step_transition_data_file:
 		spamreader = csv.reader(step_transition_data_file)
