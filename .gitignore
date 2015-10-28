@@ -53,6 +53,10 @@ coverage.xml
 # Sphinx documentation
 docs/_build/
 
+#Database files:
+Thumbs.db
+SAAM_database_test2.db
+
 # PyBuilder
 target/
 
