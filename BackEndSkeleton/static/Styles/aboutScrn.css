@@ -1,0 +1,89 @@
+body{
+    background: url("../AUversion/AboutScrn.png") no-repeat center center fixed;
+    -webkit-background-size: contain;
+    -moz-background-size: contain;
+    -o-background-size: contain;
+    background-size: contain;
+    background-color: #000000;
+}
+.aboutContainer{
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    padding-top: 17rem;
+    margin: 0;
+    width: 100%;
+    /*border: 1px solid wheat;*/
+}
+.scrollBox{
+    order: 0;
+    background-color: black;
+    color: #FD792F;
+    overflow-y: scroll;
+    border: 5px solid black;
+    width: 21rem;
+    height: 22rem;
+}
+.scrollBox h1{
+    text-align: center;
+    font-size: 22px;
+}
+.scrollBox p{
+    text-indent: 50px;
+    text-align: center;
+    font-size: 17px;
+}
+.scrollBox ul{
+    padding-left: 38%;
+}
+.backContainer{
+    display: flex;
+    flex-direction: row;
+    padding-top: .5rem;
+    padding-left: 75%;
+    width: 50%;
+    /*border: 1px solid wheat;*/
+}
+.backButton{
+    order:1;
+    height: 4.5rem;
+    width: 6.5rem;
+    background-image: url("../AUversion/back.png");
+    background-size: 50%;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    align-items: center;
+    align-content: center;
+    justify-content: right;
+    border: none;
+    font-size: 0;
+}
+@media screen and (max-width: 415px) {
+    .aboutContainer{
+        height: 30%;
+        padding-top: 18rem;
+    }
+    .scrollBox{
+        width: 75%;
+        height: 20rem;
+    }
+    .backContainer{
+        width: 75%;
+    }
+    .backButton{
+        height: 2.5rem;
+        width: 3.5rem;
+    }
+}
+@media screen and (max-width: 357px) {
+    .aboutContainer{
+        height: 30%;
+        padding-top: 18.3rem;
+    }
+    .scrollBox{
+        width: 80%;
+        height: 18.2rem;
+    }
+}
