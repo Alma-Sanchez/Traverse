@@ -55,7 +55,7 @@ def checkDB():
    """
     conn,cur = connectToDB()
     cur.execute("select * from sqlite_master where type='table'")
-    if 19 != len(cur.fetchall()):
+    if 15 != len(cur.fetchall()):
         db_creator.dropTables(connectToDB())
         db_creator.createTables(connectToDB())
         db_creator.populateTables(connectToDB())
@@ -475,8 +475,6 @@ def getGameScreenDataFromDB(player_id):
     conn,cur = connectToDB()
     current_story,title_of_story = getStoryDataForGameScreen(player_id)
 
-    cur.execute("select Step_ID from Step_Transition_Data where Story_ID =:current_story", {"current_story":current_story})
-
     cur.execute("select Max(Step_Action_ID) from Player_Step_Action where Player_ID =:player_id", {"player_id":player_id})
     step_action_id = cur.fetchone()[0]
 
@@ -561,7 +559,7 @@ def compareInputToAnswers(player_id,player_input):
         answer_type=cur.fetchone()[0]
         print type(answer_type)
         if answer_type==2:
-            cur.execute("select String_Answer from Text_Answers where Answer_ID=:answer",{"answer":answer})
+            cur.execute("select String_Answer from Answer_Type_Text where Answer_ID=:answer",{"answer":answer})
             text_answers=cur.fetchall()
             print "text answers:" + str(text_answers)
             text_tuple=()
@@ -569,7 +567,7 @@ def compareInputToAnswers(player_id,player_input):
                 text_tuple += text_answer
             for text_answer in text_tuple:
                 if player_input == text_answer:
-                    cur.execute("select Answer_ID from Text_Answers where String_Answer=:text_answer",{"text_answer":text_answer})
+                    cur.execute("select Answer_ID from Answer_Type_Text where String_Answer=:text_answer",{"text_answer":text_answer})
                     answer_id= cur.fetchone()[0]
                     print answer_id
                     insertNewCurrentStep(player_id, answer_id, player_input)
