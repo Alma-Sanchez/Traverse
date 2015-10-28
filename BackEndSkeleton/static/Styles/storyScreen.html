@@ -1,0 +1,25 @@
+$def with (story_ids, story_title, walk_level, kid_friendly)
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Title of Game</title>
+    <link rel="stylesheet" type="text/css" href="./static/Styles/storyScrn.css">
+  </head>
+  <body>
+    <div class = "storyContainer">
+      <div class="storyButtons">
+        <form method="POST">
+          $for id in story_ids:
+            $code:
+              tupindex=story_ids.index(id)
+            <input name="story" method="POST" type="submit" value= "$story_title[tupindex]" class="story1"/>
+        </form>
+      </div>
+      <div class = "backContainer">
+        <form name="story" method="POST">
+          <input  name="story" method = "POST" type="submit" value="back" class = "backButton"/><br>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>

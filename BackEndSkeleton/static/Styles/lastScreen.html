@@ -1,0 +1,24 @@
+$def with(steptext,storytitle)
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Title of Game</title>
+    <link rel = "stylesheet" type = "text/css" href = "./static/Styles/newlastScrn.css">
+  </head>
+
+<body>
+  <div class="title" type="text">$storytitle</div>
+  <form name="home" method="POST">
+    <input name="home" method="POST" type="submit" value="home" class ="logo">
+    <input  name="home" method = "POST" type="submit" value="home" class = "homeButton"/><br>
+    <input  name="home" method = "POST" type="submit" value="home" class = "navButton"/><br>
+    <input  name="home" method="POST" type="image" value="nothome" class = "nextButton" />
+  </form>
+  <div class="scrollBox"/>
+    <p>
+      $steptext
+    </p>
+  </div>
+</body>
+</html>
