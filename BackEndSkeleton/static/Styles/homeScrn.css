@@ -1,5 +1,5 @@
 body{
-    background: url("../HOME.png") no-repeat center center fixed;
+    background: url("../AUversion/HOME.png") no-repeat center center fixed;
     background-color: #000000;
     background-size: contain;
     max-width: 430px;
@@ -34,10 +34,10 @@ body{
     width: 6.7rem;
 }
 .newStory{
-    background-image: url("../PLAY.png");
+    background-image: url("../AUversion/PLAY.png");
     margin-bottom: 2%;
 }
 .about{
-    background-image: url("../ABOUT.png");
+    background-image: url("../AUversion/ABOUT.png");
     width: 8.2rem;
 }
