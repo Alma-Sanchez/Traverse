@@ -181,10 +181,6 @@ def getDataFromDBForGameScreen(player_id):
 
     """
     conn,cur = connectToDB()
-    cur.execute("select Max(Character_Action_ID) from Player_Character_Action where Player_ID =:player_id", {"player_id":player_id})
-    char_action_id = cur.fetchone()[0]
-    cur.execute("select Current_Character_ID from Player_Character_Action where Character_Action_ID =:char_action_id", {"char_action_id":char_action_id})
-    current_character = cur.fetchone()[0]
     cur.execute("select Max(Story_Action_ID) from Player_Story_Action where Player_ID =:player_id", {"player_id":player_id})
     story_action_id = cur.fetchone()[0]
     cur.execute("select Current_Story_ID from Player_Story_Action where Story_Action_ID =:story_action_id", {"story_action_id":story_action_id})
@@ -317,44 +313,6 @@ def getStoriesFromDB(player_id):
     for story_id in story_ids:
         story_id_tuple += story_id
     return story_id_tuple
-
-def getAccessionNumbersFromDB(accession_association):
-    """
-    This function will query the database and return the list of possible
-    accesion numbers associated with a particular accession association keyword
-
-    Parameters:
-        string: accession_association
-
-    Returns:
-        tuple: accession numbers
-
-    Example:
-        getAccessionNumbersFromDB(Predator) => 2002.31, 1985.4, 1913.1.3
-    """
-    cur = cursorForDB(connectToDB())
-    cur.execute("select Accession_Number from Accession_Data where Accession_Association =: accessionAssociation", {"accessionAssociation": accession_association})
-    return cur.fetchall()
-
-def getAccessionAssociationFromDB(accession_number):
-    """
-    This function will query the database and return the assession association
-    associated wiht a particular assession number
-
-    Parameters:
-        string: accession_number
-
-    Returns:
-        string: accession_association
-
-    Example:
-        getAccessionAssociationFromDB(1965.16.32a-b) => Diana
-    """
-    conn,cur = connectToDB()
-    cur.execute("select Accession_Association from Accession_Association where Accession_Number =:accession_number", {"accession_number":accession_number})
-    accession_association = cur.fetchone()[0]
-    closeDB(conn)
-    return accession_association
 
 def getCharacterData():
     """
@@ -512,68 +470,11 @@ def checkPlayerStoryInput(player_story_input):
         return False
     closeDB(conn)
 
-def checkPlayerStepInput(player_input):
-    """
-    This function checks the player input with the current step
-    and returns a boolean if the player's input is correct.
-
-    Parameters:
-        player_input: The player's input.
-        current_step_ID: The current step of the story which the player is on.
-
-    Returns:
-        boolean: True if player's input is correct. False if the player's input is incorrect.
-
-    Example:
-        checkPlayerInput(123.12,1) => False
-    """
-    conn,cur = connectToDB()
-
-    cur.execute("select * from Accession_Association where Accession_Number =:player_input", {"player_input":player_input})
-    if None != cur.fetchone():
-        return True
-    else:
-        return False
-    closeDB(conn)
-
 def loadPlayerAction(player_id):
     """
     This function will retreive the current client's last player action.
     """
     conn,cur = connectToDB()
-
-
-def shouldPlayerAdvance(cursor,player_input,current_step_id):
-    """
-    This function determines if the player has entered a correct accession number
-    and is thus able to go on to the next step.  It returns a boolean
-
-    Parameters:
-        player_input  -the player's input
-        current_step_id - the step Id the player is curenntly on
-        accession_association - the accession association associated wiht the current step
-
-    Returns:
-        boolean - True if the accession number entered by the player matches one of the assession numbers
-        associated with the assession association, False if the assession numbers do not matches
-
-    Example:
-    shouldPlayerAdvance(Prey, 2002.3, 9) => True
-
-    """
-    cur = cursor
-
-    if checkPlayerStepInput(player_input):
-        cur.execute("select Accession_Association from Step_Data where Step_ID =:current_step_id", {"current_step_id":current_step_id})
-        current_step_association = cur.fetchone()[0]
-        cur.execute("select Accession_Association from Accession_Association where Accession_Number =:player_input", {"player_input":player_input})
-        if current_step_association == cur.fetchone()[0]:
-            return True
-        else:
-            return False
-    else:
-        return False
-
 
 def updatePlayerData(cursor, player_id, action_type):
     """
