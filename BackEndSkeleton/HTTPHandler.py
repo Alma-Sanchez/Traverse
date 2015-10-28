@@ -36,8 +36,8 @@ class homeScreen:
 		Returns:
 		None
 		"""
-		if not DBManager.checkforExistingPlayer(web.ctx.ip): #Checking to see if current player has played before
-			DBManager.insertPlayerData(web.ctx.ip) #If the above is true save the players ip address in the database
+		#if not DBManager.checkforExistingPlayer(web.ctx.ip): #Checking to see if current player has played before
+		DBManager.insertPlayerData(web.ctx.ip) #If the above is true save the players ip address in the database
 		playerStateObject = PlayerState() #Updating the player state
 		return self.render.homeScreen() #Render homeScreen.html
 	def POST(self):
@@ -98,7 +98,7 @@ class storyScreen:
 		playerStateObject = PlayerState() #Updating the player state
 		action = web.input() #Creating web.input() object to save any from data input by the user
 		if action['story']== "back": #Checks to see if the player pressed the back button
-			raise web.seeother('/char') #If the above is true then the charScreen.html is rendered
+			raise web.seeother('/') #If the above is true then the charScreen.html is rendered
 		else:
 			title= action['story']
 			prefix= title[0:1]
