@@ -516,7 +516,7 @@ def getGameScreenDataFromDB(player_id):
     flag=cur.fetchone()[0]
     answer_text_tuple=("1")
     if flag != None:
-        cur.execute("select Answer_Type_Text from Answer_Type_Multiple_Choice where MC_Flag=:flag", {"flag":flag})
+        cur.execute("select Answer_Text from Answer_Type_Multiple_Choice where MC_Flag=:flag", {"flag":flag})
         answer_text=cur.fetchall()
         for text in answer_text:
             answer_text_tuple += text
