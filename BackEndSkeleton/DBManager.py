@@ -220,8 +220,9 @@ def needLastScreen(player_id):
       current_id= cur.fetchone()[0]
       print "current_id " + str(current_id)
       cur.execute("select Next_Step_ID from Step_Transition_Data where Step_ID=:current_id", {"current_id": current_id})
-      print "next step?" + str(cur.fetchone)
-      if "End"==cur.fetchone():
+      step = cur.fetchone()[0]
+      print type(str(step))
+      if "null"==str(step):
         return True
       else:
         return False
