@@ -456,6 +456,17 @@ def getStoryDataForGameScreen(player_id):
     closeDB(conn)
     return current_story,title_of_story
 
+def getLastScreenDataFromDB(player_id):
+    conn,cur = connectToDB()
+    current_story,title_of_story = getStoryDataForGameScreen(player_id)
+    cur.execute("select Max(Step_Action_ID) from Player_Step_Action where Player_ID =:player_id", {"player_id":player_id})
+    step_action_id = cur.fetchone()[0]
+    cur.execute("select Current_Step_ID from Player_Step_Action where Step_Action_ID =:step_action_id", {"step_action_id":step_action_id})
+    current_step = cur.fetchone()[0]
+    cur.execute("select Step_Text from Step_Data where Step_ID =:current_step", {"current_step":current_step})
+    game_text = cur.fetchone()[0]
+    return title_of_story,game_text
+
 def getGameScreenDataFromDB(player_id):
     """
     This function returns all the informaiton neccessary to populate the game screen. This
