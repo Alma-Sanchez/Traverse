@@ -7,60 +7,53 @@ body{
     background-color: #000000;
 }
 .aboutContainer{
-    display: flex;
-    flex-flow: column nowrap;
-    align-items: center;
-    align-content: center;
-    justify-content: center;
-    padding-top: 17rem;
-    margin: 0;
-    width: 100%;
-    /*border: 1px solid wheat;*/
+    min-width: 380px;
+    display: block;
+    /*border: 2px solid red;*/
+    margin: 83% auto 0 auto;
+    width: 87%;
+    /*height: 75%;*/
 }
 .scrollBox{
     order: 0;
     background-color: black;
     color: #FD792F;
-    overflow-y: scroll;
-    border: 5px solid black;
-    width: 21rem;
-    height: 22rem;
+    overflow: auto;
+    margin: 0 auto 2% auto;
+    padding: 4%;
+    border: 4px solid #663D00;
+    width: 70%;
+    height: 38rem;
 }
 .scrollBox h1{
     text-align: center;
-    font-size: 22px;
+    font-size: 28px;
 }
 .scrollBox p{
-    text-indent: 50px;
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+    font-size: 260%;
+    /*text-indent: 50px;*/
     text-align: center;
-    font-size: 17px;
+    /*font-size: 17px;*/
 }
 .scrollBox ul{
     padding-left: 38%;
 }
-.backContainer{
-    display: flex;
-    flex-direction: row;
-    padding-top: .5rem;
-    padding-left: 75%;
-    width: 50%;
-    /*border: 1px solid wheat;*/
-}
 .backButton{
     order:1;
-    height: 4.5rem;
-    width: 6.5rem;
     background-image: url("../AUversion/back.png");
-    background-size: 50%;
+    background-size: 100%;
     background-color: transparent;
     background-repeat: no-repeat;
-    align-items: center;
-    align-content: center;
-    justify-content: right;
     border: none;
+    margin: -15px 0 0 72%;
+    /*float: right;*/
+    width: 24%;
+    height: 12rem;
+    /*border: 4px solid orange;*/
     font-size: 0;
 }
-@media screen and (max-width: 415px) {
+/*@media screen and (max-width: 415px) {
     .aboutContainer{
         height: 30%;
         padding-top: 18rem;
@@ -87,3 +80,4 @@ body{
         height: 18.2rem;
     }
 }
+*/
