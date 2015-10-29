@@ -12,17 +12,6 @@ body {
     background-color: #000000;
 }
 
-.title{
-    width: 100%;
-    top: 33%;
-    text-align: center;
-    background-color: transparent;
-    position: fixed;
-    color: white;
-    font-size: 35px;
-    z-index: -1;
-}
-
 .homeButton{
     background-image: url("../AUversion/MENU.png");
     background-repeat: no-repeat;
@@ -36,31 +25,6 @@ body {
     border: none;
     font-size: 0;
 }
-
-.navButton{
-    background-image: url("../AUversion/HINT.png");
-    background-size: 100%;
-    background-color: transparent;
-    background-repeat: no-repeat;
-    width: 35%;
-    height: 30%;
-    top: 11%;
-    left: 55%;
-    position: fixed;
-    z-index: 3;
-    border: none;
-    font-size: 0;
-}
-
-.textimg{
-    background-color: transparent;
-    width: 65%;
-    top: 56%;
-    left: 17%;
-    position: fixed;
-    z-index: 5;
-}
-
 .scrollBox{
     background-color:black;
     background-opacity:.4;
@@ -78,15 +42,12 @@ body {
     overflow: auto;
 }
 
-.nextButton{
-    background-image: url("../AUversion/submit.png");
+.navButton{
     background-size: 100%;
     background-color: transparent;
     background-repeat: no-repeat;
-    width: 13.5%;
-    height: 5.5%;
-    left: 68%;
-    top: 91.5%;
+    width: 100%;
+    height:100%;
     position: fixed;
     z-index: 7;
     border: none;
