@@ -16,6 +16,7 @@ body{
     background-repeat: no-repeat;
     background-size:100%;
     background-color: transparent;
+    border: none;
     font-size: 0px;
 }
 .title{
@@ -51,15 +52,16 @@ body{
     border: none;
     font-size: 0;
 }
-.textimg{
+/*.textimg{
     visibility: hidden;
-    background-color: transparent;
+    background-color: orange;
+    border: 1px solid green;
     width: 67%;
     top: 43%;
     left: 16%;
     position: fixed;
     z-index: 20;
-}
+}*/
 .scrollBox{
     background-color: black;
     background-opacity:.4;
@@ -82,10 +84,8 @@ body{
 }
 .inputBar, .submitButton{
     bottom: 70px;
-    /*border: none;*/
 }
 .inputBar{
-	/*display: block;*/
     background-color: black;
     background-opacity:.4;
     border: 1px solid #804D00;
@@ -98,21 +98,25 @@ body{
 }
 .submitButton{
     background-image: url("../AUversion/SUBMIT.png");
-    border: none;
+    /*border: none;*/
     right: 10%;
     width: 13%;
     height: 7%;
-    font-size: 0;
     position: fixed;
     z-index: 5;
 }
+a {
+    color: orange;
+    font-size: 240%;
+}
 .hintText{
     visibility: hidden;
+    background-color: black;
     color: white;
     font-size: 25px;
-    height: 24%;
-    width: 50%;
-    top: 47%;
+    height: 48%;
+    width: 55.5%;
+    top: 37%;
     left: 19%;
     padding-left:5%;
     padding-right:2%;
