@@ -193,7 +193,7 @@ class gameScreen:
 		None
 		"""
 		playerStateObject = PlayerState()
-		if DBManager.needLastScreen(playerStateObject.player_id)=="True":
+		if DBManager.needLastScreen(playerStateObject.player_id)==True:
 			print "need last"
 			raise web.seeother('/last')
 		else:
