@@ -20,60 +20,36 @@ body{
 }
 .title{
     width: 100%;
-    top: 32%;
     text-align: center;
     background-color: transparent;
     position: fixed;
     color: orange;
-    font-size: 35px;
+    margin-top: 45%;
+    font-size: 265%;
     z-index: -1;
-}
-.menuContainer{
-	margin: 0 auto 0 auto;
 }
 .menuButton{
 	background-image: url("../AUversion/MENUBUTTON.png");
-	width: 20rem;
-	height: 10rem;
+	display: block;
+	left: 15%;
+	width: 60%;
+	/*margin: 0 auto 0 auto;*/
+	height: 20%;
 	border: none;
-    /*left: 10%;*/
     position: fixed;
-    z-index: 2;
+    z-index: 5;
     border: none;
     font-size: 0;
 }
-.bottomOfPage{
-    border: 1px solid #FD792F;
-    /*Top right bottom left*/
-	margin: 0px auto 0 auto;
-	width: 25rem;
-}
-.inputBar, .submitButton{
-    top: 600px;
+.hintButton{
+    background-image: url("../AUversion/HINT.png");
+    width: 35%;
+    height: 30%;
+    left: 65%;
+    position: fixed;
+    z-index: 3;
     border: none;
-}
-.inputBar{
-	/*display: block;*/
-    background-color: black;
-    background-opacity:.4;
-    /*border: 1px solid #FD792F;*/
-    float: left;
-    font-size: 20px;
-    color: ghostwhite;
-    width: 80%;
-    position: fixed;
-    z-index: 5;
-    /*margin-top: 30%;*/
-}
-.submitButton{
-    background-image: url("../AUversion/SUBMIT.png");
-    float: right;
-    width: 13%;
-    height: 3rem;
-    /*top: 91.20%;*/
     font-size: 0;
-    position: fixed;
-    z-index: 5;
 }
 .textimg{
     visibility: hidden;
@@ -84,22 +60,11 @@ body{
     position: fixed;
     z-index: 20;
 }
-.hintButton{
-    background-image: url("../AUversion/HINT.png");
-    width: 35%;
-    height: 30%;
-    top: 11%;
-    left: 55%;
-    position: fixed;
-    z-index: 3;
-    border: none;
-    font-size: 0;
-}
 .scrollBox{
     background-color: black;
     background-opacity:.4;
     color: white;
-    font-size: 20px;
+    font-size: 260%;
     height: 50%;
     width: 55.5%;
     top: 38%;
@@ -110,6 +75,36 @@ body{
     position: fixed;
     z-index: -1;
     overflow: auto;
+}
+.bottomOfPage{
+	margin: 0 auto 0 auto;
+	width: 76%;
+}
+.inputBar, .submitButton{
+    bottom: 70px;
+    /*border: none;*/
+}
+.inputBar{
+	/*display: block;*/
+    background-color: black;
+    background-opacity:.4;
+    border: 1px solid #804D00;
+    font-size: 275%;
+    color: ghostwhite;
+    width: 64%;
+    height: 7%;
+    position: fixed;
+    z-index: 5;
+}
+.submitButton{
+    background-image: url("../AUversion/SUBMIT.png");
+    border: none;
+    right: 10%;
+    width: 13%;
+    height: 7%;
+    font-size: 0;
+    position: fixed;
+    z-index: 5;
 }
 .hintText{
     visibility: hidden;
