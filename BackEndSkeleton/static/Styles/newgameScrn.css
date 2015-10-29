@@ -6,33 +6,143 @@ body{
     background-size: contain;
     background-color: #000000;
 }
+.pageContainer{
+	/*position: relative;*/
+	margin: 0 auto 0 auto;
+	/*border: 2px solid red;*/
+	min-width: 350px; 
+}
+.submitButton, .menuButton, .hintButton{
+    background-repeat: no-repeat;
+    background-size:100%;
+    background-color: transparent;
+    font-size: 0px;
+}
+.title{
+    width: 100%;
+    top: 32%;
+    text-align: center;
+    background-color: transparent;
+    position: fixed;
+    color: orange;
+    font-size: 35px;
+    z-index: -1;
+}
+.menuContainer{
+	margin: 0 auto 0 auto;
+}
 .menuButton{
 	background-image: url("../AUversion/MENUBUTTON.png");
+	width: 20rem;
+	height: 10rem;
+	border: none;
+    /*left: 10%;*/
+    position: fixed;
+    z-index: 2;
+    border: none;
+    font-size: 0;
 }
 .bottomOfPage{
     border: 1px solid #FD792F;
     /*Top right bottom left*/
-	margin: 0 auto 0 auto;
+	margin: 0px auto 0 auto;
 	width: 25rem;
+}
+.inputBar, .submitButton{
+    top: 600px;
+    border: none;
 }
 .inputBar{
 	/*display: block;*/
     background-color: black;
-    border: 1px solid #FD792F;
-    font-size: 25px;
-    color: white;
-    /*height: 5%;*/
-    width: 100%;
+    background-opacity:.4;
+    /*border: 1px solid #FD792F;*/
+    float: left;
+    font-size: 20px;
+    color: ghostwhite;
+    width: 80%;
+    position: fixed;
     z-index: 5;
+    /*margin-top: 30%;*/
+}
+.submitButton{
+    background-image: url("../AUversion/SUBMIT.png");
+    float: right;
+    width: 13%;
+    height: 3rem;
+    /*top: 91.20%;*/
+    font-size: 0;
+    position: fixed;
+    z-index: 5;
+}
+.textimg{
+    visibility: hidden;
+    background-color: transparent;
+    width: 67%;
+    top: 43%;
+    left: 16%;
+    position: fixed;
+    z-index: 20;
 }
 .hintButton{
     background-image: url("../AUversion/HINT.png");
+    width: 35%;
+    height: 30%;
+    top: 11%;
+    left: 55%;
+    position: fixed;
+    z-index: 3;
+    border: none;
+    font-size: 0;
 }
-.submitButton .menuButton .hintButton{
-    background-repeat: no-repeat;
-    background-size:100%;
-    background-color: transparent;
+.scrollBox{
+    background-color: black;
+    background-opacity:.4;
+    color: white;
+    font-size: 20px;
+    height: 50%;
+    width: 55.5%;
+    top: 38%;
+    left: 19%;
+    padding-left:3%;
+    padding-right:3%;
+    padding-bottom: 2%;
+    position: fixed;
+    z-index: -1;
+    overflow: auto;
 }
 .hintText{
-	
+    visibility: hidden;
+    color: white;
+    font-size: 25px;
+    height: 24%;
+    width: 50%;
+    top: 47%;
+    left: 19%;
+    padding-left:5%;
+    padding-right:2%;
+    padding-bottom:5%;
+    position: fixed;
+    z-index: 20;
+    overflow: auto;
+}
+.hint1{
+    visibility:hidden;
+    display:none;
+    z-index:25;
+}
+.hint2{
+    visibility:hidden;
+    display:none;
+    z-index:25;
+}
+.hint3{
+    visibility:hidden;
+    display:none;
+    z-index:25;
+}
+.spoiler{
+    visibility:hidden;
+    display:none;
+    z-index:25;
 }

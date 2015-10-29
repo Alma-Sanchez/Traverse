@@ -26,45 +26,44 @@ $def with(title, text, hint1, hint2, hint3, progress)
     }
 
   </script>
-
 <head>
   <title>Title of Game</title>
   <link rel="stylesheet" type="text/css" href="./static/Styles/newgameScrn.css">
 </head>
-
 <body>
-  <div class="title" type="text">$title $progress</div>
-
-    <form name="home" method="POST">
-      <!-- Home button -->
-      <input  name="home" method = "POST" type="submit" value="home" class="menuButton"/><br>
-
-      <a  href="#" name="home" method="POST" type="submit" onclick="toggle_visibility('foo');toggle_visibility('text');hide('hint1');hide('hint2');hide('hint3');" class="hintButton"/><br>
-          <img id="foo" src="./static/dialogue.png" class="textimg">
-
-          <div id="text" class="hintText">
-                <a  href="#" onclick="toggle_block('hint1');toggle_visibility('hint1');">Hint 1:</a> <br>
-                  <h2 id="hint1" class="hint1"> $hint1 </h2> <br>
-                <a  href="#" onclick="toggle_block('hint2');toggle_visibility('hint2');">Hint 2:</a> <br>
-                  <h2 id="hint2" class="hint2"> $hint2 </h2> <br>
-                <a  href="#" onclick="toggle_block('hint3');toggle_visibility('hint3');">Hint 3:</a> <br>
-                  <h2 id="hint3" class="hint3"> $hint3 </h2> <br>
-                <a  href="#" onclick="toggle_block('spoiler');toggle_visibility('spoiler');">Spoiler:</a> <br>
-                <h2 id="spoiler" class="spoiler"> answer goes here </h2> <br>
-          </div>
-    </form>
-
-    <div class = "8
-    ">
-        <form name="inputs" method="POST">
-            <input name="home" type="text" placeholder="  Enter your answer:" class="inputBar"/>
-            <input name = "home" type="image" class = "submitButton"/>
-            <div class="scrollBox"/>
-                <p>
-                    $text <br>
-                </p>
+    <div class = "pageContainer">
+        <div class="title" type="text">$title $progress</div>
+        <form name="home" method="POST">
+          <!-- Home button -->
+            <div class = "menuContainer">
+                <input  name="home" method = "POST" type="submit" value="home" class="menuButton"/><br>
             </div>
+          <a  href="#" name="home" method="POST" type="submit" onclick="toggle_visibility('foo');toggle_visibility('text');hide('hint1');hide('hint2');hide('hint3');" class="hintButton"/><br>
+              <img id="foo" src="./static/dialogue.png" class="textimg">
+
+              <div id="text" class="hintText">
+                    <a  href="#" onclick="toggle_block('hint1');toggle_visibility('hint1');">Hint 1:</a> <br>
+                      <h2 id="hint1" class="hint1"> $hint1 </h2> <br>
+                    <a  href="#" onclick="toggle_block('hint2');toggle_visibility('hint2');">Hint 2:</a> <br>
+                      <h2 id="hint2" class="hint2"> $hint2 </h2> <br>
+                    <a  href="#" onclick="toggle_block('hint3');toggle_visibility('hint3');">Hint 3:</a> <br>
+                      <h2 id="hint3" class="hint3"> $hint3 </h2> <br>
+                    <a  href="#" onclick="toggle_block('spoiler');toggle_visibility('spoiler');">Spoiler:</a> <br>
+                    <h2 id="spoiler" class="spoiler"> answer goes here </h2> <br>
+              </div>
         </form>
+
+        <div class = "bottomOfPage">
+            <form name="inputs" method="POST">
+                <input name="home" type="text" placeholder="  Enter your answer:" class="inputBar"/>
+                <input name = "home" type="image" class = "submitButton"/>
+                <div class="scrollBox"/>
+                    <p>
+                        $text <br>
+                    </p>
+                </div>
+            </form>
+        </div>
     </div>
 </body>
 </html>
