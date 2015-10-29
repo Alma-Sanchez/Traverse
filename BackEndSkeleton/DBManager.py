@@ -55,7 +55,7 @@ def checkDB():
    """
     conn,cur = connectToDB()
     cur.execute("select * from sqlite_master where type='table'")
-    if 14 != len(cur.fetchall()):
+    if 15 != len(cur.fetchall()):
         db_creator.dropTables(connectToDB())
         db_creator.createTables(connectToDB())
         db_creator.populateTables(connectToDB())
