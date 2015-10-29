@@ -248,7 +248,7 @@ class lastScreen:
 		None
 		"""
 		playerStateObject = PlayerState() #Updating the player state
-		title,text,hint = DBManager.getDataFromDBForGameScreen(playerStateObject.player_id) #Assigning several variables by pulling data from the database
+		title,text = DBManager.getLastScreenDataFromDB(playerStateObject.player_id) #Assigning several variables by pulling data from the database
 		return self.render.lastScreen(text,title) #Rendering lastScreen.html using the variables on line 239
 	def POST(self):
 		"""
