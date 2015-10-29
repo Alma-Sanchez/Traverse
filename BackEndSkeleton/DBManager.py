@@ -220,8 +220,9 @@ def needLastScreen(player_id):
       current_id= cur.fetchone()[0]
       print "current_id " + str(current_id)
       cur.execute("select Next_Step_ID from Step_Transition_Data where Step_ID=:current_id", {"current_id": current_id})
-      print "next step?" + str(cur.fetchone)
-      if "End"==cur.fetchone():
+      step = cur.fetchone()[0]
+      print type(str(step))
+      if "null"==str(step):
         return True
       else:
         return False
@@ -454,6 +455,17 @@ def getStoryDataForGameScreen(player_id):
     title_of_story = cur.fetchone()[0]
     closeDB(conn)
     return current_story,title_of_story
+
+def getLastScreenDataFromDB(player_id):
+    conn,cur = connectToDB()
+    current_story,title_of_story = getStoryDataForGameScreen(player_id)
+    cur.execute("select Max(Step_Action_ID) from Player_Step_Action where Player_ID =:player_id", {"player_id":player_id})
+    step_action_id = cur.fetchone()[0]
+    cur.execute("select Current_Step_ID from Player_Step_Action where Step_Action_ID =:step_action_id", {"step_action_id":step_action_id})
+    current_step = cur.fetchone()[0]
+    cur.execute("select Step_Text from Step_Data where Step_ID =:current_step", {"current_step":current_step})
+    game_text = cur.fetchone()[0]
+    return title_of_story,game_text
 
 def getGameScreenDataFromDB(player_id):
     """

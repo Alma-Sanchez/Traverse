@@ -21,18 +21,17 @@ body{
     width: 16rem;
 }
 .story1{
-    background: url("../AUversion/choice1.png");
-    background-repeat: no-repeat;
-    background-size:100%;
-    background-color: transparent;
+    height: 10%;
+    background-color: black;
     border: none;
-    padding-bottom: 25%;
-    color:black;
+    padding-bottom: 10%;
+    margin: 5%;
+    color:orange;
     font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
     font-size: 1.5em;
     font-weight: bold;
     width: 16rem;
-    text-align: left;
+    text-align: center;
 }
 .story2{
     background: url("../AUversion/choice2.png");
@@ -81,7 +80,8 @@ body{
     display: flex;
     flex-direction: row;
     padding-top: .5rem;
-    width: 16rem;
+    width: 4rem;
+    padding-left: 12rem;
     /*border: 1px solid wheat;*/
 }
 .backButton{
@@ -90,6 +90,7 @@ body{
     background-size: 100%;
     background-color: transparent;
     background-repeat: no-repeat;
+    padding-left:70&;
     border: none;
     font-size: 0;
     height: 4.5rem;

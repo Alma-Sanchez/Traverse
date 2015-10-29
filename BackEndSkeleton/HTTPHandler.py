@@ -193,7 +193,7 @@ class gameScreen:
 		None
 		"""
 		playerStateObject = PlayerState()
-		if DBManager.needLastScreen(playerStateObject.player_id)=="True":
+		if DBManager.needLastScreen(playerStateObject.player_id)==True:
 			print "need last"
 			raise web.seeother('/last')
 		else:
@@ -248,7 +248,7 @@ class lastScreen:
 		None
 		"""
 		playerStateObject = PlayerState() #Updating the player state
-		title,text,hint = DBManager.getDataFromDBForGameScreen(playerStateObject.player_id) #Assigning several variables by pulling data from the database
+		title,text = DBManager.getLastScreenDataFromDB(playerStateObject.player_id) #Assigning several variables by pulling data from the database
 		return self.render.lastScreen(text,title) #Rendering lastScreen.html using the variables on line 239
 	def POST(self):
 		"""
@@ -262,7 +262,7 @@ class lastScreen:
 		"""
 		playerStateObject = PlayerState() #Updating the player state
 		if web.input()['home']=='home': #Checks to see if the player pressed the home button
-			raise web.seeother('/home') #If the above is true homeScreen.html is rendered
+			raise web.seeother('/end') #If the above is true homeScreen.html is rendered
 		else:
 			DBManager.insertPlayerStepAction(playerStateObject.player_id) #If the player did not hit the home button this line records the action the player took and saves it in the database
 			raise web.seeother('/end') #This line renders endScreen.html
