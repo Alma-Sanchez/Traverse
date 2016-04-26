@@ -2,11 +2,11 @@ $def with (story_ids, story_title, walk_level, kid_friendly)
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Title of Game</title>
-    <link rel="stylesheet" type="text/css" href="./static/Styles/storyScrn.css">
+    <title>Traverse Game</title>  
+    <link rel = "stylesheet" type = "text/css" href = "../static/Styles/styleSheet.css">
   </head>
-  <body>
-    <div class = "storyContainer">
+  <body id = "storyPg">
+    <div class = "container">
       <div class="storyButtons">
         <form method="POST">
           $for story_id in story_ids:

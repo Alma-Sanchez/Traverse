@@ -2,64 +2,45 @@ $def with(title, text, hint1, hint2, hint3, progress)
 
 <!DOCTYPE html>
 <html>
-  <script type="text/javascript">
-    function toggle_visibility(id) {
-        var e = document.getElementById(id);
-        if(e.style.visibility == 'visible')
-            e.style.visibility = 'hidden'
-        else
-            e.style.visibility = 'visible'
-    }
+  <head>
+    <title>Traverse Game</title>   
+    <link rel = "stylesheet" type = "text/css" href = "../static/Styles/styleSheet.css"> 
+  </head>
 
-    function toggle_block(id) {
-        var e = document.getElementById(id);
-        if (e.style.display == 'block')
-            e.style.display = 'none'
-        else
-            e.style.display = 'block'
-    }
-
-    function hide(id) {
-      var e = document.getElementById(id);
-      e.style.visibility='hidden'
-      e.style.display='none'
-    }
- 
-  </script>
-
-<head>
-  <title>Title of Game</title>   
-  <link rel="stylesheet" type="text/css" href="./static/Styles/gameScrn.css"> 
-</head>
-
-<body>
-  <div class="title" type="text">$title $progress</div>
+  <body id = "gamePg">
+    <!-- Header information -->
+    <div class="title" type="text">$title $progress</div>
+    
     <form name="home" method="POST">
       <input name="home" method="POST" type="submit" value="home" class ="logo">
       <input  name="home" method = "POST" type="submit" value="home" class="homeButton"/><br>
-      <a  href="#" name="home" method="POST" type="submit" onclick="toggle_visibility('foo');toggle_visibility('text');hide('hint1');hide('hint2');hide('hint3');" class="navButton"/><br>
-          <img id="foo" src="./static/dialogue.png" class="textimg">
-            <div id="text" class="hinttext">
-              <a  href="#" onclick="toggle_block('hint1');toggle_visibility('hint1');">Hint 1:</a> <br>
-                <h id="hint1" class="hint1"> $hint1 </h> <br>
-              <a  href="#" onclick="toggle_block('hint2');toggle_visibility('hint2');">Hint 2:</a> <br>
-                <h id="hint2" class="hint2"> $hint2 </h> <br>
-              <a  href="#" onclick="toggle_block('hint3');toggle_visibility('hint3');">Hint 3:</a> <br>
-                <h id="hint3" class="hint3"> $hint3 </h> <br>
-              <a  href="#" onclick="toggle_block('spoiler');toggle_visibility('spoiler');">Spoiler:</a> <br>
-                <h id="spoiler" class="spoiler"> answer goes here </h> <br>
-            </div>
-        </div>
     </form>
 
-    <form name="inputs" method="POST">
-      <input name="home" type="text" placeholder="  Enter your answer:" class="inputBar"/>
-      <input name = "home" type="image" class = "submitButton" />
+    <!-- Body stuff inside container -->
+    <div class = "gameContainer">
+      <div id="text" class="hintMenu">
+        <a  href="#" name="home" method="POST" type="submit" onclick="toggle_visibility('foo');toggle_visibility('text');hide('hint1');hide('hint2');hide('hint3');" class="navButton"/><br>
+        <img id="foo" src="./static/dialogue.png" class="scrollBox">
+            
+        <a  href="#" onclick="toggle_block('hint1');toggle_visibility('hint1');">Hint 1:</a> <br>
+          <h id="hint1" class="hint1"> $hint1 </h> <br>
+        <a  href="#" onclick="toggle_block('hint2');toggle_visibility('hint2');">Hint 2:</a> <br>
+          <h id="hint2" class="hint2"> $hint2 </h> <br>
+        <a  href="#" onclick="toggle_block('hint3');toggle_visibility('hint3');">Hint 3:</a> <br>
+          <h id="hint3" class="hint3"> $hint3 </h> <br>
+        <a  href="#" onclick="toggle_block('spoiler');toggle_visibility('spoiler');">Spoiler:</a> <br>
+          <h id="spoiler" class="spoiler"> answer goes here </h> <br>
+      </div>
+
+      <form name="inputs" method="POST">
+        <input name="home" type="text" placeholder="  Enter your answer:" class="inputBar"/>
+        <input name = "home" type="image" class = "submitButton" />
         <div class="scrollBox"/>
           <p> 
             $text <br>
           </p> 
         </div>
-    </form>
-</body>
+      </form>
+      </div>
+  </body>
 </html>

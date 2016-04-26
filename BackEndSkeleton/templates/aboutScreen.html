@@ -1,38 +1,50 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Title of Game</title>   
-    <link rel = "stylesheet" type = "text/css" href = "./static/Styles/aboutScrn.css"> 
+    <title>About Traverse</title>   
+    <!-- <link rel = "stylesheet" type = "text/css" href = "../static/Styles/aboutScrn.css">  -->
+    <link rel = "stylesheet" type = "text/css" href = "../static/Styles/styleSheet.css"> 
+
   </head>
     
-  <body>
-    <div class = "aboutContainer">
+  <body id = "aboutPg">
+    <div class = "container">
       <div class="scrollBox">
-        <h1> <b> About the Game  </b> </h1>
+        <h1>About the Game</h1>
         <p>
-          In art, as in life, things are not always what they seem.  Enter the world of mystery and secrets, of double-crossing and deception, of hidden agendas and deceit, of surprise failure and unexpected triumph.  The characters of the museum are finally ready to reveal their stories to those with the knowledge and tools to understand them.  Journey through the halls of the American art museum and you’ll encounter people and animals that will open up new worlds to you.  
-        </p>
+          In art, as in life, things are not always what they seem. Enter the world of mystery and secrets, of double-crossing and deception, of hidden agendas and deceit, of surprise failure and unexpected triumph. The characters of the museum are finally ready to reveal their stories to those with the knowledge and tools to understand them.  Journey through the halls of the American art museum and you&#146;ll encounter people and animals that will open up new worlds to you.  
+        </p><br>
         <p>
-          Decipher their tales using clues from other pieces in the museum.  When you uncover the last missing piece of each character’s story, the character and their secret will finally be free of the burden of their secret.  Start a new story and help a new character!
-         
-          Don’t worry if you don’t finish before you’re called away from the museum...you can pick up right where you left of the last time you visited.  Just don’t leave the characters waiting too long -- you never know when they’ll be taken off display.  This is their only chance to be free.
-        </p>
-        <h1> <b> The Creators </b> </h1>
-        <p> 
-          <ul>
-            <li> Josh McCoy </li>
-            <li> Chris Totten </li>
-            <li> Arunpreet Sandhu </li>
-            <li> Eric Vingola </li>
-            <li> Alma Sanchez </li>
-            <li> Erica Jurado </li>
-            <li> Taylor Heywood </li>
-            <li> Kelli Dunlap </li>
-            <li> Rae Heitkamp </li>
-          </ul> 
-        </p>
+          Decipher their tales using clues from other pieces in the museum.  When you uncover the last missing piece of each character&#146;s story, the character and their secret will finally be free of the burden of their secret.  Start a new story and help a new character!
+        </p><br>
+        <p>
+          Don&#146;t worry if you don&#146;t finish before you&#146;re called away from the museum...you can pick up right where you left of the last time you visited.  Just don&#146;t leave the characters waiting too long -- you never know when they&#146;ll be taken off display.  This is their only chance to be free.
+        </p><br>
+
+        <h1>The Creators</h1>
+        <table>
+          <tr colspan = 1>
+            <td class = "left">
+              <ul>
+                <li> Josh McCoy </li>
+                <li> Chris Totten </li>
+                <li> Kelli Dunlap </li>
+                <li> Erica Jurado </li>
+                <li> Arunpreet Sandhu </li>
+              </ul>
+            </td>
+            <td class = "right">
+              <ul>
+                <li> Alma Sanchez </li>
+                <li> Taylor Heywood </li>
+                <li> Eric Vingola </li>
+                <li> Rae Heitkamp </li>
+              </ul> 
+            </td>
+          </tr> 
+        </table> 
       </div>
-      <div class = "backContainer">
+      <div>
         <form name="home" method="POST">
           <input  name="back" method = "POST" type="submit" value="backButton" class = "backButton"/>
         </form>
