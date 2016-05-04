@@ -5,3 +5,10 @@ Or
 After git cloning or downlaoding the zip file:  <br>
   -run the server.py file to get the server up and running  <br>
   -then open a window/tab in your browser and go to localhost:8080  <br>
+  
+What You Need to Download to Contribute
+====
+  * Python
+  * Web.py
+  * 
+  
