@@ -1,4 +1,4 @@
-# SmithsonianProject
+# The Traverse Game
 To view the web page and play our game visit: www.linkcomingsoon.com <br>
 Or
 <br>
