@@ -10,7 +10,8 @@ class homeScreen:
 		"""
 		self.urls = (
 
-			#self.urls is a tuple that contains all of the various urls for the webpage. Those urls are listed below with the name of the corresponding html pages that will generate.
+			#self.urls is a tuple that contains all of the various urls for the webpage. Those urls are listed 
+			# below with the name of the corresponding html pages that will generate.
 
 			'/', "homeScreen",
 			'/char',"charScreen",
@@ -19,8 +20,8 @@ class homeScreen:
 			'/end',"endScreen",
 			'/home', "homeScreen",
 			'/hint', "hintScreen",
-			'/about','aboutScreen',
-			'/help','helpScreen',
+			'/about',"aboutScreen",
+			'/help',"helpScreen",
 			'/last', "lastScreen"
 
 		) #The structure of the url and the name of the class to send the request to.

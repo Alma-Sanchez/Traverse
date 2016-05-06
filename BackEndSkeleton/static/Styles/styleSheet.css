@@ -1,6 +1,6 @@
 /*Import mobile design, create new mobile stylesheet*/
-@import 'reset.css';
-@import 'mobileStyleSheet';
+@import '../bootstrap/css/bootstrap.css';
+
 @font-face{
 	font-family: 'luciaFont';
 	src: url("../Fonts/lsansuni.ttf");

@@ -1,4 +1,4 @@
-#Python version 2.7.9
+"""Python version 2.7.9"""
 import HTTPHandler #Imports modules needed to run server.py
 import DBManager
 
