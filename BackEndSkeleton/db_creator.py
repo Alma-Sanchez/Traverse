@@ -101,7 +101,7 @@ def populateTables(connection):
 	conn.commit() #Commits (permanently changes) the database.
 	story_data_file.close() #Closes the csv file.
 
-	with open('CSV_file\Test_Step_Data.csv', 'rb') as step_data_file: #Opens file and assigns it to a variable.
+	with open('CSV_file\Test_Step_Data1.csv', 'rb') as step_data_file: #Opens file and assigns it to a variable.
 		spamreader = csv.reader(step_data_file) #Reads the csv file and sets it a new variable.
 		for row in spamreader: #Iterates through csv file rows.
 			c.execute("INSERT INTO Step_Data VALUES (?,?,?,?,?,?)", (unicode(row[0], "utf-8"),unicode(row[1], "utf-8"),unicode(row[2], "utf-8"),unicode(row[3], "utf-8"),unicode(row[4], "utf-8"),unicode(row[5], "utf-8"))) #Encodes and inserts data from the csv file.
