@@ -32,12 +32,12 @@ def dropTables(connection):
 	c.execute("DROP TABLE IF EXISTS Text_Answers") #Drops (deletes) table named Text_Answers if it exists.
 	c.execute("DROP TABLE IF EXISTS Multiple_Choice_Answers") #Drops (deletes) table named Multiple_Choice_answers if it exists.
 	c.execute("DROP TABLE IF EXISTS Boolean_Answers") #Drops (deletes) table named Boolean_Answers if it exists.
-	c.execute("DROP TABLE IF EXISTS Step_Transition_Data") #Drops (deletes) table named Step_Transition_Data. 
+	c.execute("DROP TABLE IF EXISTS Step_Transition_Data") #Drops (deletes) table named Step_Transition_Data.
 
 def createTables(connection):
 	"""
-	This function creates the tables that will be used for the SAAM database. 
-	If this function is executed while these tables exist, an error will appear. 
+	This function creates the tables that will be used for the SAAM database.
+	If this function is executed while these tables exist, an error will appear.
 	In order to change the schema, call dropTables() and call createTables().
 
 	Parameters:
@@ -59,7 +59,7 @@ def createTables(connection):
 	c.execute("CREATE TABLE Story_Data (Story_ID INT, Character_ID INT, Title_Of_Story TEXT, Walk_Level INT, Kid_Friendly TEXT)") #Creates new table named Story_Data with hardcoded parameters.
 	c.execute("CREATE TABLE Character_Data(Character_ID INT, Character_Name TEXT)") #Creates new table named Character_Data with hardcoded parameters.
 	c.execute("CREATE TABLE Step_Data(Story_ID INT, Step_ID INT, Step_Text TEXT, Step_Hint_1 TEXT, Step_Hint_2 TEXT, Step_Hint_3 TEXT)") #Creates new table named Step_Data with hardcoded parameters.
-	c.execute("CREATE TABLE Accession_Answers(Accession_ID INT, Accession_Association TEXT, Accession_Number TEXT)") #Creates new table named Accession_Association with hardcoded parameters.
+	c.execute("CREATE TABLE Accession_Answers(Accession_Association TEXT, Accession_Number TEXT)") #Creates new table named Accession_Association with hardcoded parameters.
 	c.execute("CREATE TABLE Answer_Key(Answer_ID INT, Answer_Type INT)")
 	c.execute("CREATE TABLE Num_Answers(Answer_ID INT, Low_End INT, High_End INT)")
 	c.execute("CREATE TABLE Text_Answers(Answer_ID INT, String_Answer TEXT)")
@@ -73,35 +73,35 @@ def populateTables(connection):
 	The file names and the path for the file open should be the same. If it is not then the reader will break.
 
 	Parameters:
-	None 
+	None
 
 	Returns:
 	None
 	"""
 	conn,c = connection
 
-	with open('CSV_file\Text_Accession.csv','rb') as accession_data_file: #Opens file and assigns it to a variable.
+	with open('CSV_file\Test_Accession.csv','rb') as accession_data_file: #Opens file and assigns it to a variable.
 		spamreader = csv.reader(accession_data_file) #Reads the csv file and sets it as a new variable
 		for row in spamreader: #Iterates through csv file rows.
-			c.execute("INSERT INTO Accession_Answers VALUES (?,?,?)", (unicode(row[0], "utf-8"),unicode(row[1], "utf-8"),unicode(row[2], "utf-8"))) #Encodes and inserts data from the csv file.
+			c.execute("INSERT INTO Accession_Answers VALUES (?,?)", (unicode(row[0], "utf-8"),unicode(row[1], "utf-8"))) #Encodes and inserts data from the csv file.
 	conn.commit() #Commits (permanently changes) the database.
 	accession_data_file.close() #Closes the csv file.
 
-	with open('CSV_file\Text_Character_Data.csv','rb') as character_data_file: #Opens file and assigns it to a variable.
+	with open('CSV_file\Test_Character_Data.csv','rb') as character_data_file: #Opens file and assigns it to a variable.
 		spamreader = csv.reader(character_data_file) #Reads the csv file and sets ut as a new variable.
 		for row in spamreader: #Iterates through csv file rows.
 			c.execute("INSERT INTO Character_Data VALUES (?,?)", (unicode(row[0], "utf-8"),unicode(row[1], "utf-8"))) #Encodes and inserts data from the csv file.
 	conn.commit() #Commits (permanently changes) the database.
 	character_data_file.close() #Closes the csv file.
 
-	with open('CSV_file\Text_Story_Data.csv', 'rb') as story_data_file: #Opens file and assigns it to a variable.
+	with open('CSV_file\Test_Story_Data.csv', 'rb') as story_data_file: #Opens file and assigns it to a variable.
 		spamreader = csv.reader(story_data_file) #Reads the csv file and sets it as a new variable.
 		for row in spamreader: #Iterates through csv file rows.
 			c.execute("INSERT INTO Story_Data VALUES (?,?,?,?,?)", (unicode(row[0], "utf-8"),unicode(row[1], "utf-8"),unicode(row[2], "utf-8"), unicode(row[3], "utf-8"), unicode(row[4], "utf-8"))) #Encodes and inserts data from the csv file.
 	conn.commit() #Commits (permanently changes) the database.
 	story_data_file.close() #Closes the csv file.
 
-	with open('CSV_file\Text_Step_Data.csv', 'rb') as step_data_file: #Opens file and assigns it to a variable.
+	with open('CSV_file\Test_Step_Data.csv', 'rb') as step_data_file: #Opens file and assigns it to a variable.
 		spamreader = csv.reader(step_data_file) #Reads the csv file and sets it a new variable.
 		for row in spamreader: #Iterates through csv file rows.
 			c.execute("INSERT INTO Step_Data VALUES (?,?,?,?,?,?)", (unicode(row[0], "utf-8"),unicode(row[1], "utf-8"),unicode(row[2], "utf-8"),unicode(row[3], "utf-8"),unicode(row[4], "utf-8"),unicode(row[5], "utf-8"))) #Encodes and inserts data from the csv file.
@@ -115,7 +115,7 @@ def populateTables(connection):
 	conn.commit()
 	answer_key_file.close()
 
-	with open('CSV_file\Text_Answers.csv', 'rb') as text_answers_file:
+	with open('CSV_file\Test_Text_Answers.csv', 'rb') as text_answers_file:
 		spamreader = csv.reader(text_answers_file)
 		for row in spamreader:
 			c.execute("INSERT INTO Text_Answers VALUES (?,?)", (unicode(row[0], "utf-8"),unicode(row[1], "utf-8")))
