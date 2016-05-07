@@ -52,14 +52,18 @@ $def with(title, text, hint1, hint2, hint3, answertext)
         </div>
     </form>
 
-    $if () == answertext:
+    $if () == answertext: #This is actually stupid. Think of a better way.
         <form name="inputs" method="POST">
         <input name="home" type="text" placeholder="  Enter your answer:" class="inputBar"/>
         <input name = "home" type="image" class = "submitButton" />
     <div class="scrollBox"/>
           <p>
             $text <br>
+            $if () != answertext:
+              $for answer in answertext:
+                <form name="inputs" method="POST">
 
+              <br>
 
           </p>
         </div>
