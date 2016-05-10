@@ -7,7 +7,7 @@
 } 
 /*---------------------------Headers and text--------------------------------------*/
 h1{
-	font-size: 12pt;
+	font-size: 20px;
 	padding: 25px 0 15px 0;	
    	font-family: "luciaFont";
 }
@@ -19,21 +19,26 @@ h2{
 p{
 	padding: 5px;
 }
-/*Test borders*/
-.border{border:2px solid black;}
-.border-white{border:2px solid white;}
 /*------------------------Common-----------------------------------------*/
 #homePg, #charPg, #StoryPg, #aboutPg, #endPg{
-	background-color: #000000; 
-    background-repeat: no-repeat; 
-    background-position: center top; 
-    background-attachment: fixed;
+    width:100%;
+	background-repeat: no-repeat; 
+    background-position: center top;
+    -webkit-background-size: contain;
+    -moz-background-size: contain;
+    -o-background-size: contain;
     background-size: contain;
+    background-color: #000000;
 }
-/*.menu{
-    width: 550px;
-    margin: 15px auto 0 auto;
-}*/
+.container{
+	width: 408px;
+	margin: 300px auto 0 auto;
+	/*border: 2px solid red;*/
+}
+.menu{
+	width: 550px;
+	margin: 15px auto 0 auto;
+}
 .homeButton, .navButton, .backButton{
     background-size: 100%;
     background-color: transparent;
@@ -42,7 +47,7 @@ p{
     border: none;
 }
 .homeButton{
-    background-image: url("../home.png");
+	background-image: url("../home.png");
     position: fixed;
     left: 190px;
     top: -1px;
@@ -50,39 +55,41 @@ p{
     font-size: 0;
     width: 220px;
     height: 240px;
+    border: 1px solid blue;
 }
 .navButton{
     position: fixed;
-    background-image: url("../nav.png");
-    width: 200px;
-    height: 200px;
+	background-image: url("../nav.png");
+	width: 200px;
+	height: 200px;
 }
 .backButton{
-    position: fixed;
-    top: 675px;
+	position: fixed;
+	top: 675px;
     height: 3.5rem;
     width: 6.5rem;
     background-image: url("../back.png");
     /*border: 1px solid blue;*/
 }
+
 .scrollBox{
     background-color: black;
     color: white;
     overflow-y: auto;
     border: 4px solid #B1A272;
+    /*width: ;*/
     height: 350px;
 }
 /*---------------------------SPECIFIC DESIGN--------------------------------------*/
 /*-------------------Home--------------------------------------------------------*/
 #homePg{
-    background-image: url("../background.png");
-    margin: 0 auto;
+    background: url("../background.png") no-repeat center center fixed;
+    margin: 0 auto 0 auto;
 }
 .menuItems{
-    width: 240px;
-    margin: 0 auto 0 auto;
-    text-align: center;
-    list-style: none;
+	width: 240px;
+	margin: 0px auto 0 auto;
+	text-align: center;
 }
 #homePg .newStorySc, #homePg .loadStorySc, #homePg .aboutSc,#homePg .helpSc{
     background-size: 100%;
@@ -98,13 +105,7 @@ p{
     width: 145px;
     margin-bottom: 15px;
 }
-.newStorySc:hover, .loadStorySc:hover, .helpSc:hover{
-    width: 160px;
-}
-.aboutSc:hover{
-    width: 190px;
-}
-.loadStorySc{
+#home .loadStorySc{
     background-image: url("../load.png");
     width: 150px;
     margin-bottom: 20px;
@@ -119,17 +120,41 @@ p{
     width: 145px;
     margin-bottom: 25px;
 }
-
 /*-------------------Character----w/o difficulty-------------------------------------------------*/
 #charPg{
-    background: url("../character.png"); 
+    background: url("../character.png") no-repeat center center fixed;   
 }
-
+.chars{
+	display: block;
+	padding: 20px;
+    background: url("../choice.png");
+    background-repeat: no-repeat;
+    background-size:100%;
+    background-color: transparent;
+    color: black;
+    border: none;
+    width: 300px;
+    font-size: 22px;
+    margin: 25px auto 40px auto; 
+    font-weight: bold;
+}
 /*-------------------Story--------------------------------------------------------*/
 #storyPg{
-    background: url("../story.png");
+    background: url("../story.png") no-repeat center center fixed;
     font-weight: bold;
     color:black;
+}
+#storyPg .story1, #storyPg .story2, #storyPg  .story3,#storyPg  .story4{
+    display: block;
+    margin: 25px auto 45px auto;
+    background-repeat: no-repeat;
+    background-color: transparent;
+    background-size:100%;
+    border: none;
+    padding: 10px;
+    width: 270px;
+    font-size: 22px;
+	font-family: luciaFont;
 }
 .story1{
     background: url("../choice1.png");
@@ -145,34 +170,34 @@ p{
 }
 /*-------------------Game--------------------------------------------------------*/
 #gamePg{
-    background: url("../main.png"); 
+    background: url("../main.png") no-repeat center center fixed; 
 }
 .gameContainer{
-/*Need to do*/
+
 }
 .hintMenu{
-    visibility: hidden;
+	visibility: hidden;
 }
 /*-------------------ABOUT--------------------------------------------------------*/
 #aboutPg{
-    background: url("../aboutpage.png");
+    background: url("../aboutpage.png") no-repeat center center fixed;
 }
-/*#aboutPg .scrollBox h1{
+#aboutPg .scrollBox h1{
     text-align: center;
     font-size: 22px;
-}*/
+}
 #aboutPg table{
-    /*padding-left: 25px;*/
-    margin: 0 auto 0 auto;  
-    /*border: 1px solid blue;*/
-    margin-bottom: 30px;
+	/*padding-left: 25px;*/
+	margin: 0 auto 0 auto; 	
+	/*border: 1px solid blue;*/
+	margin-bottom: 30px;
 }
 #aboutPg .left{
-    /*border: 1px solid yellow;*/
-    padding-left: 35px;
+	/*border: 1px solid yellow;*/
+	padding-left: 35px;
 }
 #aboutPg .right{
-    padding-left: 35px;
+	padding-left: 35px;
 }
 
 #aboutPg .scrollBox ul{
@@ -181,9 +206,9 @@ p{
 }
 /*-------------------Help--------------------------------------------------------*/
 #helpPg{
-    background: url("../helppage.png");
+    background: url("../helppage.png") no-repeat center center fixed;
 }
 /*-------------------End---------------------------------------------------------*/
 #endPg{
-    background: url("../end.png");
+    background: url("../end.png") no-repeat center center fixed;
 }
