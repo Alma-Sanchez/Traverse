@@ -39,7 +39,7 @@ h2{
     }*/
 }
 /*-------------------Set-Background-Images--------------------------------------------------------*/
-#homePg{background-image: url("../background.png");}
+#homePg{background: url("../background.png");}
 #charPg{background: url("../character.png");}
 #storyPg{background: url("../story.png");}
 #gamePg{background: url("../main.png");}
