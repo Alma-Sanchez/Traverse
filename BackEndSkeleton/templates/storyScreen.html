@@ -2,13 +2,13 @@ $def with (story_ids, story_title, walk_level, kid_friendly)
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Traverse Game</title> 
+    <title>Traverse Game</title>
     <!-- Specify character encoding -->
     <meta charset="utf-8">
     <!-- Add description and keywords so the page can be found -->
     <meta name="description" content="Choose a story to start your adventure!">
     <meta name="keywords" content="museum, games, traverse, museum game, portrait, gallery">
-    <!-- Import style sheet --> 
+    <!-- Import style sheet -->
     <link rel = "stylesheet" type = "text/css" href = "../static/Styles/styleSheet.css">
   </head>
   <body id = "storyPg">
@@ -20,22 +20,22 @@ $def with (story_ids, story_title, walk_level, kid_friendly)
               tupindex=story_ids.index(story_id)
             $if walk_level[tupindex]==1:
               $if kid_friendly[tupindex]=="K":
-                <input name="story" method="POST" type="Submit" value= "*$story_title[tupindex]" class="story1"/>
+                <input name="story" method="POST" type="Submit" value= "$story_title[tupindex]" class="story1"/>
               $else:
                 <input name="story" method="POST" type="Submit" value= "$story_title[tupindex]" class="story1"/>
             $elif walk_level[tupindex]==2:
               $if kid_friendly[tupindex]=="K":
-                <input name="story" method="POST" type="Submit" value= "*$story_title[tupindex]" class="story2"/>
+                <input name="story" method="POST" type="Submit" value= "$story_title[tupindex]" class="story2"/>
               $else:
                 <input name="story" method="POST" type="Submit" value= "$story_title[tupindex]" class="story2"/>
-            $elif walk_level[tupindex]==3: 
+            $elif walk_level[tupindex]==3:
               $if kid_friendly[tupindex]=="K":
-                <input name="story" method="POST" type="Submit" value= "*$story_title[tupindex]" class="story3"/>
+                <input name="story" method="POST" type="Submit" value= "$story_title[tupindex]" class="story3"/>
               $else:
                 <input name="story" method="POST" type="Submit" value= "$story_title[tupindex]" class="story3"/>
-            $else: 
+            $else:
               $if kid_friendly[tupindex]=="K":
-                <input name="story" method="POST" type="Submit" value= "*$story_title[tupindex]" class="story4"/>
+                <input name="story" method="POST" type="Submit" value= "$story_title[tupindex]" class="story4"/>
               $else:
                 <input name="story" method="POST" type="Submit" value= "$story_title[tupindex] wx nk" class="story4"/>
           </form>
