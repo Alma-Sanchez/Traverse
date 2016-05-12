@@ -1,25 +1,28 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Traverse Home Page</title>  
-        <!-- Specify character encoding -->
-        <meta charset="utf-8">
-        <!-- Add description and keywords so the page can be found -->
-        <meta name="description" content="Traverse home page, choose your own character and follow their adventures!">
-        <meta name="keywords" content="museum, games, traverse, museum game">
-        <link rel = "stylesheet" type = "text/css" href = "../static/Styles/styleSheet.css">
-    </head>
+  <head>
+      <title>Traverse Home Page</title>  
+      <!-- Specify character encoding -->
+      <meta charset="utf-8">
+      <!-- Add description and keywords so the page can be found -->
+      <meta name="description" content="Traverse home page, choose your own character and follow their adventures!">
+      <meta name="keywords" content="museum, games, traverse, museum game">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link rel = "stylesheet" type = "text/css" href = "../static/Styles/styleSheet.css">
+  </head>
 
-    <body id = "homePg">
-        <div class = "container">
-            <form name = "homeMenu" method = "POST"> 
-    		    <ul class = "menuItems">
-                    <li> <input name = "new" method = "POST" type = "Submit" value = "charScreen" class = "newStorySc"/> </li>
-                    <li> <input name = "new" method = "POST" type = "Submit" value = "loadScreen" class = "loadStorySc"/> </li>
-                    <li> <input name = "new" method = "POST" type = "Submit" value = "aboutScreen" class = "aboutSc"/> </li>
-                    <li> <input name = "new" method = "POST" type = "Submit" value = "helpScreen" class = "helpSc"/> </li>
-                </ul>
-    	    </form>
-        </div>
-    </body>
+  <body id = "homePg">
+    <div class = "container center" id="vcenter">
+      <form name = "homeMenu" method = "POST">
+        <ul class = "menuItems list-unstyled">
+          <li> <input name = "new" method = "POST" type = "Submit" value = "charScreen" class = "newStorySc"/> </li>
+          <li> <input name = "new" method = "POST" type = "Submit" value = "loadScreen" class = "border loadStorySc"/> </li>
+          <li> <input name = "new" method = "POST" type = "Submit" value = "aboutScreen" class = "aboutSc"/> </li>
+          <li> <input name = "new" method = "POST" type = "Submit" value = "helpScreen" class = "helpSc"/> </li>
+        </ul>
+      </form>
+    </div>
+    <script type="text/javascript" src="../static/Scripts/jquery-2.2.3.js"></script>
+    <script type="text/javascript" src="../static/Scripts/vertical-align.js"></script>
+  </body>
 </html>
