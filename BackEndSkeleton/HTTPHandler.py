@@ -217,6 +217,7 @@ class gameScreen:
 			raise web.seeother('/home') #If the above is true then homeScreen.html is rendered
 		else:
 			player_input= web.input()['home'] #Creating web.input() to hold user input information
+			player_input= player_input.lower()
 			#if DBManager.needLastScreen(playerStateObject.player_id, player_input): #Checks to see if the player has reached the end of the game and the final screen need to be displayed
 			#	raise web.seeother('/last') #If the above is true then lastScreen.html is rendered
 			DBManager.compareInputToAnswers(playerStateObject.player_id, player_input) #Inserting the action that the player took and inserting that information into the database
