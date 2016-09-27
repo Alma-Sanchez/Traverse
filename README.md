@@ -1,4 +1,5 @@
-Alt-H1 The Traverse Game
+The Traverse Game
+======
 > Game is currently being refactored to use the Aurelia framework. <https://github.com/Alma-Sanchez/Traverse-Refactored>
 
 
